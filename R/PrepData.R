@@ -7,6 +7,7 @@
 #' @return a dataframe (formatted as a data.table) ready to be used for the association of vernacular and botanical name
 #'
 #' @details This function performs the following steps:
+#'  - convert all vernacular names to lower case (for consistency with the prior)
 #'  - remove botanical names when BotaSource=Vern (for the reason explained
 #'  in the description of the function SimFullCom)
 #'  - remove subspecies and variety names
@@ -27,8 +28,13 @@ PrepData <- function(Data) {
          CodeAlive, idTree, BotaCertainty, VernName, Family, Genus, Species")
   }
 
-  # housekeeping
+  # convert to data.table
   Data <- as.data.table(Data)
+
+  # put all vernacular names in lower case
+  Data[, VernName:=tolower(VernName)]
+
+  # housekeeping
   Data$idTree <- as.factor(Data$idTree)
   Data$BotaCertainty <- as.factor(Data$BotaCertainty)
   Data$VernName <- as.factor(Data$VernName)

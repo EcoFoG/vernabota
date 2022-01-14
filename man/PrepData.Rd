@@ -18,6 +18,7 @@ This function prepares a dataset to be used for the association of vernacular an
 \details{
 This function performs the following steps:
 \itemize{
+\item convert all vernacular names to lower case (for consistency with the prior)
 \item remove botanical names when BotaSource=Vern (for the reason explained
 in the description of the function SimFullCom)
 \item remove subspecies and variety names

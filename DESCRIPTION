@@ -5,6 +5,8 @@ Authors@R:
     c(person("Geraldine", "Derroire",  email = "geraldine.derroire@cirad.fr", role = c("aut", "cre")),
     person("Melaine", "Aubry-Kientz",  role = "aut"),
     person("Ariane", "Mirabel",  role = "aut"),
+    person("Daniela", "Krebber",  role = "aut"),
+    person("Eric", "Marcon",  role = "aut"),
     person("Bruno", "Herault",  role = "aut"))
 Description: This package allow gapfilling missing botanical names using vernacular names, in the case of Guyafor census data. The objective is to obtain a chosen number of simulated communities for which individuals only identified with a vernacular name are given a botanical name from association of vernacular and botanical names in a Dirichlet-categorical scheme. 
 License: GPL-3
