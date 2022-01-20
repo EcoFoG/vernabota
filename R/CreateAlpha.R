@@ -33,7 +33,8 @@ CreateAlpha <- function(DataAsso, prior, wp) {
 
   # create matrix of lambda
   if (!(is.null(prior))) {
-    prior$GenSp <- as.factor(prior[, paste(Genus,Species, sep="-")])
+    prior$GenSp <- prior[, paste(Genus,Species, sep="-")]
+
     # remove columns with a sum=0 (there shouldn't be but in case)
     colnull <- names(which(colSums(prior[, which(
       !(colnames(prior) %in% c("Family", "Genus","Species", "GenSp"))), with=FALSE])==0))
@@ -43,7 +44,9 @@ CreateAlpha <- function(DataAsso, prior, wp) {
                          prior[, lapply(.SD, function(v){v/sum(v)}),
                                .SDcols = colnames(prior)[
                                  which(!(colnames(prior) %in% c("Family", "Genus","Species", "GenSp")))]])
+    lambda[,(c("Family", "Genus","Species", "GenSp")):=lapply(.SD, as.character),.SDcols=c("Family", "Genus","Species", "GenSp")]
   }
+
 
   # create matrix of f using DataObs (dataframe with vernacular as colum and bota as row + the information bota )
   # keep only trees with a "Confirmed identification" (BotaCertainty 4) or "Temporary identification (BotaCerntainty=3)
@@ -67,6 +70,8 @@ CreateAlpha <- function(DataAsso, prior, wp) {
                   ContMat[, lapply(.SD, function(v){v/sum(v)}),
                           .SDcols = colnames(ContMat)[
                             which(!(colnames(ContMat) %in% c("Family", "Genus","Species", "GenSp")))]])
+  f[,(c("Family", "Genus","Species", "GenSp")):=lapply(.SD, as.character),.SDcols=c("Family", "Genus","Species", "GenSp")]
+
 
   if (!(is.null(prior))) {
     # get Alpha posterior (dataframe with vernacular as colum and bota as row + the information bota, sum by colum = 2 for bota columns)
@@ -89,7 +94,14 @@ CreateAlpha <- function(DataAsso, prior, wp) {
     fAll <- cbind(fAll, data2add)
     setcolorder(fAll, colnames(lambdaAll))
     fAll[is.na(fAll)] <- 0 # replace na by 0
-    # check that all the row are in the are all in the same order
+    # do some checking of the ordering (all the row and all the columns in the same order)
+    if (!(all(c(unique(lambdaAll[,.(Family, Genus, Species, GenSp)] == Alpha),
+                unique(fAll[,.(Family, Genus, Species, GenSp)] == Alpha),
+                unique(lambdaAll[,.(Family, Genus, Species, GenSp)] == fAll[,.(Family, Genus, Species, GenSp)]),
+                unique(colnames(lambdaAll) == colnames(fAll)))
+    ))) {
+      stop("There is a problem with the function CreateAlpha, check the code")
+    }
 
     # get the sum of lambda + f
     Sumfl <- wp * as.matrix(lambdaAll[, which(!(colnames(lambdaAll) %in% c("Family", "Genus","Species", "GenSp"))), with=FALSE]) +
