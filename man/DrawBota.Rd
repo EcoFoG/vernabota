@@ -47,6 +47,3 @@ divided by the number of null values and attributes a corrected name using the f
 DrawDeterm if Determ is set to TRUE or the function DirichCat if Determ is set to FALSE
 }
 }
-\examples{
-
-}

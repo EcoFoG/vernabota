@@ -41,6 +41,3 @@ with a vernacular name present in Alpha
 \item join the resulting datatable with Data to get the correction for each tree and each census
 }
 }
-\examples{
-
-}

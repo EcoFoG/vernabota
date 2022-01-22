@@ -100,6 +100,3 @@ DataAsso, using a Dirichlet-Categorical scheme
 \item get Nsim fully determined community using the function Get1Sim Nsim time
 }
 }
-\examples{
-
-}

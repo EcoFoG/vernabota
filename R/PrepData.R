@@ -17,7 +17,7 @@
 #'
 #' @importFrom data.table as.data.table :=
 #'
-#' @examples
+#'
 #'
 PrepData <- function(Data) {
 

@@ -32,6 +32,3 @@ the probability being the vector obtained from the Dirichlet)
 this vector
 }
 }
-\examples{
-
-}

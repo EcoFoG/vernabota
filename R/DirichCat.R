@@ -23,7 +23,7 @@
 #' @importFrom gtools rdirichlet
 #' @importFrom stats rmultinom
 #'
-#' @examples
+#'
 #'
 DirichCat <- function(alphaV, Names, Vern) {
   # draw in Dirichlet

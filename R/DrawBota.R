@@ -34,7 +34,7 @@
 #'
 #' @importFrom data.table := data.table
 #'
-#' @examples
+#'
 #'
 DrawBota <- function(Alpha, VernName2Sim, Family2Sim, Genus2Sim, eps=0.01, Determ) {
 

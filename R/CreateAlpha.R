@@ -27,7 +27,7 @@
 #'
 #' @importFrom data.table := data.table .N .SD dcast setorder setcolorder
 #'
-#' @examples
+#'
 #'
 CreateAlpha <- function(DataAsso, prior, wp) {
 

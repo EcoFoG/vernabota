@@ -37,6 +37,3 @@ identification (BotaCertainty 4 and 3 in Guyafor)
 \item sum the two matrix with a weigh of wp for the prior and (1-wp) for the observation
 }
 }
-\examples{
-
-}

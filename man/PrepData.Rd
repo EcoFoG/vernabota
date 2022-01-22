@@ -25,6 +25,3 @@ in the description of the function SimFullCom)
 \item add a column GenSp with the full botanical name
 }
 }
-\examples{
-
-}

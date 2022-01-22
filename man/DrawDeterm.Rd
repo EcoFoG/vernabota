@@ -32,6 +32,3 @@ This function performs the following steps:
 \item if there is a tie, draw a species randomly within these species
 }
 }
-\examples{
-
-}

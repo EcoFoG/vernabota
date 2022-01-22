@@ -20,7 +20,7 @@
 #'
 #' @export
 #'
-#' @examples
+#'
 #'
 DrawDeterm <- function(AlphaV, levelAsso, VernName2Sim) {
 

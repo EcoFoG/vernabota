@@ -28,7 +28,7 @@
 #'
 #' @export
 #'
-#' @examples
+#'
 #'
 Get1Sim <- function(Data, Alpha, eps=eps, Determ){
   # for a given simu, we want to give the same bota name to all measurment of a given individuals

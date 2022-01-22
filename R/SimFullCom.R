@@ -74,7 +74,7 @@
 #'
 #' @importFrom data.table is.data.table as.data.table
 #'
-#' @examples
+#'
 #'
 SimFullCom <- function(Data2fill, DataAsso=NULL, prior=NULL, wp=0.5, NSim, eps=0.01, Determ=NULL) {
 
