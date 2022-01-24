@@ -19,3 +19,8 @@ Imports:
     gtools,
     methods,
     stats
+Suggests: 
+    rmarkdown,
+    knitr
+VignetteBuilder: knitr
+
