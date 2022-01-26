@@ -85,5 +85,8 @@ PrepPrior <- function(prior, RemoveIndetSp=TRUE, RemoveNotGuyafor=TRUE) {
     !(colnames(prior) %in% c("Family", "Genus","Species", "PresentInGuyaFor", "GenSp"))), with=FALSE])==0))
   if(length(colnull)>0) {prior[, (colnull):=NULL]}
 
+  # remove columns "PresentInGuyaFor"
+  prior[, PresentInGuyaFor:=NULL]
+
   return(prior)
 }
