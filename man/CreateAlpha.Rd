@@ -9,7 +9,8 @@ CreateAlpha(DataAsso, prior, wp)
 \arguments{
 \item{DataAsso}{datatable of inventory data, formatted as as shown in the vignette}
 
-\item{prior}{datatable with prior expert knowledge, formatted as as shown in the vignette}
+\item{prior}{datatable with prior expert knowledge.
+This dataset must have been prepared using the function PrepPrior.}
 
 \item{wp}{numeric value giving the weighting of the prior information}
 }

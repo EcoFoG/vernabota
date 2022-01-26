@@ -5,4 +5,5 @@ utils::globalVariables(c("Forest", "Plot","PlotArea","SubPlot","idTree","Xfield"
                              "Genus", "Species","BotaSource","BotaCertainty","VernName","CensusYear",
                              "CensusDate","CensusDateCertainty", "CodeAlive","MeasCode","Circ",
                              "CircCorr" , "CorrCode",
-                         "GenSp", "alphaV", "GenSpCor", "BotaCorCode", "GensSpCor", "scenario", "accuracy", "."))
+                         "GenSp", "alphaV", "GenSpCor", "BotaCorCode", "GensSpCor", "scenario", "accuracy", ".",
+                         "PresentInGuyaFor"))

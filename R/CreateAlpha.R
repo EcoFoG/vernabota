@@ -6,7 +6,8 @@
 #'  a temporary identification (BotaCertainty 4 and 3 in Guyafor)
 #'
 #' @param DataAsso datatable of inventory data, formatted as as shown in the vignette
-#' @param prior datatable with prior expert knowledge, formatted as as shown in the vignette
+#' @param prior datatable with prior expert knowledge.
+#' This dataset must have been prepared using the function PrepPrior.
 #' @param wp numeric value giving the weighting of the prior information
 #'
 #' @return This function returns a datatable with a row per full botanical names (GenSp).
@@ -33,12 +34,6 @@ CreateAlpha <- function(DataAsso, prior, wp) {
 
   # create matrix of lambda
   if (!(is.null(prior))) {
-    prior$GenSp <- prior[, paste(Genus,Species, sep="-")]
-
-    # remove columns with a sum=0 (there shouldn't be but in case)
-    colnull <- names(which(colSums(prior[, which(
-      !(colnames(prior) %in% c("Family", "Genus","Species", "GenSp"))), with=FALSE])==0))
-    if(length(colnull)>0) {prior[, (colnull):=NULL]}
     # create a frequency matrix
     lambda <- data.table(prior[,.(Family, Genus, Species, GenSp)],
                          prior[, lapply(.SD, function(v){v/sum(v)}),
@@ -111,4 +106,5 @@ CreateAlpha <- function(DataAsso, prior, wp) {
   } else {
     Alpha <- f
   }
+  return(Alpha)
 }

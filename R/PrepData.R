@@ -2,7 +2,8 @@
 #'
 #' @description This function prepares a dataset to be used for the association of vernacular and botanical name.
 #'
-#' @param Data dataframe of inventory data, formatted as as shown in the vignette
+#' @param Data dataframe of inventory data, formatted as
+#' it is when obtained using the function EcoFoG::Guyafor2df or from the online data platform of Paracou.
 #'
 #' @return a dataframe (formatted as a data.table) ready to be used for the association of vernacular and botanical name
 #'

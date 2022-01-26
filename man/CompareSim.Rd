@@ -18,17 +18,20 @@ the DAsso list (if Dasso is not provided, put 1)
 \item NbSim : a vector with the number of simulations for each scenario
 \item pc2fill : a vector with the percentage of data (dataFill) to fill
 \item pcFamilyDet : a vector with the percentage of data determined
-at the family level (from the subset of dataFill to fill)
+at the family level (from the subset of dataFill to fill).
+We recommend using a percentage equivalent than in the data to gapfill.
 \item pcGenusDet : a vector with the percentage of data determined at
-the genus level (from the subset of dataFill to fill, the rest isn't determined at all)
+the genus level (from the subset of dataFill to fill, the rest isn't determined at all).
+We recommend using a percentage equivalent than in the data to gapfill.
 \item eps : a vector with the epsilon value for each scenario
 \item Determ : a vector with the value of Determ (boolean)
 \item Results_Simulations : a vector with a boolean specifying if the
 user wants to keep the results of the simulations
 }}
 
-\item{priors}{a list of datasets containing the priors for each scenario, formatted
-as shown in the vignette (Default is NULL: no prior information is used).}
+\item{priors}{a list of datasets containing the priors for each scenario.
+These datasets must have been prepared using the function PrepPrior.
+(Default is NULL: no prior information is used).}
 
 \item{D2fill}{a list of datasets to fill for each scenario, these datasets must
 have been prepared using the function PrepData}

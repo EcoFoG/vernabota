@@ -22,8 +22,9 @@
 #'  - Determ : a vector with the value of Determ (boolean)
 #'  - Results_Simulations : a vector with a boolean specifying if the
 #'  user wants to keep the results of the simulations
-#' @param priors a list of datasets containing the priors for each scenario, formatted
-#' as shown in the vignette (Default is NULL: no prior information is used).
+#' @param priors a list of datasets containing the priors for each scenario.
+#' These datasets must have been prepared using the function PrepPrior.
+#' (Default is NULL: no prior information is used).
 #' @param D2fill a list of datasets to fill for each scenario, these datasets must
 #' have been prepared using the function PrepData
 #' @param DAsso a list of datasets of observation used for each scenario, these datasets must have been

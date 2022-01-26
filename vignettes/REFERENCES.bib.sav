@@ -1,0 +1,41 @@
+% Encoding: UTF-8
+@article{Aubry-Kientz2013,
+abstract = {Tree mortality in tropical forests is a complex ecological process for which modelling approaches need to be improved to better understand, and then predict, the evolution of tree mortality in response to global change. The mortality model introduced here computes an individual probability of dying for each tree in a community. The mortality model uses the ontogenetic stage of the tree because youngest and oldest trees are more likely to die. Functional traits are integrated as proxies of the ecological strategies of the trees to permit generalization among all species in the community. Data used to parametrize the model were collected at Paracou study site, a tropical rain forest in French Guiana, where 20,408 trees have been censused for 18 years. A Bayesian framework was used to select useful covariates and to estimate the model parameters. This framework was developed to deal with sources of uncertainty, including the complexity of the mortality process itself and the field data, especially historical data for which taxonomic determinations were uncertain. Uncertainty about the functional traits was also considered, to maximize the information they contain. Four functional traits were strong predictors of tree mortality: wood density, maximum height, laminar toughness and stem and branch orientation, which together distinguished the light-demanding, fast-growing trees from slow-growing trees with lower mortality rates. Our modelling approach formalizes a complex ecological problem and offers a relevant mathematical framework for tropical ecologists to process similar uncertain data at the community level.},
+author = {Aubry-Kientz, M{\'{e}}laine and H{\'{e}}rault, Bruno and Ayotte-Tr{\'{e}}panier, Charles and Baraloto, Christopher and Rossi, Vivien},
+doi = {10.1371/journal.pone.0063678},
+editor = {de Bello, Francesco},
+file = {:C\:/Users/DERROIR_GE-K052/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Aubry-Kientz et al. - 2013 - Toward Trait-Based Mortality Models for Tropical Forests(3).pdf:pdf},
+issn = {1932-6203},
+journal = {PLoS ONE},
+month = {may},
+number = {5},
+pages = {e63678},
+publisher = {Public Library of Science},
+title = {{Toward Trait-Based Mortality Models for Tropical Forests}},
+url = {https://dx.plos.org/10.1371/journal.pone.0063678},
+volume = {8},
+year = {2013}
+}
+@phdthesis{Madkaud2012,
+author = {Madkaud, Jules-Maurice},
+file = {:C\:/Users/DERROIR_GE-K052/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Madkaud - 2012 - Mettre {\`{a}} plat les correspondances entre noms vernaculaires et identit{\'{e}}s botaniques des esp{\`{e}}ces pr{\'{e}}sentes sur le site d.docx:docx},
+school = {Universit{\'{e}} des Antilles et de la Guyane},
+title = {{Mettre {\`{a}} plat les correspondances entre noms vernaculaires et identit{\'{e}}s botaniques des esp{\`{e}}ces pr{\'{e}}sentes sur le site de Paracou (Guyane Fran{\c{c}}aise)}},
+year = {2012}
+}
+@phdthesis{Mirabel2018a,
+annote = {1.4 mesure bidoversit{\'{e}}
+p19: composante de diversitr{\'{e}}
+p20: nombre de Hill
+
+Chap 2 p 31: incertitude noms vernacualires
+script founi dans le texte (p36)},
+author = {Mirabel, Ariane},
+file = {:C\:/Users/DERROIR_GE-K052/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Mirabel - 2018 - R{\'{e}}ponse et R{\'{e}}silience de la Biodiversit{\'{e}} d'une For{\^{e}}t Tropicale apr{\`{e}}s Perturbation.pdf:pdf},
+keywords = {Biodiversity,Community Ecology,Dynamic trajectories,Neotropical forests,Perturbation,Resilience},
+school = {Universit{\'{e}} de Guyane},
+title = {{R{\'{e}}ponse et R{\'{e}}silience de la Biodiversit{\'{e}} d'une For{\^{e}}t Tropicale apr{\`{e}}s Perturbation}},
+year = {2018}
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}

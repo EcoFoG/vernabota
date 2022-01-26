@@ -7,7 +7,8 @@
 PrepData(Data)
 }
 \arguments{
-\item{Data}{dataframe of inventory data, formatted as as shown in the vignette}
+\item{Data}{dataframe of inventory data, formatted as
+it is when obtained using the function EcoFoG::Guyafor2df or from the online data platform of Paracou.}
 }
 \value{
 a dataframe (formatted as a data.table) ready to be used for the association of vernacular and botanical name

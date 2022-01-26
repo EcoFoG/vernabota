@@ -39,5 +39,5 @@ DrawDeterm <- function(AlphaV, levelAsso, VernName2Sim) {
     warning(paste("There were several species with the same probability of association for ", VernName2Sim,
                   ", the species was chosen randomly on a tree by tree basis"))
   }
-  res
+  return(res)
 }

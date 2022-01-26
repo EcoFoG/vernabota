@@ -18,9 +18,9 @@
 #'  association matrix, formatted as shown in the vignette.
 #'  This dataset must have been prepared using the function PrepData.
 #'  (Default is NULL: the dataset Data2fill is used to built the association matrix)
-#' @param prior dataframe of expert knowledge association used as a prior,
-#' formatted as shown in the vignette (Default is NULL: no prior information
-#' is used)
+#' @param prior dataframe of expert knowledge association used as a prior.
+#' This dataset must have been prepared using the function PrepPrior.
+#' (Default is NULL: no prior information is used)
 #' @param wp numeric value giving the weighting of the prior information (Default is 0.5).
 #' @param NSim positive integer: number of simulated communities that we want to obtain
 #' @param eps epsilon: background noise for species not associated with a given
@@ -103,27 +103,6 @@ SimFullCom <- function(Data2fill, DataAsso=NULL, prior=NULL, wp=0.5, NSim, eps=0
       stop("You must provide a dataframe containing at least the following columns names for DataAsso:
          CodeAlive, idTree, BotaCertainty, VernName, Family, Genus, Species, GenSp.
          Data must have been prepared using the function PrepData.")
-    }
-  }
-
-  if(!is.null(prior) & any(!(c("Family", "Genus", "Species") %in%
-                             colnames(prior)))) {
-    stop("You must provide a dataframe containing at least the following columns names for prior:
-         Family, Genus, Species")
-  }
-  if(!is.null(prior)) {
-    prior <- as.data.table(prior)
-    if (any(prior[, lapply(.SD, function(v){length(unique(v))}),
-                  .SDcols = colnames(prior)[which(!(colnames(prior) %in%
-                                                    c("Family", "Genus","Species", "GenSp")))]]>2)) {
-      stop("you must only have 0 and 1 for the vernacular columns in prior")
-    } else {
-      if (any(prior[, lapply(.SD, function(v){sort(unique(v))}),
-                    .SDcols = colnames(prior)[which(!(colnames(prior) %in%
-                                                      c("Family", "Genus","Species", "GenSp")))]]
-              != c(0,1))) {
-        stop("you must only have 0 and 1 for the vernacular columns in prior")
-      }
     }
   }
 

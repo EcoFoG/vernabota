@@ -24,9 +24,9 @@ association matrix, formatted as shown in the vignette.
 This dataset must have been prepared using the function PrepData.
 (Default is NULL: the dataset Data2fill is used to built the association matrix)}
 
-\item{prior}{dataframe of expert knowledge association used as a prior,
-formatted as shown in the vignette (Default is NULL: no prior information
-is used)}
+\item{prior}{dataframe of expert knowledge association used as a prior.
+This dataset must have been prepared using the function PrepPrior.
+(Default is NULL: no prior information is used)}
 
 \item{wp}{numeric value giving the weighting of the prior information (Default is 0.5).}
 
