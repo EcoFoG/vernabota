@@ -5,6 +5,7 @@ vignette: >
   %\VignetteIndexEntry{Using_vernabota}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+bibliography: ../vignettes/REFERENCES.bib  
 ---
 
 ```{r, include = FALSE}
@@ -16,7 +17,7 @@ knitr::opts_chunk$set(
 
 This document describes the methods and use of the package *vernabota* to gapfill missing botanical names using vernacular names, in the case of Guyafor census data.
 The objective is to obtain a chosen number of simulated communities for which individuals only identified with a vernacular name are given a botanical name based on probabilities of association of vernacular and botanical names.
-It is largely based on the work and codes from @Aubry-Kientz2013 and @Mirabel2018.
+It is largely based on the work and codes from @Aubry-Kientz2013 and @Mirabel2018a.
 
 # Method of association of a vernacular name with a botanical name
 
@@ -58,7 +59,7 @@ We then replace 0 by epsilon divided by the number of value=0.
 Before the first use, the package needs to be installed from GitHub:
 
 ```{r install, eval=FALSE}
-devtools::install_github("EcoFoG/vernabota")
+devtools::install_github("EcoFoG/vernabota", build_vignettes = TRUE)
 ```
 
 It can then be loaded.
@@ -66,6 +67,11 @@ It can then be loaded.
 ```{r setup}
 library(vernabota)
 ```
+
+```{r setseed, echo=FALSE}
+set.seed(56)
+```
+
 
 # Preparing the data
 
@@ -106,17 +112,18 @@ In this dataset, the column VernName should not contain any special character su
 Here, we use data from plot 6 (all four subplots), census of 2016.
 We call this dataset *DataAsso*.
 
-We use the function PrepData (see description below) to prepare the data.
+We use the function *PrepData* to prepare the data.
 
 ```{r get data for asso}
 DataAsso <- Paracou6_2016
 DataAsso <- PrepData(DataAsso)
+str(DataAsso)
 ```
 
 
 # Running some simmulations using the function SimFullCom
 
-## Example 1: using the same dataset for Data2fill and DataAsso (subplot 1), without prior
+## Example 1: using the same dataset for Data2fill and DataAsso, without prior
 
 ## Example 2: using different dataset for Data2fill and DataAsso, without prior
 
@@ -124,6 +131,72 @@ DataAsso <- PrepData(DataAsso)
 
 ## Example 4: using different dataset for Data2fill and DataAsso, with a prior (different weighing of the prior and the observation)
 
+## Example 5: getting the more likely associations (using Determ=TRUE)
+
 
 
 # Comparing different setting for the simulations using the function CompareSim
+
+*NB*: for these examples, a low number of simulation is used.
+For real test, a higher number of simulations should be performed.
+
+## Comparing different observation data
+
+Here we compare two scenario:
+
+* the observation used to update the prior are the same than the data that we want to gapfill
+
+* the observation used to update the prior are different than data that we want to gapfill
+
+```{r Compare1, eval=FALSE}
+Param <- data.frame(priors = c(1,1),
+                    dataFill = c(1,1),
+                    dataAsso = c(1,2),
+                    weights = c(0.5,0.5),
+                    NbSim = c(5,5),
+                    pc2fill = c(10,10),
+                    pcFamilyDet = c(25,25),
+                    pcGenusDet = c(25,25),
+                    eps = c(0.01,0.01),
+                    Determ = c(F,F),
+                    Results_Simulations = c(F,F))
+
+D2fill <- list(Data2fill[1:5000,])
+
+DAsso <- D2fill
+## GD: plus besoin d'appeller les weights comme une liste car tu les as mis dans Param
+#weights <- list(0.5)
+
+
+sp_tot <- paste(D2fill[[1]]$Family, D2fill[[1]]$Genus, D2fill[[1]]$Species, sep="_")
+prior <- matrix(data= sample(c(0,1), size=length(unique(sp_tot))*length(unique(D2fill[[1]]$VernName)), replace = TRUE), nrow=length(unique(sp_tot)), ncol=length(unique(D2fill[[1]]$VernName)))
+colnames(prior) <- unique(D2fill[[1]]$VernName)
+prior <- cbind(data.frame(Family = unlist(strsplit(unique(sp_tot),'_'))[seq(from=1,to=length(unlist(strsplit(unique(sp_tot),'_')))-2,by=3)],
+                          Genus = unlist(strsplit(unique(sp_tot),'_'))[seq(from=2,to=length(unlist(strsplit(unique(sp_tot),'_')))-1,by=3)],
+                          Species = unlist(strsplit(unique(sp_tot),'_'))[seq(from=3,to=length(unlist(strsplit(unique(sp_tot),'_'))),by=3)]),
+               prior)
+row.names(prior) <- NULL
+priors <- list(prior)
+
+set.seed(33)
+## GD: j'enlèvre NScenar car je l'ai enlevé de la fonction
+VBS_test <- CompareSim(Param = Param ,
+                       priors = priors, D2fill = D2fill, DAsso = DAsso)
+
+summary(VBS_test)
+plot(VBS_test)
+```
+
+
+## Comparing different priors
+
+## Comparing different prior weight
+
+## Comparing more likely associations with drawn associations
+
+## Checking stability of association accuracy
+
+## Examining wrong associations
+
+
+# Bibliography

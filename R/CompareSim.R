@@ -13,9 +13,11 @@
 #'  - NbSim : a vector with the number of simulations for each scenario
 #'  - pc2fill : a vector with the percentage of data (dataFill) to fill
 #'  - pcFamilyDet : a vector with the percentage of data determined
-#'  at the family level (from the subset of dataFill to fill)
+#'  at the family level (from the subset of dataFill to fill).
+#'  We recommend using a percentage equivalent than in the data to gapfill.
 #'  - pcGenusDet : a vector with the percentage of data determined at
-#'  the genus level (from the subset of dataFill to fill, the rest isn't determined at all)
+#'  the genus level (from the subset of dataFill to fill, the rest isn't determined at all).
+#'  We recommend using a percentage equivalent than in the data to gapfill.
 #'  - eps : a vector with the epsilon value for each scenario
 #'  - Determ : a vector with the value of Determ (boolean)
 #'  - Results_Simulations : a vector with a boolean specifying if the
