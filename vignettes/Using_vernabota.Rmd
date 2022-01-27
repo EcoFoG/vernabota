@@ -53,6 +53,11 @@ The matrix $\alpha$ have a lot of 0 (in case when there is no association accord
 When we then consider the tree *t*, we replace non-null values by 0 when botanical names don't belong to the same genus than *t* (if there is a know genus) and the same family than *t* (if there is a known family).
 We then replace 0 by epsilon divided by the number of value=0.
 
+# Possible types of gapfilling
+
+```{r flowchart, fig.cap="Flowchart of the possible correction", out.width = "100%" , echo=FALSE}
+knitr::include_graphics("flowchart.png")
+```
 
 # Installing and loading the package
 
@@ -123,23 +128,26 @@ str(DataAsso)
 
 # Running some simmulations using the function SimFullCom
 
+*NB*: for these examples, a low number of simulation is used.
+For real test, a higher number of simulations should be performed.
+
 ## Example 1: using the same dataset for Data2fill and DataAsso, without prior
 
-## Example 2: using different dataset for Data2fill and DataAsso, without prior
+## Example 2: using different dataset for Data2fill and DataAsso, with a prior (different weighing of the prior and the observation)
 
-## Example 3: using different dataset for Data2fill and DataAsso, with a prior (same weighing of the prior and the observation)
-
-## Example 4: using different dataset for Data2fill and DataAsso, with a prior (different weighing of the prior and the observation)
-
-## Example 5: getting the more likely associations (using Determ=TRUE)
+## Example 3: getting the more likely associations (using Determ=TRUE)
 
 
 
-# Comparing different setting for the simulations using the function CompareSim
+# Comparing different settings for the simulations using the function CompareSim
+
+> A faire, mettre une phrase d'intro et ne donner qu'un seul exemple où on fait varier
+plusieurs trucs comme dans ex de Mélaine
 
 *NB*: for these examples, a low number of simulation is used.
 For real test, a higher number of simulations should be performed.
 
+<!--
 ## Comparing different observation data
 
 Here we compare two scenario:
@@ -187,12 +195,13 @@ summary(VBS_test)
 plot(VBS_test)
 ```
 
-
 ## Comparing different priors
 
 ## Comparing different prior weight
 
 ## Comparing more likely associations with drawn associations
+
+-->
 
 ## Checking stability of association accuracy
 
