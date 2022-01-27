@@ -19,10 +19,10 @@ association according to expert knowledge)
 data(PriorAllFG_20220126)
 }
 \description{
-Prior files resulting from the work of Jean-Maurice MadKaud,
+Prior files resulting from the work of Jean-Maurice MadKaud (see Vignette),
 for which the botanical and vernacular names have been checked
 and updated on the 26/01/2022.
-These prior file correspond to the prior file called "Probabilités Guyane
+This prior file correspond to the prior file called "Probabilités Guyane
 (sans erreur de relevé, facteur zone)" in Madkaud's report.
 }
 \keyword{datasets}
