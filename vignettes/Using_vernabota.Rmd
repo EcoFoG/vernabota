@@ -15,6 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
+
 This document describes the methods and use of the package *vernabota* to gapfill missing botanical names using vernacular names, in the case of Guyafor census data.
 The objective is to obtain a chosen number of simulated communities for which individuals only identified with a vernacular name are given a botanical name based on probabilities of association of vernacular and botanical names.
 It is largely based on the work and codes from @Aubry-Kientz2013 and @Mirabel2018a.
@@ -75,6 +76,12 @@ library(vernabota)
 
 ```{r setseed, echo=FALSE}
 set.seed(56)
+```
+
+Some of the exemples below require the package data.table.
+
+```{r load_data.table}
+library(data.table)
 ```
 
 
@@ -265,7 +272,7 @@ Param <- data.frame(priors = c(1,1,2,1,1),  # here, we used the first prior
 Param
 ```
 
-We can then run *CompareSim*, visualise the scenarios using *summary* and plot their accuracy using *plot*.
+We can then run *CompareSim*, visualise the scenarios and their results using *summary* and plot their accuracy using *plot*.
 
 ```{r Compare, out.width = "80%"} 
 VBS_test <- CompareSim(Param = Param ,
@@ -291,11 +298,10 @@ Param <- data.frame(priors = c(1,1,2,1,1),
 Param
 ```
 
-Here there will be lots of warning messages in case when two association are equality likely.
+Here there will be lots of warning messages (not displayed here) in cases when two associations are equality likely.
+This also explain the variability of the accuracy plotted.
 
-> TO DO: see how to print only the first few warnings.
-
-```{r Comparedeter, out.width = "80%"} 
+```{r Comparedeter, out.width = "80%", warning=FALSE} 
 VBS_test <- CompareSim(Param = Param ,
                        priors = priors, D2fill = D2fill, DAsso = DAsso)
 summary(VBS_test)
@@ -329,9 +335,8 @@ plot(VBS_test)
 
 Here we seen that we could increase the number of simulations.
 
-<!--
 
-## Examining wrong associations
+## Examining results associations
 
 ```{r ParamCompares_results}
 Param <- data.frame(priors = c(2), 
@@ -349,15 +354,27 @@ Param
 ```
 
 We now want to examine the association tree by tree.
-We retreive one of the simulation of the only scenario, as data.table.
+The simulations of each scenario (here just one) can be retrieved as a list of data.table.
+We can then look at each of the simulations: *TestData* indicates if the tree was used for test subset, and *ValidAsso* if the botanical association was correct.
 
 ```{r Compare_results} 
 VBS_test <- CompareSim(Param = Param ,
                        priors = priors, D2fill = D2fill, DAsso = DAsso)
-Res2 <- VBS_test@results[[1]][[2]] # here we retreive the second simulation of scenario 1.
-str(Res2)
+ResL <- VBS_test@results[[1]] # here we get all the simulation of scenario 1
+str(ResL[[1]]) # first simulation
 ```
 
--->
+We can also calculate the percentage of good association for each tested tree, for this scenario:
+
+```{r Compare_results2} 
+Res <- rbindlist(ResL) # combine them in a single data.table
+# calculate the percentage of good association for each tested tree
+PropGood <- Res[TestData==TRUE & ValidAsso==TRUE,
+                .(propOK=.N/length(ResL)), 
+                by=idTree]
+head(PropGood)
+```
+
+
 
 # Bibliography

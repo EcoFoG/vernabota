@@ -55,6 +55,12 @@ CompareSim <- function(Param = NULL,
 
   pc_ok_results <- tot_results <- list()
 
+  col2keep <- c("idTree",
+                "Family", "Genus", "Species",
+                "BotaSource", "BotaCertainty",
+                "VernName", "GenSp",
+                "GensSpCor", "BotaCorCode", "ValidAsso", "TestData")
+
   # loop for each scenario (can be parallelized)
   for (s in 1:NScenar){
 
@@ -118,7 +124,10 @@ CompareSim <- function(Param = NULL,
 
     if (Param$Results_Simulations[s])
     {
-      tot_results[[s]] <- Results_Sim
+      tot_results[[s]] <- lapply(Results_Sim, ValidTaxo, test_taxo)
+      for (i in 1:Param$NbSim[s]) {
+        tot_results[[s]][[i]] <- tot_results[[s]][[i]][,..col2keep]
+      }
     }
   }
 
