@@ -74,11 +74,13 @@ It can then be loaded.
 library(vernabota)
 ```
 
-```{r setseed, echo=FALSE}
+We set a seed for reproductability.
+
+```{r setseed}
 set.seed(56)
 ```
 
-Some of the exemples below require the package data.table.
+Some of the examples below require the package data.table.
 
 ```{r load_data.table}
 library(data.table)
