@@ -74,7 +74,7 @@ It can then be loaded.
 library(vernabota)
 ```
 
-We set a seed for reproductability.
+We set a seed for reproducibility.
 
 ```{r setseed}
 set.seed(56)
@@ -92,6 +92,8 @@ library(data.table)
 ## Data that we want to gapfill
 
 This algorithm works on a dataset formatted as it is when obtained using the function *EcoFoG::Guyafor2df* or from the online data plateform of Paracou.
+
+There can be several censuses for a same plot (*i.e.* several lines per individual trees).
 
 Here, we take the example of data from plot 6, census of 2016, and use subplot 1 as the dataset that we want to gapfill. 
 We call this dataset *Data2fill*.
@@ -159,6 +161,8 @@ The user needs to carefully think this choice through.
 Using the same dataset can lead to underestimating diversity as it consider that there cannot be any dispersal of species from outside.
 Using a too wide data set could lead to associating species that are not present in the area.
 
+There can be several censuses for a same plot (*i.e.* several lines per individual trees).
+
 In this dataset, the column VernName should not contain any special character such as é, è or œ (data from the Guyafor database should not have these special characters).
 
 Here, we use data from plot 6 (all four subplots), census of 2016.
@@ -177,6 +181,17 @@ str(DataAsso)
 
 *NB*: for these examples, a low number of simulations is used.
 For real tests, a higher number of simulations should be performed.
+
+The *SimFullCom* function returns the original dataset with two additional columns:
+
+* GensSpCor: The Genus and species after gap filling
+
+* BotaCorCode : the type of correction (see section *Possible types of gapfilling* 
+in this vignette, and the help of the *SimFullCom* function).
+
+In cases where the original data contained several censuses of a same plots (*i.e.* several lines
+per individual trees), the output keeps the several censuses.
+For a given simulations, all observations of a same tree have the same botanical names associated.
 
 ## Example 1: using the same dataset for Data2fill and DataAsso, without prior
 
@@ -357,6 +372,11 @@ Param
 
 We now want to examine the association tree by tree.
 The simulations of each scenario (here just one) can be retrieved as a list of data.table.
+
+In cases where the original data contained several censuses of a same plots (*i.e.* several lines
+per individual trees), the output contained in *results* keeps only one line per individual,
+and only a subset of colums from the original dataset (thes ones that don't change between censuses).
+
 We can then look at each of the simulations: *TestData* indicates if the tree was used for test subset, and *ValidAsso* if the botanical association was correct.
 
 ```{r Compare_results} 

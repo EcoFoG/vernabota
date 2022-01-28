@@ -44,10 +44,8 @@ IfNSim is set to more than 1, default is FALSE.}
 }
 \value{
 This function returns a list of NSim datatables, each one being the original
-data with three additional columns:
+data with two additional columns:
 \itemize{
-\item GenSp: The Genus and species of the original data set (i.e. before the gap filling
-performed by Guyafor, so all trees for which BotaSource=Vern have a GenSp="Indet.-Indet.")
 \item GensSpCor: The Genus and species after gap filling
 \item BotaCorCode : the type of correction
 \itemize{

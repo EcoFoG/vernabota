@@ -33,9 +33,7 @@
 #' IfNSim is set to more than 1, default is FALSE.
 #'
 #' @return This function returns a list of NSim datatables, each one being the original
-#' data with three additional columns:
-#'  - GenSp: The Genus and species of the original data set (i.e. before the gap filling
-#'   performed by Guyafor, so all trees for which BotaSource=Vern have a GenSp="Indet.-Indet.")
+#' data with two additional columns:
 #'  - GensSpCor: The Genus and species after gap filling
 #'  - BotaCorCode : the type of correction
 #'       - fullyDet: tree with a fully determined name => no correction.
