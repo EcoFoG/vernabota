@@ -5,7 +5,7 @@ vignette: >
   %\VignetteIndexEntry{Using_vernabota}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-bibliography: ../vignettes/REFERENCES.bib  
+bibliography: ../inst/REFERENCES.bib  
 ---
 
 ```{r, include = FALSE}
