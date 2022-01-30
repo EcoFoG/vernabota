@@ -4,10 +4,10 @@
 \alias{summary.VernaBotaSims}
 \title{summary S3 method for class "VernaBotaSims"}
 \usage{
-\method{summary}{VernaBotaSims}(x, ...)
+\method{summary}{VernaBotaSims}(object, ...)
 }
 \arguments{
-\item{x}{an object of class ""VernaBotaSims"}
+\item{object}{an object of class ""VernaBotaSims"}
 
 \item{...}{other arguments passed to or from other methods}
 }

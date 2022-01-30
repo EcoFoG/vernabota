@@ -16,8 +16,8 @@ Authors:
   \item Melaine Aubry-Kientz
   \item Ariane Mirabel
   \item Daniela Krebber
-  \item Eric Marcon
-  \item Bruno Herault
+  \item Eric Marcon \email{eric.marcon@agroparistech.fr} (\href{https://orcid.org/0000-0002-5249-321X}{ORCID})
+  \item Bruno Herault \email{bruno.herault@cirad.fr} (\href{https://orcid.org/0000-0002-6950-7286}{ORCID})
 }
 
 }
