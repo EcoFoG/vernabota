@@ -21,7 +21,6 @@
 #'
 #' @export
 #'
-#' @examples
 ValidTaxo <- function(list_res, test_taxo)
 {
   # keep results corresponding to test data

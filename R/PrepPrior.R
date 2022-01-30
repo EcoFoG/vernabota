@@ -30,7 +30,6 @@
 #'
 #' @importFrom data.table as.data.table := .SD
 #'
-#' @examples
 PrepPrior <- function(prior, RemoveIndetSp=TRUE, RemoveNotGuyafor=TRUE) {
   # check of columns names
   if(any(!(c("Family", "Genus", "Species", "PresentInGuyaFor") %in%
