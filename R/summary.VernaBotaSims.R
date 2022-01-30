@@ -8,11 +8,6 @@
 #' @example summary(x)
 #'
 #' @export
-summary <- function(x, ...){
-  UseMethod("summary")
-}
-
-#' @export
 summary.VernaBotaSims <- function(x, ...)
 {
   for (s in 1:x@NScenar)
