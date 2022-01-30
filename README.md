@@ -2,9 +2,24 @@
 ![R-CMD-check](https://github.com/EcoFoG/vernabota/workflows/R-CMD-check/badge.svg)
 [![codecov](https://codecov.io/github/EcoFoG/vernabota/branch/master/graphs/badge.svg)](https://codecov.io/github/EcoFoG/vernabota)
 
-Spatially Explicit Measures of Diversity
+# Gapfilling missing botanical names using vernacular names
 
 The R package **vernabota** allows gapfilling missing botanical names using vernacular names, in the case of Guyafor census data.
 The objective is to obtain a chosen number of simulated communities for which individuals only identified with a vernacular name are given a botanical name based on probabilities of association of vernacular and botanical names.
+
+## Installing and loading the package
+
+Before the first use, the package needs to be installed from GitHub:
+
+```{r install, eval=FALSE}
+devtools::install_github("EcoFoG/vernabota", build_vignettes = TRUE)
+```
+
+It can then be loaded.
+
+```{r setup}
+library(vernabota)
+```
+
 
 Refer to the [Vignette](https://github.com/EcoFoG/vernabota/)
