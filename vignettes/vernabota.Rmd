@@ -1,8 +1,8 @@
 ---
-title: "Using the package vernabota"
+title: "Introduction to vernabota"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Using_vernabota}
+  %\VignetteIndexEntry{Introduction to vernabota}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 bibliography: ../inst/REFERENCES.bib  
@@ -20,59 +20,7 @@ This document describes the methods and use of the package *vernabota* to gapfil
 The objective is to obtain a chosen number of simulated communities for which individuals only identified with a vernacular name are given a botanical name based on probabilities of association of vernacular and botanical names.
 It is largely based on the work and codes from @Aubry-Kientz2013 and @Mirabel2018a.
 
-# Method of association of a vernacular name with a botanical name
-
-Be a tree *t* with a vernacular name *v*. 
-This tree can have a known genus, only a known family or no botanical information at all.
-The associated botanical names follow a categorical distribution *$\mathcal{Cat} (\alpha^v)$* 
-where $\alpha^v = [\alpha^v_1, \alpha^v_2,..., \alpha^v_N]$  is the vector of probability of association of between the vernacular name *v* and each botanical name (so $\sum_{s=1}^N \alpha^v_i =1)$)
-and N is the number of botanical name present in the inventories taken as a reference and/or the prior knowledge.
-
-To get the vector $\alpha^v$, we use a Dirichlet-categorical scheme to combine a prior information based on expert knowledge that we updated with observed frequencies of association between the vernacular name *v* and each botanical name in the reference inventories $f^v = [f^v_1, f^v_2,..., f^v_N]$.
-
-We considered $\lambda^v$ as hyperparameters of $\alpha^v$, *i.e.* the parameters of the prior distribution of $\alpha^v$.
-The prior probability of association of the vernacular *v* with each botanical name *s* in [1,N] is $\lambda^v_s$ and is obtained as follows:
-
-  * $\lambda^v_s = \frac{1}{m_v}$ if the botanical name *s* is associated to the vernacular name *v* AND belongs to the same genus than *t* (if there is a know genus) and the same family than *t* (if there is a known family). 
-  $m_v$ is the number of botanical names meeting these conditions.
-  * $\lambda^v_s = \frac{\epsilon}{N-m_v}$ otherwise ($\epsilon$ being a background noise)
-
-The prior distribution of $\alpha^v \sim \mathcal{Dir}(N, \lambda^v)$.
-
-As the Dirichlet distribution is the conjugated prior of the categorical distribution, the posterior distribution of the probabilities of associations $\alpha^v$ can be obtained by updating the expert knowledge with the observed frequency of association $f^v$.
-
-So the posterior distribution of probability of association is $\alpha^v | f^v,\lambda^v  \sim \mathcal{Dir} (N, w_p \times \lambda^v_1 + (1-w_p) \times f^v_1,...,w_p \times \lambda^v_N+(1-w_p) \times f^v_N)$
-where $w_p$ is the weigth given to the prior information. 
-
-NB: $\lambda^v$ and $f^v$ are taken as frequencies to give the same weight to give the same weight to the prior and the observations when given an equal weight (*i.e.* when $w_p=0.5$). 
-
-
-**In practice**, as we don't want to calculate the vector $\alpha^v$ for each tree, we create a matrix $\alpha$ of $\alpha^v$ that will be used for all trees.
-We therefore don't have any information on the family or the genus at this stage.
-We take $\lambda^v_s = 0$ for the botanical names that are not associated to the vernacular name *v* according to expert knowledge.
-The matrix $\alpha$ have a lot of 0 (in case when there is no association according to expert knowledge, nor according to the data).
-When we then consider the tree *t*, we replace non-null values by 0 when botanical names don't belong to the same genus than *t* (if there is a know genus) and the same family than *t* (if there is a known family).
-We then replace 0 by $\epsilon$ divided by the number of value=0.
-
-# Possible types of gapfilling
-
-```{r flowchart, fig.cap="Flowchart of the possible correction", out.width = "100%" , echo=FALSE}
-knitr::include_graphics("flowchart.png")
-```
-
-# Installing and loading the package
-
-Before the first use, the package needs to be installed from GitHub:
-
-```{r install, eval=FALSE}
-devtools::install_github("EcoFoG/vernabota", build_vignettes = TRUE)
-```
-
-It can then be loaded.
-
-```{r setup}
-library(vernabota)
-```
+The models are described [here](vignette("articles/model")).
 
 We set a seed for reproducibility.
 
@@ -103,6 +51,7 @@ In this dataset, the column VernName should not contain any special character su
 We use the function *PrepData* to prepare the data.
 
 ```{r get data to fill}
+library(vernabota)
 data(Paracou6_2016)
 Data2fill <- Paracou6_2016[Paracou6_2016$SubPlot==1,]
 Data2fill <- PrepData(Data2fill)
@@ -226,177 +175,10 @@ DataNSim <- SimFullCom(Data2fill=Data2fill, DataAsso=DataAsso,
 table(DataNSim[[1]]$BotaCorCode)
 ```
 
+# Method of association of a vernacular name with a botanical name
+
+See the [article](vignette("articles/compare")).
 
 # Comparing different settings for the simulations using the function CompareSim
-
-*NB*: for these examples, a low number of simulations is used.
-For real tests, a higher number of simulations should be performed.
-
-## Comparing different settings
-
-The choice of the settings used for the gapfilling is important for the quality of the estimation. 
-It is specific to the study and the dataset of the user, so it is interesting to compare different
-settings and to choose the one that performs the best:
-
-* choice of observation data (DataAsso): Using the same dataset (or a dataset to limited in its size
-or spatial extent) can lead to underestimating diversity as it underestimate the  
-dispersal of species from outside.
-Using a too wide data set could lead to associating species that are not present in the area.
-
-* the choice of the prior data depends on the team that has performed the vernacular identification
-and on the spatial extent of the data to gapfill and of the prior.
-
-* the relative weights given to the prior and the observation depends on the quantity and
-quality of information brought by the prior and the observation.
-
-* the effect of the value of $\epsilon$ can also be tested.
-
-* the overall percentatge of trees used for testing (*pc2fill*) can also be tested.
-
-* the percentage of trees that we consider determined to the family (*pcFamilyDet*)
-or to the genus (*pcGenusDet*) should logically be chosen to be similar to these 
-in the data set we want to gapfill (but this can also be changed).
-
-For this, we use the function *CompareSim*.
-This function "masks" the identification of the trees fully identified and test
-if it can be successfully retreived with the setting chosen.
-The proportion of correct association is called accuracy.
-
-We first create lists for the data to gapfill, the priors and the observation data  
-that we want to test:
-
-```{r listCompare}
-D2fill <- list(Data2fill)                   # data to gapfill
-priors <- list(PriorAllFG, PriorParacouNew) # priors
-DAsso <- list(NULL, DataAsso)               # observation data
-```
-
-Then we create the Param data.frame to explicit the different scenarios to test:
-
-```{r ParamCompare}
-Param <- data.frame(priors = c(1,1,2,1,1),  # here, we used the first prior 
-                    # of the list for scenario 1, 2, 4 and 5 and the seccond for scenario 3
-                    dataFill = c(1,1,1,1,1),
-                    dataAsso = c(2,1,2,2,2), # for the second scenario dataAsso is NULL (the data to gapfill are used)
-                    weights = c(0.5,0.5,0.5,0.2,0.8),
-                    NbSim = c(10,10,10,10,10),
-                    pc2fill = c(10,10,10,10,10),
-                    pcFamilyDet = c(25,25,25,25,25),
-                    pcGenusDet = c(25,25,25,25,25),
-                    eps = c(0.01,0.01,0.01,0.01,0.01),
-                    Determ = c(FALSE,FALSE,FALSE,FALSE,FALSE),
-                    Results_Simulations = c(FALSE,FALSE,FALSE,FALSE,FALSE))
-Param
-```
-
-We can then run *CompareSim*, visualise the scenarios and their results using *summary* and plot their accuracy using *plot*.
-
-```{r Compare, out.width = "80%"} 
-VBS_test <- CompareSim(Param = Param ,
-                       priors = priors, D2fill = D2fill, DAsso = DAsso)
-summary(VBS_test)
-plot(VBS_test)
-```
-
-## Testing deterministic associations
-
-```{r ParamComparedeter}
-Param <- data.frame(priors = c(1,1,2,1,1),  
-                    dataFill = c(1,1,1,1,1),
-                    dataAsso = c(2,1,2,2,2), 
-                    weights = c(0.5,0.5,0.5,0.2,0.8),
-                    NbSim = c(10,10,10,10,10),
-                    pc2fill = c(10,10,10,10,10),
-                    pcFamilyDet = c(25,25,25,25,25),
-                    pcGenusDet = c(25,25,25,25,25),
-                    eps = c(0.01,0.01,0.01,0.01,0.01),
-                    Determ = c(TRUE,TRUE,TRUE,TRUE,TRUE),
-                    Results_Simulations = c(FALSE,FALSE,FALSE,FALSE,FALSE))
-Param
-```
-
-Here there will be lots of warning messages (not displayed here) in cases when two associations are equality likely.
-This also explain the variability of the accuracy plotted.
-
-```{r Comparedeter, out.width = "80%", warning=FALSE} 
-VBS_test <- CompareSim(Param = Param ,
-                       priors = priors, D2fill = D2fill, DAsso = DAsso)
-summary(VBS_test)
-plot(VBS_test)
-```
-
-
-## Checking stability of association accuracy
-
-```{r ParamCompares_stab}
-Param <- data.frame(priors = c(2,2,2),  
-                    dataFill = c(1,1,1),
-                    dataAsso = c(2,2,2),
-                    weights = c(0.5,0.5,0.5),
-                    NbSim = c(10,10,10),
-                    pc2fill = c(10,10,10),
-                    pcFamilyDet = c(25,25,25),
-                    pcGenusDet = c(25,25,25),
-                    eps = c(0.01,0.01,0.01),
-                    Determ = c(FALSE,FALSE,FALSE),
-                    Results_Simulations = c(FALSE,FALSE,FALSE))
-Param
-```
-
-```{r Compare_stab, out.width = "80%"} 
-VBS_test <- CompareSim(Param = Param ,
-                       priors = priors, D2fill = D2fill, DAsso = DAsso)
-summary(VBS_test)
-plot(VBS_test)
-```
-
-Here we seen that we could increase the number of simulations.
-
-
-## Examining results associations
-
-```{r ParamCompares_results}
-Param <- data.frame(priors = c(2), 
-                    dataFill = c(1),
-                    dataAsso = c(2), 
-                    weights = c(0.5),
-                    NbSim = c(10),
-                    pc2fill = c(10),
-                    pcFamilyDet = c(25),
-                    pcGenusDet = c(25),
-                    eps = c(0.01),
-                    Determ = c(FALSE),
-                    Results_Simulations = c(TRUE))
-Param
-```
-
-We now want to examine the association tree by tree.
-The simulations of each scenario (here just one) can be retrieved as a list of data.table.
-
-In cases where the original data contained several censuses of a same plots (*i.e.* several lines
-per individual trees), the output contained in *results* keeps only one line per individual,
-and only a subset of colums from the original dataset (thes ones that don't change between censuses).
-
-We can then look at each of the simulations: *TestData* indicates if the tree was used for test subset, and *ValidAsso* if the botanical association was correct.
-
-```{r Compare_results} 
-VBS_test <- CompareSim(Param = Param ,
-                       priors = priors, D2fill = D2fill, DAsso = DAsso)
-ResL <- VBS_test@results[[1]] # here we get all the simulation of scenario 1
-str(ResL[[1]]) # first simulation
-```
-
-We can also calculate the percentage of good association for each tested tree, for this scenario:
-
-```{r Compare_results2} 
-Res <- rbindlist(ResL) # combine them in a single data.table
-# calculate the percentage of good association for each tested tree
-PropGood <- Res[TestData==TRUE & ValidAsso==TRUE,
-                .(propOK=.N/length(ResL)), 
-                by=idTree]
-head(PropGood)
-```
-
-
 
 # Bibliography
