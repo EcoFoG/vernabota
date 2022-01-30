@@ -5,8 +5,6 @@
 #'
 #' @return a summary of the scenarios tested
 #'
-#' @example summary(x)
-#'
 #' @export
 summary.VernaBotaSims <- function(x, ...)
 {
