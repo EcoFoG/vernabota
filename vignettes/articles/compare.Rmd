@@ -33,7 +33,7 @@ The proportion of correct association is called accuracy.
 
 # Preparing the data
 
-We first prepare the data as in the [Introduction vignette]("articles/vernabota").
+We first prepare the data as in the [Introduction vignette](vernabota.html).
 
 * The data we want to gapfill:
 ```{r get data to fill}
