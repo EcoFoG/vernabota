@@ -1,6 +1,6 @@
 Package: vernabota
 Title: Association between vernacular and botanical names for Guyafor data
-Version: 0.1.0.9000
+Version: 0.2.0
 Authors@R: 
     c(
     person("Geraldine", "Derroire",  email = "geraldine.derroire@cirad.fr", role = c("aut", "cre")),
