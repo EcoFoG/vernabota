@@ -1,6 +1,6 @@
 ![stability-wip](https://img.shields.io/badge/stability-work_in_progress-lightgrey.svg)
 ![R-CMD-check](https://github.com/EcoFoG/vernabota/workflows/R-CMD-check/badge.svg)
-[![codecov](https://codecov.io/github/EcoFoG/vernabota/branch/master/graphs/badge.svg)](https://codecov.io/github/EcoFoG/vernabota)
+[![codecov](https://codecov.io/github/EcoFoG/vernabota/branch/main/graphs/badge.svg)](https://codecov.io/github/EcoFoG/vernabota)
 
 # Gapfilling missing botanical names using vernacular names
 
