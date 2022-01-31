@@ -21,5 +21,4 @@ It can then be loaded.
 library(vernabota)
 ```
 
-
-Refer to the [Vignette](https://github.com/EcoFoG/vernabota/)
+A quick [introduction](https://ecofog.github.io/vernabota/articles/vernabota.html) is in `vignette("vernabota")`.
