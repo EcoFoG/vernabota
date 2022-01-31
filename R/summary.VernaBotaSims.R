@@ -1,6 +1,6 @@
-#' summary S4 method for class "VernaBotaSims"
+#' summary of scenarios
 #'
-#' @param object an object of class ""VernaBotaSims"
+#' @param object an object of class "VernaBotaSims"
 #' @param ... other arguments passed to or from other methods
 #'
 #' @return a summary of the scenarios tested

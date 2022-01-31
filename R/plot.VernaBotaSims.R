@@ -1,4 +1,4 @@
-#' plot S4 method for class "VernaBotaSims"
+#' plot the accuracy of scenarios
 #'
 #' @param x an object of class ""VernaBotaSims"
 #' @param ... other arguments passed to or from other methods
