@@ -124,7 +124,7 @@ str(DataAsso)
 ```
 
 
-# Running some simulations using the function SimFullCom
+# Running some simulations using the function *SimFullCom*
 
 *NB*: for these examples, a low number of simulations is used.
 For real tests, a higher number of simulations should be performed.
@@ -138,7 +138,7 @@ in this vignette, and the help of the *SimFullCom* function).
 In cases where the original data contained several censuses of a same plots (*i.e.* several lines per individual trees), the output keeps the several censuses.
 For a given simulations, all observations of a same tree have the same botanical names associated.
 
-## Example 1: using the same dataset for Data2fill and DataAsso, without prior
+## Example 1: using the same dataset for *Data2fill* and *DataAsso*, without prior
 
 ```{r runSimFullCom1, echo=TRUE}
 DataNSim <- SimFullCom(Data2fill, NSim=2, eps=0.01)
@@ -147,7 +147,7 @@ colnames(DataNSim[[1]])
 table(DataNSim[[1]]$BotaCorCode)
 ```
 
-## Example 2: using different dataset for Data2fill and DataAsso, with a prior (different weighing of the prior and the observations)
+## Example 2: using different dataset for *Data2fill* and *DataAsso*, with a prior (different weighing of the prior and the observations)
 
 Here we have a weight of 0.2 for the prior and of 0.8 for the observations.
 
@@ -159,7 +159,7 @@ DataNSim <- SimFullCom(Data2fill=Data2fill, DataAsso=DataAsso,
 table(DataNSim[[1]]$BotaCorCode)
 ```
 
-## Example 3: getting the more likely associations (using Determ=TRUE)
+## Example 3: getting the more likely associations (using `Determ=TRUE`)
 
 As we want to simulate the more likely associations, we set `NSim` to 1.
 
@@ -171,7 +171,7 @@ DataNSim <- SimFullCom(Data2fill=Data2fill, DataAsso=DataAsso,
 table(DataNSim[[1]]$BotaCorCode)
 ```
 
-# Comparing different settings for the simulations using the function CompareSim
+# Comparing different settings for the simulations using the function *CompareSim*
 
 See the [article](https://ecofog.github.io/vernabota/articles/compare.html).
 
