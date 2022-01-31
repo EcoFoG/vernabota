@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 ```
 
 
-This document describes the methods and use of the package *vernabota* to gapfill missing botanical names using vernacular names, in the case of Guyafor census data.
+This document describes the methods and use of the package **vernabota** to gapfill missing botanical names using vernacular names, in the case of Guyafor census data.
 The objective is to obtain a chosen number of simulated communities for which individuals only identified with a vernacular name are given a botanical name based on probabilities of association of vernacular and botanical names.
 It is largely based on the work and codes from @Aubry-Kientz2013 and @Mirabel2018a.
 
@@ -28,7 +28,7 @@ We set a seed for reproducibility.
 set.seed(56)
 ```
 
-Some of the examples below require the package data.table.
+Some of the examples below require the package **data.table**.
 
 ```{r load_data.table}
 library(data.table)
@@ -60,10 +60,10 @@ str(Data2fill)
 
 ## Prior: expert knowledge on possible associations
 
-The prior is a data.frame with vernacular names in columns and botanical names in rows (given in 3 column Family, Genus and Species. 
+The prior is a dataframe with vernacular names in columns and botanical names in rows (given in 3 column `Family`, `Genus` and `Species.` 
 For a given vernacular name and a given botanical name, the value is 1 if the association is possible, according to expert knowledge, and 0 if not.
 
-We propose three prior files resulting from the work of Jean-Maurice MadKau @Madkaud2012, updated using the code *5_Dev/Prior_Verna_Bota_Name_Cleaning/Prior_Verna_Bota_Name_Cleaning.Rmd* in January 2022.
+We propose three prior files resulting from the work of Jean-Maurice @Madkaud2012, updated using the code *5_Dev/Prior_Verna_Bota_Name_Cleaning/Prior_Verna_Bota_Name_Cleaning.Rmd* in January 2022.
 
 
 ```{r load priors, echo=TRUE}
@@ -81,13 +81,12 @@ PriorParacouNew <- PriorParacouNew_20220126
 ```
 
 We use the function *PrepPrior* to prepare the prior.
-Here we use the default settings because we want to remove the botanical names with non-determined species,
-and the botanical names not in Guyafor from the prior.
+Here we use the default settings because we want to remove the botanical names with non-determined species, and the botanical names not in Guyafor from the prior.
 The reason is that these names would always lead to incorrect association when using the *CompareSim* function (see below).
 However, one may decide to keep them, this would lead to
 
-* possible associations with a botanical name of the form *Genus-Indet.* with a BotaCodeCor="AssoByGenus" or "AssoByFam" (with RemoveIndetSp==TRUE) .
-* possible associations with a botanical name that has never been observed in Guyafor (with RemoveNotGuyafor==TRUE).
+* possible associations with a botanical name of the form *Genus-Indet.* with a `BotaCodeCor="AssoByGenus"` or `="AssoByFam"` (with `RemoveIndetSp==TRUE`) .
+* possible associations with a botanical name that has never been observed in Guyafor (with `RemoveNotGuyafor==TRUE`).
 
 In these latter cases, only the prior information would be used.
 
@@ -104,7 +103,7 @@ PriorParacouNew <- PrepPrior(PriorParacouNew)
 
 ## Observation data to update the prior
 
-To built the matrix of association between vernacular and scientific names, we can either use the same dataset than the one for which we want to perform the association or another dataset.
+To build the matrix of association between vernacular and scientific names, we can either use the same dataset than the one for which we want to perform the association or another dataset.
 The user needs to carefully think this choice through.
 Using the same dataset can lead to underestimating diversity as it consider that there cannot be any dispersal of species from outside.
 Using a too wide data set could lead to associating species that are not present in the area.
@@ -132,12 +131,11 @@ For real tests, a higher number of simulations should be performed.
 
 The *SimFullCom* function returns the original dataset with two additional columns:
 
-* GensSpCor: The Genus and species after gap filling.
-* BotaCorCode : the type of correction (see section *Possible types of gapfilling* 
+* `GensSpCor`: The Genus and species after gap filling.
+* `BotaCorCode` : the type of correction (see section *Possible types of gapfilling* 
 in this vignette, and the help of the *SimFullCom* function).
 
-In cases where the original data contained several censuses of a same plots (*i.e.* several lines
-per individual trees), the output keeps the several censuses.
+In cases where the original data contained several censuses of a same plots (*i.e.* several lines per individual trees), the output keeps the several censuses.
 For a given simulations, all observations of a same tree have the same botanical names associated.
 
 ## Example 1: using the same dataset for Data2fill and DataAsso, without prior
