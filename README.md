@@ -11,13 +11,13 @@ The objective is to obtain a chosen number of simulated communities for which in
 
 Before the first use, the package needs to be installed from GitHub:
 
-```{r install, eval=FALSE}
-devtools::install_github("EcoFoG/vernabota", build_vignettes = TRUE)
+```
+remotes::install_github("EcoFoG/vernabota", build_vignettes = TRUE)
 ```
 
 It can then be loaded.
 
-```{r setup}
+```
 library(vernabota)
 ```
 
