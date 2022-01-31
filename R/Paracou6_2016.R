@@ -42,9 +42,7 @@
 #'   been corrected, multiple values are possible(character)}
 #'   ...
 #' }
-#' @source \url{http://paracou.cirad.fr ;
-#' https://paracoudata.cirad.fr/public/pdf/Paracou_data_dictionnary.pdf,
-#' https://paracoudata.cirad.fr/main/login/}
-
-
+#' @source <http://paracou.cirad.fr>
+#' @source <https://paracoudata.cirad.fr/public/pdf/Paracou_data_dictionnary.pdf>
+#' @source <https://paracoudata.cirad.fr/main/login/>
 "Paracou6_2016"

@@ -15,7 +15,6 @@
 #' @slot priors list of datasets containing the priors for each scenario (input of CompareSim)
 #' @slot pc_results list of double corresponding to the percentage of well simulated species
 #' @slot results list of results from SimFullCom for each scenario.
-
 #'
 #' @export
 #'

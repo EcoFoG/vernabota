@@ -44,9 +44,11 @@ been corrected, multiple values are possible(character)}
 }
 }
 \source{
-\url{http://paracou.cirad.fr ;
-https://paracoudata.cirad.fr/public/pdf/Paracou_data_dictionnary.pdf,
-https://paracoudata.cirad.fr/main/login/}
+\url{http://paracou.cirad.fr}
+
+\url{https://paracoudata.cirad.fr/public/pdf/Paracou_data_dictionnary.pdf}
+
+\url{https://paracoudata.cirad.fr/main/login/}
 }
 \usage{
 data(Paracou6_2016)

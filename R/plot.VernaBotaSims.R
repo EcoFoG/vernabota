@@ -5,13 +5,6 @@
 #'
 #' @return a plot of the accuracy of the different scenarios
 #'
-#' @example plot(x)
-#'
-#' @export
-plot <- function(x, ...){
-UseMethod("plot")
-}
-
 #' @export
 plot.VernaBotaSims <- function(x, ...)
 {

@@ -1,21 +1,25 @@
 Package: vernabota
 Title: Association between vernacular and botanical names for Guyafor data
-Version: 0.0.0.9000
+Version: 0.1.0.9000
 Authors@R: 
-    c(person("Geraldine", "Derroire",  email = "geraldine.derroire@cirad.fr", role = c("aut", "cre")),
+    c(
+    person("Geraldine", "Derroire",  email = "geraldine.derroire@cirad.fr", role = c("aut", "cre")),
     person("Melaine", "Aubry-Kientz",  role = "aut"),
     person("Ariane", "Mirabel",  role = "aut"),
     person("Daniela", "Krebber",  role = "aut"),
-    person("Eric", "Marcon",  role = "aut"),
-    person("Bruno", "Herault",  role = "aut"))
+    person("Eric", "Marcon", email="eric.marcon@agroparistech.fr", role="aut", comment=c(ORCID = "0000-0002-5249-321X")),
+    person("Bruno", "Herault", email="bruno.herault@cirad.fr", role="aut", comment=c(ORCID = "0000-0002-6950-7286"))
+    )
 Description: This package allow gapfilling missing botanical names using vernacular names, in the case of Guyafor census data. The objective is to obtain a chosen number of simulated communities for which individuals only identified with a vernacular name are given a botanical name from association of vernacular and botanical names in a Dirichlet-categorical scheme. 
 License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
+Depends: R (>= 3.5.0)
 Imports: 
     data.table,
     ggplot2,
+    graphics,
     gtools,
     methods,
     stats
