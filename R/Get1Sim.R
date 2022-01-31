@@ -33,7 +33,7 @@
 Get1Sim <- function(Data, Alpha, eps=eps, Determ){
   # for a given simu, we want to give the same bota name to all measurment of a given individuals
   # so we first create a list of trees (one row per indiv not by measurment)
-  DataTree <- unique(Data[,.(idTree, VernName, Family, Genus, Species, GenSp)])
+  DataTree <- unique(Data[,list(idTree, VernName, Family, Genus, Species, GenSp)])
   # we add a colum to store the Simulated botanical name (GensSpCor)
   # and a colum to store the way the name was simulated (BotaCorCode)
   DataTree <- cbind(DataTree, GensSpCor=as.factor(NA), BotaCorCode=as.factor(NA))
@@ -91,7 +91,7 @@ Get1Sim <- function(Data, Alpha, eps=eps, Determ){
 
   # once DataTree has a value of GensSpCor for all trees
   # and we attribute this name to all the measurment of the tree (with a merge)
-  DataSim <- merge(Data, DataTree[,.(idTree, GensSpCor, BotaCorCode)], by="idTree")
+  DataSim <- merge(Data, DataTree[,list(idTree, GensSpCor, BotaCorCode)], by="idTree")
   # and get one fully determined dataset
   return(DataSim)
 

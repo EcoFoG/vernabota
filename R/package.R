@@ -6,5 +6,5 @@ utils::globalVariables(c("Forest", "Plot","PlotArea","SubPlot","idTree","Xfield"
                              "CensusDate","CensusDateCertainty", "CodeAlive","MeasCode","Circ",
                              "CircCorr" , "CorrCode",
                          "GenSp", "alphaV", "GenSpCor", "BotaCorCode", "GensSpCor", "scenario",
-                         "accuracy", ".", ".",
-                         "PresentInGuyaFor", ".col2keep"))
+                         "accuracy",
+                         "PresentInGuyaFor"))

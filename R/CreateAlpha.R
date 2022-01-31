@@ -35,7 +35,7 @@ CreateAlpha <- function(DataAsso, prior, wp) {
   # create matrix of lambda
   if (!(is.null(prior))) {
     # create a frequency matrix
-    lambda <- data.table(prior[,.(Family, Genus, Species, GenSp)],
+    lambda <- data.table(prior[,list(Family, Genus, Species, GenSp)],
                          prior[, lapply(.SD, function(v){v/sum(v)}),
                                .SDcols = colnames(prior)[
                                  which(!(colnames(prior) %in% c("Family", "Genus","Species", "GenSp")))]])
@@ -48,20 +48,20 @@ CreateAlpha <- function(DataAsso, prior, wp) {
   Data4asso <- DataAsso[BotaCertainty %in% c(3,4)]
   Data4asso <- droplevels(Data4asso)
   # keep only the column needed
-  Data4asso <- Data4asso[,.(idTree, GenSp, Family, Genus, Species, VernName)]
+  Data4asso <- Data4asso[,list(idTree, GenSp, Family, Genus, Species, VernName)]
   # keep only one line per individual tree
   Data4asso <- unique(Data4asso, by="idTree")
   # remove row with Vernname=-"
   Data4asso <- Data4asso[VernName!="-",]
 
   # get a contingency table
-  ContMatL <- Data4asso[,.N, by=.(GenSp, Family, Genus, Species, VernName)] # long data
+  ContMatL <- Data4asso[,.N, by=list(GenSp, Family, Genus, Species, VernName)] # long data
   # make it a wide table
   ContMat <- dcast(ContMatL, GenSp + Family + Genus + Species~VernName, value.var="N")
   # replace NA per 0
   ContMat[is.na(ContMat)] <- 0
   # transform into frequency
-  f <- data.table(ContMat[, .(Family, Genus, Species, GenSp)],
+  f <- data.table(ContMat[, list(Family, Genus, Species, GenSp)],
                   ContMat[, lapply(.SD, function(v){v/sum(v)}),
                           .SDcols = colnames(ContMat)[
                             which(!(colnames(ContMat) %in% c("Family", "Genus","Species", "GenSp")))]])
@@ -71,8 +71,8 @@ CreateAlpha <- function(DataAsso, prior, wp) {
   if (!(is.null(prior))) {
     # get Alpha posterior (dataframe with vernacular as colum and bota as row + the information bota, sum by colum = 2 for bota columns)
     # create an empty Alpha with only the 4 first columns and all the bota names
-    Alpha <- unique(rbind(lambda[ ,.(Family, Genus, Species, GenSp)],
-                          f[ ,.(Family, Genus, Species, GenSp)]))# all the bota sp
+    Alpha <- unique(rbind(lambda[ ,list(Family, Genus, Species, GenSp)],
+                          f[ ,list(Family, Genus, Species, GenSp)]))# all the bota sp
     setorder(Alpha, Family, Genus,Species, GenSp)
     # extend lamda to the dimension of Alpha, filling with NA
     lambdaAll <- merge(Alpha, lambda, by=c("Family", "Genus","Species", "GenSp"), all.x = TRUE)
@@ -90,9 +90,9 @@ CreateAlpha <- function(DataAsso, prior, wp) {
     setcolorder(fAll, colnames(lambdaAll))
     fAll[is.na(fAll)] <- 0 # replace na by 0
     # do some checking of the ordering (all the row and all the columns in the same order)
-    if (!(all(c(unique(lambdaAll[,.(Family, Genus, Species, GenSp)] == Alpha),
-                unique(fAll[,.(Family, Genus, Species, GenSp)] == Alpha),
-                unique(lambdaAll[,.(Family, Genus, Species, GenSp)] == fAll[,.(Family, Genus, Species, GenSp)]),
+    if (!(all(c(unique(lambdaAll[,list(Family, Genus, Species, GenSp)] == Alpha),
+                unique(fAll[,list(Family, Genus, Species, GenSp)] == Alpha),
+                unique(lambdaAll[,list(Family, Genus, Species, GenSp)] == fAll[,list(Family, Genus, Species, GenSp)]),
                 unique(colnames(lambdaAll) == colnames(fAll)))
     ))) {
       stop("There is a problem with the function CreateAlpha, check the code")

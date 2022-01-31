@@ -340,7 +340,7 @@ We can also calculate the percentage of good association for each tested tree, f
 Res <- rbindlist(ResL) # combine them in a single data.table
 # calculate the percentage of good association for each tested tree
 PropGood <- Res[TestData==TRUE & ValidAsso==TRUE,
-                .(propOK=.N/length(ResL)), 
+                list(propOK=.N/length(ResL)), 
                 by=idTree]
 head(PropGood)
 ```
