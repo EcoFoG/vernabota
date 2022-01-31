@@ -39,7 +39,7 @@ library(data.table)
 
 ## Data that we want to gapfill
 
-This algorithm works on a dataset formatted as it is when obtained using the function *EcoFoG::Guyafor2df* or from the online data plateform of Paracou.
+This algorithm works on a dataset formatted as it is when obtained using the function *EcoFoG::Guyafor2df* or from the online data platform of Paracou.
 
 There can be several censuses for a same plot (*i.e.* several lines per individual trees).
 
@@ -87,7 +87,6 @@ The reason is that these names would always lead to incorrect association when u
 However, one may decide to keep them, this would lead to
 
 * possible associations with a botanical name of the form *Genus-Indet.* with a BotaCodeCor="AssoByGenus" or "AssoByFam" (with RemoveIndetSp==TRUE) .
-
 * possible associations with a botanical name that has never been observed in Guyafor (with RemoveNotGuyafor==TRUE).
 
 In these latter cases, only the prior information would be used.
@@ -112,7 +111,7 @@ Using a too wide data set could lead to associating species that are not present
 
 There can be several censuses for a same plot (*i.e.* several lines per individual trees).
 
-In this dataset, the column VernName should not contain any special character such as é, è or œ (data from the Guyafor database should not have these special characters).
+In this dataset, the column `VernName` should not contain any special character such as é, è or œ (data from the Guyafor database should not have these special characters).
 
 Here, we use data from plot 6 (all four subplots), census of 2016.
 We call this dataset *DataAsso*.
@@ -133,8 +132,7 @@ For real tests, a higher number of simulations should be performed.
 
 The *SimFullCom* function returns the original dataset with two additional columns:
 
-* GensSpCor: The Genus and species after gap filling
-
+* GensSpCor: The Genus and species after gap filling.
 * BotaCorCode : the type of correction (see section *Possible types of gapfilling* 
 in this vignette, and the help of the *SimFullCom* function).
 
@@ -153,7 +151,7 @@ table(DataNSim[[1]]$BotaCorCode)
 
 ## Example 2: using different dataset for Data2fill and DataAsso, with a prior (different weighing of the prior and the observations)
 
-Here we have a weigth of 0.2 for the prior and of 0.8 for the observations.
+Here we have a weight of 0.2 for the prior and of 0.8 for the observations.
 
 ```{r runSimFullCom2, echo=TRUE}
 DataNSim <- SimFullCom(Data2fill=Data2fill, DataAsso=DataAsso, 
@@ -165,7 +163,7 @@ table(DataNSim[[1]]$BotaCorCode)
 
 ## Example 3: getting the more likely associations (using Determ=TRUE)
 
-As we want to simulate the more likely associations, we set NSim to 1.
+As we want to simulate the more likely associations, we set `NSim` to 1.
 
 ```{r runSimFullCom3, echo=TRUE}
 DataNSim <- SimFullCom(Data2fill=Data2fill, DataAsso=DataAsso, 
@@ -177,173 +175,7 @@ table(DataNSim[[1]]$BotaCorCode)
 
 # Comparing different settings for the simulations using the function CompareSim
 
-*NB*: for these examples, a low number of simulations is used.
-For real tests, a higher number of simulations should be performed.
-
-## Comparing different settings
-
-The choice of the settings used for the gapfilling is important for the quality of the estimation. 
-It is specific to the study and the dataset of the user, so it is interesting to compare different
-settings and to choose the one that performs the best:
-
-* choice of observation data (DataAsso): Using the same dataset (or a dataset to limited in its size
-or spatial extent) can lead to underestimating diversity as it underestimate the  
-dispersal of species from outside.
-Using a too wide data set could lead to associating species that are not present in the area.
-
-* the choice of the prior data depends on the team that has performed the vernacular identification
-and on the spatial extent of the data to gapfill and of the prior.
-
-* the relative weights given to the prior and the observation depends on the quantity and
-quality of information brought by the prior and the observation.
-
-* the effect of the value of $\epsilon$ can also be tested.
-
-* the overall percentatge of trees used for testing (*pc2fill*) can also be tested.
-
-* the percentage of trees that we consider determined to the family (*pcFamilyDet*)
-or to the genus (*pcGenusDet*) should logically be chosen to be similar to these 
-in the data set we want to gapfill (but this can also be changed).
-
-For this, we use the function *CompareSim*.
-This function "masks" the identification of the trees fully identified and test
-if it can be successfully retreived with the setting chosen.
-The proportion of correct association is called accuracy.
-
-We first create lists for the data to gapfill, the priors and the observation data  
-that we want to test:
-
-```{r listCompare}
-D2fill <- list(Data2fill)                   # data to gapfill
-priors <- list(PriorAllFG, PriorParacouNew) # priors
-DAsso <- list(NULL, DataAsso)               # observation data
-```
-
-Then we create the Param data.frame to explicit the different scenarios to test:
-
-```{r ParamCompare}
-Param <- data.frame(priors = c(1,1,2,1,1),  # here, we used the first prior 
-                    # of the list for scenario 1, 2, 4 and 5 and the seccond for scenario 3
-                    dataFill = c(1,1,1,1,1),
-                    dataAsso = c(2,1,2,2,2), # for the second scenario dataAsso is NULL (the data to gapfill are used)
-                    weights = c(0.5,0.5,0.5,0.2,0.8),
-                    NbSim = c(10,10,10,10,10),
-                    pc2fill = c(10,10,10,10,10),
-                    pcFamilyDet = c(25,25,25,25,25),
-                    pcGenusDet = c(25,25,25,25,25),
-                    eps = c(0.01,0.01,0.01,0.01,0.01),
-                    Determ = c(FALSE,FALSE,FALSE,FALSE,FALSE),
-                    Results_Simulations = c(FALSE,FALSE,FALSE,FALSE,FALSE))
-Param
-```
-
-We can then run *CompareSim*, visualise the scenarios and their results using *summary* and plot their accuracy using *plot*.
-
-```{r Compare, out.width = "80%"} 
-VBS_test <- CompareSim(Param = Param ,
-                       priors = priors, D2fill = D2fill, DAsso = DAsso)
-summary(VBS_test)
-plot(VBS_test)
-```
-
-## Testing deterministic associations
-
-```{r ParamComparedeter}
-Param <- data.frame(priors = c(1,1,2,1,1),  
-                    dataFill = c(1,1,1,1,1),
-                    dataAsso = c(2,1,2,2,2), 
-                    weights = c(0.5,0.5,0.5,0.2,0.8),
-                    NbSim = c(10,10,10,10,10),
-                    pc2fill = c(10,10,10,10,10),
-                    pcFamilyDet = c(25,25,25,25,25),
-                    pcGenusDet = c(25,25,25,25,25),
-                    eps = c(0.01,0.01,0.01,0.01,0.01),
-                    Determ = c(TRUE,TRUE,TRUE,TRUE,TRUE),
-                    Results_Simulations = c(FALSE,FALSE,FALSE,FALSE,FALSE))
-Param
-```
-
-Here there will be lots of warning messages (not displayed here) in cases when two associations are equality likely.
-This also explain the variability of the accuracy plotted.
-
-```{r Comparedeter, out.width = "80%", warning=FALSE} 
-VBS_test <- CompareSim(Param = Param ,
-                       priors = priors, D2fill = D2fill, DAsso = DAsso)
-summary(VBS_test)
-plot(VBS_test)
-```
-
-
-## Checking stability of association accuracy
-
-```{r ParamCompares_stab}
-Param <- data.frame(priors = c(2,2,2),  
-                    dataFill = c(1,1,1),
-                    dataAsso = c(2,2,2),
-                    weights = c(0.5,0.5,0.5),
-                    NbSim = c(10,10,10),
-                    pc2fill = c(10,10,10),
-                    pcFamilyDet = c(25,25,25),
-                    pcGenusDet = c(25,25,25),
-                    eps = c(0.01,0.01,0.01),
-                    Determ = c(FALSE,FALSE,FALSE),
-                    Results_Simulations = c(FALSE,FALSE,FALSE))
-Param
-```
-
-```{r Compare_stab, out.width = "80%"} 
-VBS_test <- CompareSim(Param = Param ,
-                       priors = priors, D2fill = D2fill, DAsso = DAsso)
-summary(VBS_test)
-plot(VBS_test)
-```
-
-Here we seen that we could increase the number of simulations.
-
-
-## Examining results associations
-
-```{r ParamCompares_results}
-Param <- data.frame(priors = c(2), 
-                    dataFill = c(1),
-                    dataAsso = c(2), 
-                    weights = c(0.5),
-                    NbSim = c(10),
-                    pc2fill = c(10),
-                    pcFamilyDet = c(25),
-                    pcGenusDet = c(25),
-                    eps = c(0.01),
-                    Determ = c(FALSE),
-                    Results_Simulations = c(TRUE))
-Param
-```
-
-We now want to examine the association tree by tree.
-The simulations of each scenario (here just one) can be retrieved as a list of data.table.
-
-In cases where the original data contained several censuses of a same plots (*i.e.* several lines
-per individual trees), the output contained in *results* keeps only one line per individual,
-and only a subset of colums from the original dataset (thes ones that don't change between censuses).
-
-We can then look at each of the simulations: *TestData* indicates if the tree was used for test subset, and *ValidAsso* if the botanical association was correct.
-
-```{r Compare_results} 
-VBS_test <- CompareSim(Param = Param ,
-                       priors = priors, D2fill = D2fill, DAsso = DAsso)
-ResL <- VBS_test@results[[1]] # here we get all the simulation of scenario 1
-str(ResL[[1]]) # first simulation
-```
-
-We can also calculate the percentage of good association for each tested tree, for this scenario:
-
-```{r Compare_results2} 
-Res <- rbindlist(ResL) # combine them in a single data.table
-# calculate the percentage of good association for each tested tree
-PropGood <- Res[TestData==TRUE & ValidAsso==TRUE,
-                list(propOK=.N/length(ResL)), 
-                by=idTree]
-head(PropGood)
-```
+See the [article](https://ecofog.github.io/vernabota/articles/compare.html).
 
 
 # Bibliography
