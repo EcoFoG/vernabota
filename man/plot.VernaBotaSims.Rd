@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.VernaBotaSims.R
 \name{plot.VernaBotaSims}
 \alias{plot.VernaBotaSims}
-\title{plot S3 method for class "VernaBotaSims"}
+\title{plot S4 method for class "VernaBotaSims"}
 \usage{
 \method{plot}{VernaBotaSims}(x, ...)
 }
@@ -15,5 +15,5 @@
 a plot of the accuracy of the different scenarios
 }
 \description{
-plot S3 method for class "VernaBotaSims"
+plot S4 method for class "VernaBotaSims"
 }

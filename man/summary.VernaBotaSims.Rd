@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary.VernaBotaSims.R
 \name{summary.VernaBotaSims}
 \alias{summary.VernaBotaSims}
-\title{summary S3 method for class "VernaBotaSims"}
+\title{summary S4 method for class "VernaBotaSims"}
 \usage{
 \method{summary}{VernaBotaSims}(object, ...)
 }
@@ -15,5 +15,5 @@
 a summary of the scenarios tested
 }
 \description{
-summary S3 method for class "VernaBotaSims"
+summary S4 method for class "VernaBotaSims"
 }
