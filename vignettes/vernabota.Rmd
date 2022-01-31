@@ -20,7 +20,7 @@ This document describes the methods and use of the package *vernabota* to gapfil
 The objective is to obtain a chosen number of simulated communities for which individuals only identified with a vernacular name are given a botanical name based on probabilities of association of vernacular and botanical names.
 It is largely based on the work and codes from @Aubry-Kientz2013 and @Mirabel2018a.
 
-The models are described [here](vignette("articles/model")).
+The models are described [here](model.html).
 
 We set a seed for reproducibility.
 
@@ -126,7 +126,7 @@ str(DataAsso)
 ```
 
 
-# Running some simmulations using the function SimFullCom
+# Running some simulations using the function SimFullCom
 
 *NB*: for these examples, a low number of simulations is used.
 For real tests, a higher number of simulations should be performed.
