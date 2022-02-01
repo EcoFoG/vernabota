@@ -1,9 +1,10 @@
-# vernabota 0.2.0
+# vernabota 0.2.1
 
 ## New features
 
 * Vignette by pkgdown
 * Continuous integration by GitHub Pages
+* `autoplot` method for class `VernaBotaSims`
 
 
 # vernabota 0.1.0
