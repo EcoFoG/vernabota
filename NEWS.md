@@ -1,4 +1,4 @@
-# vernabota 0.2.1
+# vernabota 0.2.2
 
 ## New features
 

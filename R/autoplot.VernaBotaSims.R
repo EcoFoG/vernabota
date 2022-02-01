@@ -8,7 +8,6 @@
 #' @export
 #'
 #' @importFrom ggplot2 autoplot
-#' @export autoplot
 #'
 autoplot.VernaBotaSims <- function(object, ...)
 {
@@ -17,6 +16,8 @@ autoplot.VernaBotaSims <- function(object, ...)
   ggplot(d,aes(x = scenario, y = accuracy, color = scenario)) +
     geom_boxplot()
 }
+#' @export
+ggplot2::autoplot
 
 
 #' plot the accuracy of scenarios
@@ -27,13 +28,14 @@ autoplot.VernaBotaSims <- function(object, ...)
 #' @export
 #'
 #' @importFrom graphics plot
-#' @export plot
 #'
 #' @importFrom graphics boxplot
 #'
 plot.VernaBotaSims <- function(x, ...)
 {
-  d <- data.frame(accuracy = unlist(object@pc_results),
-                  scenario = rep(letters[1:length(object@pc_results)],times = sapply(object@pc_results,length)))
+  d <- data.frame(accuracy = unlist(x@pc_results),
+                  scenario = rep(letters[1:length(x@pc_results)],times = sapply(x@pc_results,length)))
   boxplot(accuracy~scenario, data=d)
 }
+#' @export
+graphics::plot
