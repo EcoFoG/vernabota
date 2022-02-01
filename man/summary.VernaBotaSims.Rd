@@ -2,12 +2,12 @@
 % Please edit documentation in R/summary.VernaBotaSims.R
 \name{summary.VernaBotaSims}
 \alias{summary.VernaBotaSims}
-\title{summary S4 method for class "VernaBotaSims"}
+\title{summary of scenarios}
 \usage{
 \method{summary}{VernaBotaSims}(object, ...)
 }
 \arguments{
-\item{object}{an object of class ""VernaBotaSims"}
+\item{object}{an object of class "VernaBotaSims"}
 
 \item{...}{other arguments passed to or from other methods}
 }
@@ -15,5 +15,5 @@
 a summary of the scenarios tested
 }
 \description{
-summary S4 method for class "VernaBotaSims"
+summary of scenarios
 }

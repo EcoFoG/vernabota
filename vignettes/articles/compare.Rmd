@@ -102,7 +102,7 @@ We can then run *CompareSim*, visualise the scenarios and their results using *s
 VBS_test <- CompareSim(Param = Param ,
                        priors = priors, D2fill = D2fill, DAsso = DAsso)
 summary(VBS_test)
-plot(VBS_test)
+autoplot(VBS_test)
 ```
 
 ## Testing deterministic associations
@@ -129,7 +129,7 @@ This also explain the variability of the accuracy plotted.
 VBS_test <- CompareSim(Param = Param ,
                        priors = priors, D2fill = D2fill, DAsso = DAsso)
 summary(VBS_test)
-plot(VBS_test)
+autoplot(VBS_test)
 ```
 
 
@@ -154,7 +154,7 @@ Param
 VBS_test <- CompareSim(Param = Param ,
                        priors = priors, D2fill = D2fill, DAsso = DAsso)
 summary(VBS_test)
-plot(VBS_test)
+autoplot(VBS_test)
 ```
 
 Here we see that we could increase the number of simulations.

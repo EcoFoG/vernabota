@@ -6,15 +6,22 @@
 \alias{vernabota-package}
 \title{vernabota: Association between vernacular and botanical names for Guyafor data}
 \description{
-This package allow gapfilling missing botanical names using vernacular names, in the case of Guyafor census data. The objective is to obtain a chosen number of simulated communities for which individuals only identified with a vernacular name are given a botanical name from association of vernacular and botanical names in a Dirichlet-categorical scheme.
+Gapfilling of missing botanical names using vernacular names, in the case of Guyafor census data. The objective is to obtain a chosen number of simulated communities for which individuals only identified with a vernacular name are given a botanical name from association of vernacular and botanical names in a Dirichlet-categorical scheme.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/EcoFoG/vernabota}
+}
+
 }
 \author{
-\strong{Maintainer}: Geraldine Derroire \email{geraldine.derroire@cirad.fr}
+\strong{Maintainer}: Geraldine Derroire \email{geraldine.derroire@cirad.fr} (\href{https://orcid.org/0000-0001-7239-2881}{ORCID})
 
 Authors:
 \itemize{
-  \item Melaine Aubry-Kientz
-  \item Ariane Mirabel
+  \item Melaine Aubry-Kientz (\href{https://orcid.org/0000-0002-4439-8626}{ORCID})
+  \item Ariane Mirabel (\href{https://orcid.org/0000-0002-7081-9922}{ORCID})
   \item Daniela Krebber
   \item Eric Marcon \email{eric.marcon@agroparistech.fr} (\href{https://orcid.org/0000-0002-5249-321X}{ORCID})
   \item Bruno Herault \email{bruno.herault@cirad.fr} (\href{https://orcid.org/0000-0002-6950-7286}{ORCID})
