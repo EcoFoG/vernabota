@@ -1,12 +1,13 @@
 #' Draw a full species name using a Categorical-Dirichlet scheme
 #'
-#' @description This function draws a full species name for a given tree within the vector alphaV
-#'  using a Categorical-Dirichlet scheme.
+#' @description This function draws a full species name for a given tree within
+#'   the vector alphaV using a Categorical-Dirichlet scheme.
 #'
-#' @param alphaV vector alphaV obtained in the DrawBota function (posterior alpha
-#'  for the given vernacular name, with all botanical name of Alpha)
+#' @param alphaV vector alphaV obtained in the DrawBota function (posterior
+#'   alpha for the given vernacular name, with all botanical name of Alpha)
 #' @param Names vector of all botanical name of Alpha
-#' @param Vern vernacular name
+#' @param Vern the vernacular name of the tree for which we want to get
+#'   a full botanical name (character)
 #'
 #' @return A botanical name obtained from a Dirichlet-Categorical association.
 #'
@@ -17,7 +18,7 @@
 #'  the probability being the vector obtained from the Dirichlet)
 #'  - retrieve the botanical name corresponding to the non null value in
 #'   this vector
-
+#'
 #' @export
 #'
 #' @importFrom gtools rdirichlet

@@ -1,21 +1,27 @@
 #' Attribute the most likely full species name
 #'
-#' @description This function attributes the full species name corresponding to the highest
-#' value of alpha to a given tree.
+#' @description This function attributes the full species name corresponding to
+#'   the highest value of alpha to a given tree.
 #'
-#' @param AlphaV datatable with the botanical information in the first 4 columns and one colum
-#'  for the vernacular name of interested, created in the function DrawBota
-#' @param levelAsso level of association depending on the available information
-#'  (AssoByGenus, AssoByFam or AssoByVern)
-#' @param VernName2Sim vernacular name
+#' @param AlphaV data.table with the botanical information in the first 4 columns
+#'   and one column for the vernacular name of interested, created in the
+#'   function DrawBota
 #'
-#' @return This function returns a list with two elements: the first one is the associated botanical
-#'  name and the second one the method of association (AssoByGenus, AssoByGenusT, AssoByFam,
-#'   AssoByFamT, AssoByVern or AssoByVernT).
+#' @param levelAsso Level of association depending on the available information
+#'   ("AssoByGenus", "AssoByFam" or "AssoByVern")
+#'
+#' @param VernName2Sim The vernacular name of the tree for which we want to get
+#'   a full botanical name (character)
+#'
+#' @return This function returns a list with two elements: the first one is the
+#'   associated botanical name and the second one the method of association
+#'   (AssoByGenus, AssoByGenusT, AssoByFam, AssoByFamT, AssoByVern or
+#'   AssoByVernT).
 #'
 #' @details This function performs the following steps:
 #'  - Get the species for which the value of alpha is the highest
-#'  - if there are no tie, return the value of this species and the associated correction code
+#'  - if there are no tie, return the value of this species and the associated
+#'  correction code
 #'  - if there is a tie, draw a species randomly within these species
 #'
 #' @export

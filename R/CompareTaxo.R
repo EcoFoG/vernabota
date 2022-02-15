@@ -1,5 +1,4 @@
-#' Compare the original taxonomic information of a dataset with predicted
-#'one
+#' Compare the original taxonomic information of a dataset with predicted one
 #'
 #' @description This function is used in the CompareSim function.
 #'It compares the original taxonomic information of a dataset with predicted
