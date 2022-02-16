@@ -1,3 +1,9 @@
+#' vernabota-package
+#'
+#' Association between vernacular and botanical names for Guyafor data
+#'
+#' @name vernabota
+#' @docType package
 #' @keywords internal
 "_PACKAGE"
 utils::globalVariables(c("Forest", "Plot","PlotArea","SubPlot","idTree","Xfield",

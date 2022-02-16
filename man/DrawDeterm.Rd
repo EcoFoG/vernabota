@@ -7,28 +7,32 @@
 DrawDeterm(AlphaV, levelAsso, VernName2Sim)
 }
 \arguments{
-\item{AlphaV}{datatable with the botanical information in the first 4 columns and one colum
-for the vernacular name of interested, created in the function DrawBota}
+\item{AlphaV}{data.table with the botanical information in the first 4 columns
+and one column for the vernacular name of interested, created in the
+function DrawBota}
 
-\item{levelAsso}{level of association depending on the available information
-(AssoByGenus, AssoByFam or AssoByVern)}
+\item{levelAsso}{Level of association depending on the available information
+("AssoByGenus", "AssoByFam" or "AssoByVern")}
 
-\item{VernName2Sim}{vernacular name}
+\item{VernName2Sim}{The vernacular name of the tree for which we want to get
+a full botanical name (character)}
 }
 \value{
-This function returns a list with two elements: the first one is the associated botanical
-name and the second one the method of association (AssoByGenus, AssoByGenusT, AssoByFam,
-AssoByFamT, AssoByVern or AssoByVernT).
+This function returns a list with two elements: the first one is the
+associated botanical name and the second one the method of association
+(AssoByGenus, AssoByGenusT, AssoByFam, AssoByFamT, AssoByVern or
+AssoByVernT).
 }
 \description{
-This function attributes the full species name corresponding to the highest
-value of alpha to a given tree.
+This function attributes the full species name corresponding to
+the highest value of alpha to a given tree.
 }
 \details{
 This function performs the following steps:
 \itemize{
 \item Get the species for which the value of alpha is the highest
-\item if there are no tie, return the value of this species and the associated correction code
+\item if there are no tie, return the value of this species and the associated
+correction code
 \item if there is a tie, draw a species randomly within these species
 }
 }

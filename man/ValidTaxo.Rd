@@ -8,12 +8,12 @@ ValidTaxo(list_res, test_taxo)
 }
 \arguments{
 \item{list_res}{Results of \emph{SimFullCom} function applied to the
-test dataset: a list of datatables with simulated taxonomic information.}
+test dataset: a list of data.tables with simulated taxonomic information.}
 
 \item{test_taxo}{The original taxonomic information for the test dataset.}
 }
 \value{
-This function returns a datatable similar to Data inputted in
+This function returns a data.table similar to Data inputted in
 argument, with two additional columns (TestData and ValidAsso).
 }
 \description{
