@@ -7,19 +7,20 @@
 DirichCat(alphaV, Names, Vern)
 }
 \arguments{
-\item{alphaV}{vector alphaV obtained in the DrawBota function (posterior alpha
-for the given vernacular name, with all botanical name of Alpha)}
+\item{alphaV}{vector alphaV obtained in the DrawBota function (posterior
+alpha for the given vernacular name, with all botanical name of Alpha)}
 
 \item{Names}{vector of all botanical name of Alpha}
 
-\item{Vern}{vernacular name}
+\item{Vern}{the vernacular name of the tree for which we want to get
+a full botanical name (character)}
 }
 \value{
 A botanical name obtained from a Dirichlet-Categorical association.
 }
 \description{
-This function draws a full species name for a given tree within the vector alphaV
-using a Categorical-Dirichlet scheme.
+This function draws a full species name for a given tree within
+the vector alphaV using a Categorical-Dirichlet scheme.
 }
 \details{
 This function performs the following steps:

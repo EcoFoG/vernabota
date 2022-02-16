@@ -9,11 +9,15 @@
 #' the results of each scenario, together with its parameters.
 #'
 #' @slot NScenar numeric: number of scenario simulated
-#' @slot ParamScenar data.frame: a datatable with the parameters for each scenario (input of CompareSim)
+#' @slot ParamScenar data.frame: a datatable with the parameters for each
+#'   scenario (input of CompareSim)
 #' @slot D2fill list of datasets to fill for each scenario (input of CompareSim)
-#' @slot DAsso list of datasets of observation used for each scenario (input of CompareSim)
-#' @slot priors list of datasets containing the priors for each scenario (input of CompareSim)
-#' @slot pc_results list of double corresponding to the percentage of well simulated species
+#' @slot DAsso list of datasets of observation used for each scenario (input of
+#'   CompareSim)
+#' @slot priors list of datasets containing the priors for each scenario (input
+#'   of CompareSim)
+#' @slot pc_results list of double corresponding to the percentage of well
+#'   simulated species
 #' @slot results list of results from SimFullCom for each scenario.
 #'
 #' @export

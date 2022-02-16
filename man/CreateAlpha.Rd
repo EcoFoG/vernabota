@@ -7,20 +7,22 @@
 CreateAlpha(DataAsso, prior, wp)
 }
 \arguments{
-\item{DataAsso}{datatable of inventory data, formatted as as shown in the vignette}
+\item{DataAsso}{data.table of inventory data, formatted as as shown in the
+vignette}
 
-\item{prior}{datatable with prior expert knowledge.
+\item{prior}{data.table with prior expert knowledge.
 This dataset must have been prepared using the function PrepPrior.}
 
 \item{wp}{numeric value giving the weighting of the prior information}
 }
 \value{
-This function returns a datatable with a row per full botanical names (GenSp).
-The first columns are GenSp, Family, Genus and Species and the following colums are each of the vernacular name.
-These columns are the vectors of alphav.
+This function returns a data.table with a row per full botanical names
+(GenSp). The first columns are GenSp, Family, Genus and Species and the
+following columns are each of the vernacular name. These columns are the
+vectors of alphav.
 }
 \description{
-This function creates a datatable containing the matrix
+This function creates a data.table containing the matrix
 of posterior alpha and taxonomic info, using a prior expert knowledge (optional)
 and observation for trees with a confirmed identification or
 a temporary identification (BotaCertainty 4 and 3 in Guyafor)
@@ -28,13 +30,17 @@ a temporary identification (BotaCertainty 4 and 3 in Guyafor)
 \details{
 This function performs the following steps:
 \itemize{
-\item create matrix of lambdav: get lambdav, equal to 1/number of possible association
-to the vernacular name v if the association is possible according to the prior and 0 if not
+\item create matrix of lambdav: get lambdav, equal to 1/number of possible
+association to the vernacular name v if the association is possible
+according to the prior and 0 if not
 \item create matrix of fv using DataObs
 \item keep only trees with a confirmed identification or a temporary
 identification (BotaCertainty 4 and 3 in Guyafor)
-\item keep one line per individual (to avoid giving more weigth in individuals present in multiple censuses)
-\item get fv, the observed frequencies of association between the vernacular name v and each botanical name fv
-\item sum the two matrix with a weigh of wp for the prior and (1-wp) for the observation
+\item keep one line per individual (to avoid giving more weight in individuals
+present in multiple censuses)
+\item get fv, the observed frequencies of association between the vernacular
+name v and each botanical name fv
+\item sum the two matrix with a weigh of wp for the prior and (1-wp) for the
+observation
 }
 }

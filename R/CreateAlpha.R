@@ -1,28 +1,34 @@
 #' Create matrix of posterior alpha
 #'
-#' @description This function creates a datatable containing the matrix
+#' @description This function creates a data.table containing the matrix
 #' of posterior alpha and taxonomic info, using a prior expert knowledge (optional)
 #'  and observation for trees with a confirmed identification or
 #'  a temporary identification (BotaCertainty 4 and 3 in Guyafor)
 #'
-#' @param DataAsso datatable of inventory data, formatted as as shown in the vignette
-#' @param prior datatable with prior expert knowledge.
+#' @param DataAsso data.table of inventory data, formatted as as shown in the
+#'   vignette
+#' @param prior data.table with prior expert knowledge.
 #' This dataset must have been prepared using the function PrepPrior.
 #' @param wp numeric value giving the weighting of the prior information
 #'
-#' @return This function returns a datatable with a row per full botanical names (GenSp).
-#' The first columns are GenSp, Family, Genus and Species and the following colums are each of the vernacular name.
-#' These columns are the vectors of alphav.
+#' @return This function returns a data.table with a row per full botanical names
+#'   (GenSp). The first columns are GenSp, Family, Genus and Species and the
+#'   following columns are each of the vernacular name. These columns are the
+#'   vectors of alphav.
 #'
 #' @details This function performs the following steps:
-#'  - create matrix of lambdav: get lambdav, equal to 1/number of possible association
-#'  to the vernacular name v if the association is possible according to the prior and 0 if not
+#'  - create matrix of lambdav: get lambdav, equal to 1/number of possible
+#'  association to the vernacular name v if the association is possible
+#'  according to the prior and 0 if not
 #'  - create matrix of fv using DataObs
 #'  - keep only trees with a confirmed identification or a temporary
 #'  identification (BotaCertainty 4 and 3 in Guyafor)
-#'  - keep one line per individual (to avoid giving more weigth in individuals present in multiple censuses)
-#'  - get fv, the observed frequencies of association between the vernacular name v and each botanical name fv
-#'  - sum the two matrix with a weigh of wp for the prior and (1-wp) for the observation
+#'  - keep one line per individual (to avoid giving more weight in individuals
+#'  present in multiple censuses)
+#'  - get fv, the observed frequencies of association between the vernacular
+#'  name v and each botanical name fv
+#'  - sum the two matrix with a weigh of wp for the prior and (1-wp) for the
+#'  observation
 #'
 #' @export
 #'

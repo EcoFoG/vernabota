@@ -7,16 +7,16 @@
 PrepPrior(prior, RemoveIndetSp = TRUE, RemoveNotGuyafor = TRUE)
 }
 \arguments{
-\item{prior}{dataframe of prior, formatted as as shown in the vignette.}
+\item{prior}{data.frame of prior, formatted as as shown in the vignette.}
 
 \item{RemoveIndetSp}{Should the botanical names with non-determined species
-be removedfrom the prior? (Default is TRUE)}
+be removed from the prior? (Default is TRUE) (logical)}
 
 \item{RemoveNotGuyafor}{Should the botanical names with non-determined
-species be removedfrom the prior? (Default is TRUE)}
+species be removed from the prior? (Default is TRUE) (logical)}
 }
 \value{
-This function returns a dataframe (formatted as a data.table)
+This function returns a data.frame (formatted as a data.table)
 ready to be used for the following steps.
 }
 \description{
@@ -27,16 +27,18 @@ This function performs the following steps:
 \itemize{
 \item perform some checks on the file
 \item add a column GenSp with the full botanical name
-\item remove botanical names no fully determined or not in Guyafor (is option selected)
+\item remove botanical names no fully determined or not in Guyafor (is option
+selected)
 \item remove columns with no association
 }
 
-One reason for choosing the default setting for RemoveIndetSp and RemoveNotGuyafor is
-that these names would always lead to incorrect association when using the CompareSim function.
-However, one may decide to keep them, this would lead to
+One reason for choosing the default setting for RemoveIndetSp and
+RemoveNotGuyafor is that these names would always lead to incorrect
+association when using the CompareSim function. However, one may decide to
+keep them, this would lead to
 \itemize{
 \item possible associations with a botanical name of the form Genus-Indet.
-with a BotaCodeCor="AssoByGenus" or "AssoByFam" (with RemoveIndetSp==TRUE) .
+with a BotaCodeCor="AssoByGenus" or "AssoByFam" (with RemoveIndetSp==TRUE).
 \item possible associations with a botanical name that has never been observed
 in Guyafor (with RemoveNotGuyafor==TRUE).
 In these case, only the prior information would be used.

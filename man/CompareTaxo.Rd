@@ -2,8 +2,7 @@
 % Please edit documentation in R/CompareTaxo.R
 \name{CompareTaxo}
 \alias{CompareTaxo}
-\title{Compare the original taxonomic information of a dataset with predicted
-one}
+\title{Compare the original taxonomic information of a dataset with predicted one}
 \usage{
 CompareTaxo(list_res, test_taxo)
 }

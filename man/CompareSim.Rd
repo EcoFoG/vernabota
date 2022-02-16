@@ -21,7 +21,8 @@ the DAsso list (if Dasso is not provided, put 1)
 at the family level (from the subset of dataFill to fill).
 We recommend using a percentage equivalent than in the data to gapfill.
 \item pcGenusDet : a vector with the percentage of data determined at
-the genus level (from the subset of dataFill to fill, the rest isn't determined at all).
+the genus level (from the subset of dataFill to fill, the rest isn't
+determined at all).
 We recommend using a percentage equivalent than in the data to gapfill.
 \item eps : a vector with the epsilon value for each scenario
 \item Determ : a vector with the value of Determ (boolean)
@@ -33,29 +34,34 @@ user wants to keep the results of the simulations
 These datasets must have been prepared using the function PrepPrior.
 (Default is NULL: no prior information is used).}
 
-\item{D2fill}{a list of datasets to fill for each scenario, these datasets must
-have been prepared using the function PrepData}
+\item{D2fill}{a list of datasets to fill for each scenario, these datasets
+must have been prepared using the function PrepData}
 
-\item{DAsso}{a list of datasets of observation used for each scenario, these datasets must have been
-prepared using the function PrepData (Default is NULL: the dataset Data2fill is used
-to built the association matrix)}
+\item{DAsso}{a list of datasets of observation used for each scenario, these
+datasets must have been prepared using the function PrepData (Default is
+NULL: the dataset Data2fill is used to built the association matrix)}
 }
 \value{
 This function returns an object of the class VernaBotaSims.
 The functions summary and plot can be used on this object.
 }
 \description{
-This function performs several simulations for trees that have
-a complete taxonomic identification and compare the results with the original species.
+This function performs several simulations for trees that have a
+complete taxonomic identification and compare the results with the original
+species.
 }
 \details{
 This function performs the following steps for each scenario:
 \itemize{
 \item Get the data,
-\item Split between train and test set according to the parameter pc2fill of the scenario (keep only fully identified trees in the test set),
-\item Remove taxonomic information from the test set (at the species, genus, or family level according to the parameters pcFamilyDet and pcGenusDet of the scenario),
+\item Split between train and test set according to the parameter pc2fill of the
+scenario (keep only fully identified trees in the test set),
+\item Remove taxonomic information from the test set (at the species, genus, or
+family level according to the parameters pcFamilyDet and pcGenusDet of the
+scenario),
 \item Perform simulations (see \emph{SimFullCom} function),
-\item Compare simulations with original taxonomic information, with the function \emph{CompareTaxo},
+\item Compare simulations with original taxonomic information, with the function
+\emph{CompareTaxo},
 \item Create and return an object of the class VernaBotaSims.
 }
 }

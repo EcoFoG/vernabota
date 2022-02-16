@@ -1,34 +1,40 @@
-#' Gives a botanical name to a tree with a vernacular nameT
+#' Gives a botanical name to a tree with a vernacular name
 #'
-#' @description This function gives a botanical name to a tree with a vernacular name,
-#' using a Dirichlet-Categorical method, and restricting the possible association according
-#'  to the family or the genus when these ahve been identified.
-#' This function is performed within the function Get1Sim, for each tree without botanical
-#' species name but with a vernacular name.
+#' @description This function gives a botanical name to a tree with a vernacular
+#'   name, using a Dirichlet-Categorical method, and restricting the possible
+#'   association according to the family or the genus when these have been
+#'   identified. This function is performed within the function Get1Sim, for
+#'   each tree without botanical species name but with a vernacular name.
 #'
-#' @param Alpha datatable containing the matrix of posterior alpha between botanical and
-#' vernacular names, obtained with the funcion CreateAlpha
-#' @param VernName2Sim the vernacular name of the tree for which we want to get a full botanical name
-#' @param Family2Sim the family name of the tree for which we want to get a full botanical name
-#' @param Genus2Sim the genus name of the tree for which we want to get a full botanical name
-#' @param eps epsilon: background noise for species not associated with a given vernacular name.
-#' Default is 0.01.
-#' @param Determ boolean: if TRUE the more likely botanical names are return when a
-#' association vernacular-botanical is performed.
-#' If FALSE, the botanical names are drawn using a categorical-Dirichlet association scheme.
+#' @param Alpha data.table containing the matrix of posterior alpha between
+#'   botanical and vernacular names, obtained with the funcion CreateAlpha
+#' @param VernName2Sim The vernacular name of the tree for which we want to get
+#'   a full botanical name (character)
+#' @param Family2Sim the family name of the tree for which we want to get a full
+#'   botanical name (character)
+#' @param Genus2Sim the genus name of the tree for which we want to get a full
+#'   botanical name (character)
+#' @param eps epsilon: background noise for species not associated with a given
+#'   vernacular name. Default is 0.01.
+#' @param Determ boolean: if TRUE the more likely botanical names are return
+#'   when a association vernacular-botanical is performed. If FALSE, the
+#'   botanical names are drawn using a categorical-Dirichlet association scheme.
 #'
-#' @return This function returns a list with two elements: the first one is the associated botanical
-#' name and the second one the method of association.
+#' @return This function returns a list with two elements: the first one is the
+#'   associated botanical name and the second one the method of association.
 #'
 #' @details This function performs the following steps:
-#'  - get alphaV a vector of posterior alpha for the given vernacular name, with all botanical name
-#'   of Alpha
-#'  - give a null value in alphaV for for botanical name associated with this vernacular name
-#'  but from a different genus (if the genus is known) or a different family (if the family is known)
-#'  - the the resulting alphaV contains only 0, then attributed the correction Det2Genus or Det2Fam
-#'  - if there are non-null values in alphav, replace the null values by epsilon
-#'  divided by the number of null values and attributes a corrected name using the function
-#'   DrawDeterm if Determ is set to TRUE or the function DirichCat if Determ is set to FALSE
+#' - get alphaV a vector of posterior alpha for the given vernacular name, with
+#'   all botanical name of Alpha
+#' - give a null value in alphaV for botanical name associated with
+#'   this vernacular name but from a different genus (if the genus is known) or
+#'   a different family (if the family is known)
+#' - the resulting alphaV contains only 0, then attributed the correctionn
+#'   Det2Genus or Det2Fam
+#' - if there are non-null values in alphav, replace the null values by epsilon
+#'   divided by the number of null values and attributes a corrected name using
+#'   the function DrawDeterm if Determ is set to TRUE or the function DirichCat
+#'   if Determ is set to FALSE
 #'
 #' @export
 #'

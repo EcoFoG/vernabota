@@ -4,7 +4,8 @@
 #' for which the botanical and vernacular names have been checked
 #' and updated on the 26/01/2022.
 #' This prior file correspond to the prior file called
-#' "Probabilités Paracou (avec erreur de relevé, facteur temps (équipe))" in Madkaud's report.
+#' "Probabilités Paracou (avec erreur de relevé, facteur temps (équipe))" in
+#' Madkaud's report.
 #'
 #' @usage data(PriorParacouNew_20220126)
 #'

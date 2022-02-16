@@ -2,29 +2,31 @@
 #'
 #' @description This function prepares the prior for further steps.
 #'
-#' @param prior dataframe of prior, formatted as as shown in the vignette.
+#' @param prior data.frame of prior, formatted as as shown in the vignette.
 #' @param RemoveIndetSp Should the botanical names with non-determined species
-#' be removedfrom the prior? (Default is TRUE)
+#' be removed from the prior? (Default is TRUE) (logical)
 #' @param RemoveNotGuyafor Should the botanical names with non-determined
-#' species be removedfrom the prior? (Default is TRUE)
+#' species be removed from the prior? (Default is TRUE) (logical)
 #'
-#' @return This function returns a dataframe (formatted as a data.table)
+#' @return This function returns a data.frame (formatted as a data.table)
 #'  ready to be used for the following steps.
 #'
 #' @details This function performs the following steps:
 #'  - perform some checks on the file
 #'  - add a column GenSp with the full botanical name
-#'  - remove botanical names no fully determined or not in Guyafor (is option selected)
+#'  - remove botanical names no fully determined or not in Guyafor (is option
+#'  selected)
 #'  - remove columns with no association
 #'
-#'One reason for choosing the default setting for RemoveIndetSp and RemoveNotGuyafor is
-#'that these names would always lead to incorrect association when using the CompareSim function.
-#'However, one may decide to keep them, this would lead to
+#' One reason for choosing the default setting for RemoveIndetSp and
+#' RemoveNotGuyafor is that these names would always lead to incorrect
+#' association when using the CompareSim function. However, one may decide to
+#' keep them, this would lead to
 #'  - possible associations with a botanical name of the form Genus-Indet.
-#'  with a BotaCodeCor="AssoByGenus" or "AssoByFam" (with RemoveIndetSp==TRUE) .
+#'  with a BotaCodeCor="AssoByGenus" or "AssoByFam" (with RemoveIndetSp==TRUE).
 #'  - possible associations with a botanical name that has never been observed
 #'  in Guyafor (with RemoveNotGuyafor==TRUE).
-#'In these case, only the prior information would be used.
+#' In these case, only the prior information would be used.
 #'
 #' @export
 #'
@@ -34,7 +36,7 @@ PrepPrior <- function(prior, RemoveIndetSp=TRUE, RemoveNotGuyafor=TRUE) {
   # check of columns names
   if(any(!(c("Family", "Genus", "Species", "PresentInGuyaFor") %in%
            colnames(prior)))) {
-    stop("You must provide a dataframe containing at least the following columns names for prior:
+    stop("You must provide a data.frame containing at least the following columns names for prior:
          Family, Genus, Species, PresentInGuyaFor")
   }
   # transform a datatable
@@ -60,7 +62,7 @@ PrepPrior <- function(prior, RemoveIndetSp=TRUE, RemoveNotGuyafor=TRUE) {
   # check the format of columns
   if (!any(is.character(prior$Family),
            is.character(prior$Genus),
-           is.character(prior$Genus))) {
+           is.character(prior$Species))) {
     stop("The columns Family, Genus, Species should be character strings")
   }
   if(!(is.logical(prior$PresentInGuyaFor))) {
