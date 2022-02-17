@@ -16,7 +16,7 @@
 #'   botanical name (character)
 #' @param eps epsilon: background noise for species not associated with a given
 #'   vernacular name. Default is 0.01.
-#' @param Determ boolean: if TRUE the more likely botanical names are return
+#' @param Determ boolean: if TRUE the more likely botanical names are returned
 #'   when a association vernacular-botanical is performed. If FALSE, the
 #'   botanical names are drawn using a categorical-Dirichlet association scheme.
 #'

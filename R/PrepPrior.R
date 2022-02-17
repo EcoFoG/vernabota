@@ -5,8 +5,8 @@
 #' @param prior data.frame of prior, formatted as as shown in the vignette.
 #' @param RemoveIndetSp Should the botanical names with non-determined species
 #' be removed from the prior? (Default is TRUE) (logical)
-#' @param RemoveNotGuyafor Should the botanical names with non-determined
-#' species be removed from the prior? (Default is TRUE) (logical)
+#' @param RemoveNotGuyafor Should the botanical names that has never been
+#' observed in Guyafor be removed from the prior? (Default is TRUE) (logical)
 #'
 #' @return This function returns a data.frame (formatted as a data.table)
 #'  ready to be used for the following steps.
