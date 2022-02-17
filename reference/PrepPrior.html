@@ -67,29 +67,31 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>prior</dt>
-<dd><p>dataframe of prior, formatted as as shown in the vignette.</p></dd>
+<dd><p>data.frame of prior, formatted as as shown in the vignette.</p></dd>
 <dt>RemoveIndetSp</dt>
 <dd><p>Should the botanical names with non-determined species
-be removedfrom the prior? (Default is TRUE)</p></dd>
+be removed from the prior? (Default is TRUE) (logical)</p></dd>
 <dt>RemoveNotGuyafor</dt>
 <dd><p>Should the botanical names with non-determined
-species be removedfrom the prior? (Default is TRUE)</p></dd>
+species be removed from the prior? (Default is TRUE) (logical)</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>This function returns a dataframe (formatted as a data.table)
+    <p>This function returns a data.frame (formatted as a data.table)
 ready to be used for the following steps.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>This function performs the following steps:</p><ul><li><p>perform some checks on the file</p></li>
 <li><p>add a column GenSp with the full botanical name</p></li>
-<li><p>remove botanical names no fully determined or not in Guyafor (is option selected)</p></li>
+<li><p>remove botanical names no fully determined or not in Guyafor (is option
+selected)</p></li>
 <li><p>remove columns with no association</p></li>
-</ul><p>One reason for choosing the default setting for RemoveIndetSp and RemoveNotGuyafor is
-that these names would always lead to incorrect association when using the CompareSim function.
-However, one may decide to keep them, this would lead to</p><ul><li><p>possible associations with a botanical name of the form Genus-Indet.
-with a BotaCodeCor="AssoByGenus" or "AssoByFam" (with RemoveIndetSp==TRUE) .</p></li>
+</ul><p>One reason for choosing the default setting for RemoveIndetSp and
+RemoveNotGuyafor is that these names would always lead to incorrect
+association when using the CompareSim function. However, one may decide to
+keep them, this would lead to</p><ul><li><p>possible associations with a botanical name of the form Genus-Indet.
+with a BotaCodeCor="AssoByGenus" or "AssoByFam" (with RemoveIndetSp==TRUE).</p></li>
 <li><p>possible associations with a botanical name that has never been observed
 in Guyafor (with RemoveNotGuyafor==TRUE).
 In these case, only the prior information would be used.</p></li>
