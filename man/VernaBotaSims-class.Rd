@@ -17,15 +17,25 @@ the results of each scenario, together with its parameters.
 \section{Slots}{
 
 \describe{
-\item{\code{NScenar}}{numeric: number of scenario simulated}
+\item{\code{NScenar}}{numeric: number of scenarios simulated}
 
 \item{\code{ParamScenar}}{data.frame: a datatable with the parameters for each scenario (input of CompareSim)}
 
-\item{\code{D2fill}}{list of datasets to fill for each scenario (input of CompareSim)}
+\item{\code{D2fill}}{dataset to fill (input of CompareSim)}
 
 \item{\code{DAsso}}{list of datasets of observation used for each scenario (input of CompareSim)}
 
 \item{\code{priors}}{list of datasets containing the priors for each scenario (input of CompareSim)}
+
+\item{\code{pc2fill}}{percentage of data to fill (input of CompareSim)}
+
+\item{\code{pcFamilyDet}}{percentage of data determined
+at the family level (from the subset of dataFill to fill, input of CompareSim)}
+
+\item{\code{pcGenusDet}}{percentage of data determined at
+the genus level (from the subset of dataFill to fill, the rest isn't determined at all, input of CompareSim)}
+
+\item{\code{NbSim}}{number of simulations (input of CompareSim)}
 
 \item{\code{pc_results}}{list of double corresponding to the percentage of well simulated species}
 
