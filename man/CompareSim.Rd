@@ -52,14 +52,16 @@ We recommend using a percentage equivalent than in the data to gapfill.}
 
 \item{Results_Simulations}{a boolean specifying if the
 user wants to keep the results of the simulations}
+
 }
 \value{
 This function returns an object of the class VernaBotaSims.
 The functions summary and plot can be used on this object.
 }
 \description{
-This function performs several simulations for trees that have
-a complete taxonomic identification and compare the results with the original species.
+This function performs several simulations for trees that have a
+complete taxonomic identification and compare the results with the original
+species.
 }
 \details{
 This function performs the following steps for each scenario:
@@ -68,7 +70,8 @@ This function performs the following steps for each scenario:
 \item Split between train and test set according to the parameter pc2fill (keep only fully identified trees in the test set),
 \item Remove taxonomic information from the test set (at the species, genus, or family level according to the parameters pcFamilyDet and pcGenusDet),
 \item Perform simulations (see \emph{SimFullCom} function),
-\item Compare simulations with original taxonomic information, with the function \emph{CompareTaxo},
+\item Compare simulations with original taxonomic information, with the function
+\emph{CompareTaxo},
 \item Create and return an object of the class VernaBotaSims.
 }
 }

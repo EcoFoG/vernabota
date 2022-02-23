@@ -1,30 +1,34 @@
 #' Simulate a fully determined dataset
 #'
-#' @description This function simulates a fully determined dataset (one simulation)
+#' @description This function simulates a fully determined dataset (one
+#'   simulation)
 #'
-#' @param Data datatable for which the gap filling of botanical names from vernacular
-#'  names will be done, formatted as shown in the vignette and after the data preparation
-#'   performed by SimFullCom
-#' @param Alpha datatable containing the matrix of posterior alpha between botanical and
-#' vernacular names, obtained with the fonction CreateAlpha
-#' @param eps epsilon: background noise for species not associated with a given vernacular name
-#' @param Determ boolean: if TRUE the more likely botanical names are return when a association
-#'  vernacular-botanical is performed.
-#'  If FALSE, the botanical names are drawn using a categorical-Dirichlet association Scheme.
+#' @param Data data.table for which the gap filling of botanical names from
+#'   vernacular names will be done, formatted as shown in the vignette and after
+#'   the data preparation performed by SimFullCom
+#' @param Alpha data.table containing the matrix of posterior alpha between
+#'   botanical and vernacular names, obtained with the fonction CreateAlpha
+#' @param eps epsilon: background noise for species not associated with a given
+#'   vernacular name
+#' @param Determ boolean: if TRUE the more likely botanical names are returned
+#'   when a association vernacular-botanical is performed. If FALSE, the
+#'   botanical names are drawn using a categorical-Dirichlet association Scheme.
 #'
-#' @return This function returns a datatable similar to Data inputted in argument,
-#' with two additional columns (GenSpCor and BotaCorCode).
+#' @return This function returns a data.table similar to Data inputted in
+#'   argument, with two additional columns (GenSpCor and BotaCorCode).
 #'
 #' @details This function performs the following steps:
-#'  - create a datatable with only one row per individual trees (as we want the gap filling
-#'   to be the same across all census for a given tree)
-#'  - Perform the corrections to obtain a corrected identification (GensSpCor) and specify
-#'   the type of correction that has been performed (BotaCorCode) in the cases where the tree
-#'   is fully determined (BotaCorCode="fullyDet") or when there is no vernacular name (or a vernacular
-#'    name not in Alpha) (BotaCorCode="Det2Genus" or "Det2Fam" or "NoCor", depending on the cases
-#'  - Call the function DrawBota to get GenSpCor and BotaCorCode in cases with no species name but
-#'  with a vernacular name present in Alpha
-#'  - join the resulting datatable with Data to get the correction for each tree and each census
+#'  - create a data.table with only one row per individual trees (as we want the
+#'  gap filling to be the same across all census for a given tree)
+#'  - Perform the corrections to obtain a corrected identification (GensSpCor)
+#'  and specify the type of correction that has been performed (BotaCorCode) in
+#'  the cases where the tree is fully determined (BotaCorCode="fullyDet") or
+#'  when there is no vernacular name (or a vernacular name not in Alpha)
+#'  (BotaCorCode="Det2Genus" or "Det2Fam" or "NoCor", depending on the cases
+#'  - Call the function DrawBota to get GenSpCor and BotaCorCode in cases with
+#'  no species name but with a vernacular name present in Alpha
+#'  - join the resulting data.table with Data to get the correction for each tree
+#'  and each census
 #'
 #' @export
 #'

@@ -7,10 +7,10 @@
 #'   associated species is the right one.
 #'
 #' @param list_res Results of *SimFullCom* function applied to the
-#'  test dataset: a list of datatables with simulated taxonomic information.
+#'  test dataset: a list of data.tables with simulated taxonomic information.
 #' @param test_taxo The original taxonomic information for the test dataset.
 #'
-#' @return This function returns a datatable similar to Data inputted in
+#' @return This function returns a data.table similar to Data inputted in
 #' argument, with two additional columns (TestData and ValidAsso).
 #'
 #' @details This function compares the taxonomic information in the column

@@ -1,7 +1,8 @@
 #' Perform simulation and compare them to original species
 #'
-#' @description This function performs several simulations for trees that have
-#'  a complete taxonomic identification and compare the results with the original species.
+#' @description This function performs several simulations for trees that have a
+#'   complete taxonomic identification and compare the results with the original
+#'   species.
 #'
 #' @param Param a datatable with the parameters for each scenario :
 #'  - priors : a vector with the rank of the priors to use in the priors list
@@ -28,7 +29,6 @@
 #' @param NbSim the number of simulations.
 #' @param Results_Simulations a boolean specifying if the
 #'  user wants to keep the results of the simulations
-
 #'
 #' @return This function returns an object of the class VernaBotaSims.
 #' The functions summary and plot can be used on this object.
@@ -38,7 +38,8 @@
 #'  - Split between train and test set according to the parameter pc2fill (keep only fully identified trees in the test set),
 #'  - Remove taxonomic information from the test set (at the species, genus, or family level according to the parameters pcFamilyDet and pcGenusDet),
 #'  - Perform simulations (see *SimFullCom* function),
-#'  - Compare simulations with original taxonomic information, with the function *CompareTaxo*,
+#'  - Compare simulations with original taxonomic information, with the function
+#'  *CompareTaxo*,
 #'  - Create and return an object of the class VernaBotaSims.
 #'
 #' @export

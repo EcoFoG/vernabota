@@ -1,13 +1,16 @@
 #' Data preparation
 #'
-#' @description This function prepares a dataset to be used for the association of vernacular and botanical name.
+#' @description This function prepares a dataset to be used for the association
+#'   of vernacular and botanical name.
 #'
-#' @param Data dataframe of inventory data, formatted as
-#' it is when obtained using the function EcoFoG::Guyafor2df or from the online data platform of Paracou.
+#' @param Data data.frame of inventory data, formatted as it is when obtained
+#'   using the function EcoFoG::Guyafor2df or from the online data platform of
+#'   Paracou.
 #'
-#' @return a dataframe (formatted as a data.table) ready to be used for the association of vernacular and botanical name.
-#' The column GenSp has been added, which contains the Genus and species of the original data set
-#' (all trees for which BotaSource=Vern have a GenSp="Indet.-Indet.")
+#' @return a data.frame (formatted as a data.table) ready to be used for the
+#'   association of vernacular and botanical name. The column GenSp has been
+#'   added, which contains the Genus and species of the original data set (all
+#'   trees for which BotaSource=Vern have a GenSp="Indet.-Indet.")
 #'
 #' @details This function performs the following steps:
 #'  - convert all vernacular names to lower case (for consistency with the prior)
@@ -26,7 +29,7 @@ PrepData <- function(Data) {
   if (any(!(c("CodeAlive", "idTree", "BotaCertainty", "BotaSource", "VernName",
               "Family", "Genus", "Species")
             %in%  colnames(Data)))) {
-    stop("You must provide a dataframe containing at least the following columns names for Data:
+    stop("You must provide a data.frame containing at least the following columns names for Data:
          CodeAlive, idTree, BotaCertainty, VernName, Family, Genus, Species")
   }
 
