@@ -18,7 +18,7 @@ the results of each scenario, together with its parameters."><!-- mathjax --><sc
     
     <a class="navbar-brand me-2" href="../index.html">vernabota</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,31 +77,45 @@ the results of each scenario, together with its parameters.</p>
     
 
 <dl><dt><code>NScenar</code></dt>
-<dd><p>numeric: number of scenario simulated</p></dd>
+<dd><p>numeric: number of scenarios simulated</p></dd>
 
 
 <dt><code>ParamScenar</code></dt>
-<dd><p>data.frame: a datatable with the parameters for each
-scenario (input of CompareSim)</p></dd>
+<dd><p>data.frame: a datatable with the parameters for each scenario (input of CompareSim)</p></dd>
 
 
 <dt><code>D2fill</code></dt>
-<dd><p>list of datasets to fill for each scenario (input of CompareSim)</p></dd>
+<dd><p>dataset to fill (input of CompareSim)</p></dd>
 
 
 <dt><code>DAsso</code></dt>
-<dd><p>list of datasets of observation used for each scenario (input of
-CompareSim)</p></dd>
+<dd><p>list of datasets of observation used for each scenario (input of CompareSim)</p></dd>
 
 
 <dt><code>priors</code></dt>
-<dd><p>list of datasets containing the priors for each scenario (input
-of CompareSim)</p></dd>
+<dd><p>list of datasets containing the priors for each scenario (input of CompareSim)</p></dd>
+
+
+<dt><code>pc2fill</code></dt>
+<dd><p>percentage of data to fill (input of CompareSim)</p></dd>
+
+
+<dt><code>pcFamilyDet</code></dt>
+<dd><p>percentage of data determined
+at the family level (from the subset of dataFill to fill, input of CompareSim)</p></dd>
+
+
+<dt><code>pcGenusDet</code></dt>
+<dd><p>percentage of data determined at
+the genus level (from the subset of dataFill to fill, the rest isn't determined at all, input of CompareSim)</p></dd>
+
+
+<dt><code>NbSim</code></dt>
+<dd><p>number of simulations (input of CompareSim)</p></dd>
 
 
 <dt><code>pc_results</code></dt>
-<dd><p>list of double corresponding to the percentage of well
-simulated species</p></dd>
+<dd><p>list of double corresponding to the percentage of well simulated species</p></dd>
 
 
 <dt><code>results</code></dt>

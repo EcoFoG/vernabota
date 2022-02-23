@@ -14,7 +14,7 @@ species."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/ma
     
     <a class="navbar-brand me-2" href="../index.html">vernabota</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,43 +67,55 @@ species.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">CompareSim</span><span class="op">(</span>Param <span class="op">=</span> <span class="cn">NULL</span>, priors <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">D2fill</span>, DAsso <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">CompareSim</span><span class="op">(</span>
+  Param <span class="op">=</span> <span class="cn">NULL</span>,
+  priors <span class="op">=</span> <span class="cn">NULL</span>,
+  <span class="va">D2fill</span>,
+  DAsso <span class="op">=</span> <span class="cn">NULL</span>,
+  pc2fill <span class="op">=</span> <span class="cn">NULL</span>,
+  pcFamilyDet <span class="op">=</span> <span class="cn">NULL</span>,
+  pcGenusDet <span class="op">=</span> <span class="cn">NULL</span>,
+  NbSim <span class="op">=</span> <span class="fl">1</span>,
+  Results_Simulations <span class="op">=</span> <span class="cn">FALSE</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>Param</dt>
 <dd><p>a datatable with the parameters for each scenario :</p><ul><li><p>priors : a vector with the rank of the priors to use in the priors list</p></li>
-<li><p>dataFill : a vector with the rank of the data to gapfill to use
-in the D2fill list list</p></li>
 <li><p>dataAsso : a vector with the rank of the observation data to use in
 the DAsso list (if Dasso is not provided, put 1)</p></li>
 <li><p>weights : a vector with the weights of the priors</p></li>
-<li><p>NbSim : a vector with the number of simulations for each scenario</p></li>
-<li><p>pc2fill : a vector with the percentage of data (dataFill) to fill</p></li>
-<li><p>pcFamilyDet : a vector with the percentage of data determined
-at the family level (from the subset of dataFill to fill).
-We recommend using a percentage equivalent than in the data to gapfill.</p></li>
-<li><p>pcGenusDet : a vector with the percentage of data determined at
-the genus level (from the subset of dataFill to fill, the rest isn't
-determined at all).
-We recommend using a percentage equivalent than in the data to gapfill.</p></li>
 <li><p>eps : a vector with the epsilon value for each scenario</p></li>
 <li><p>Determ : a vector with the value of Determ (boolean)</p></li>
-<li><p>Results_Simulations : a vector with a boolean specifying if the
-user wants to keep the results of the simulations</p></li>
 </ul></dd>
 <dt>priors</dt>
 <dd><p>a list of datasets containing the priors for each scenario.
 These datasets must have been prepared using the function PrepPrior.
 (Default is NULL: no prior information is used).</p></dd>
 <dt>D2fill</dt>
-<dd><p>a list of datasets to fill for each scenario, these datasets
-must have been prepared using the function PrepData</p></dd>
+<dd><p>a dataset to fill, this dataset must
+have been prepared using the function PrepData.</p></dd>
 <dt>DAsso</dt>
-<dd><p>a list of datasets of observation used for each scenario, these
-datasets must have been prepared using the function PrepData (Default is
-NULL: the dataset Data2fill is used to built the association matrix)</p></dd>
+<dd><p>a list of datasets of observation used for each scenario, these datasets must have been
+prepared using the function PrepData (Default is NULL: the dataset Data2fill is used
+to built the association matrix).</p></dd>
+<dt>pc2fill</dt>
+<dd><p>the percentage of data (dataFill) to fill.</p></dd>
+<dt>pcFamilyDet</dt>
+<dd><p>the percentage of data determined
+at the family level (from the subset of dataFill to fill).
+We recommend using a percentage equivalent than in the data to gapfill.</p></dd>
+<dt>pcGenusDet</dt>
+<dd><p>the percentage of data determined at
+the genus level (from the subset of dataFill to fill, the rest isn't determined at all).
+We recommend using a percentage equivalent than in the data to gapfill.</p></dd>
+<dt>NbSim</dt>
+<dd><p>the number of simulations.</p></dd>
+<dt>Results_Simulations</dt>
+<dd><p>a boolean specifying if the
+user wants to keep the results of the simulations</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -113,11 +125,8 @@ The functions summary and plot can be used on this object.</p>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>This function performs the following steps for each scenario:</p><ul><li><p>Get the data,</p></li>
-<li><p>Split between train and test set according to the parameter pc2fill of the
-scenario (keep only fully identified trees in the test set),</p></li>
-<li><p>Remove taxonomic information from the test set (at the species, genus, or
-family level according to the parameters pcFamilyDet and pcGenusDet of the
-scenario),</p></li>
+<li><p>Split between train and test set according to the parameter pc2fill (keep only fully identified trees in the test set),</p></li>
+<li><p>Remove taxonomic information from the test set (at the species, genus, or family level according to the parameters pcFamilyDet and pcGenusDet),</p></li>
 <li><p>Perform simulations (see <em>SimFullCom</em> function),</p></li>
 <li><p>Compare simulations with original taxonomic information, with the function
 <em>CompareTaxo</em>,</p></li>
