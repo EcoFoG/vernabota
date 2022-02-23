@@ -1,3 +1,11 @@
+# vernabota 0.3.0
+
+## New features
+
+* Changes in function *CompareSim*
+* New function *stabletest*
+
+
 # vernabota 0.2.2
 
 ## New features

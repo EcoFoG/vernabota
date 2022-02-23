@@ -171,7 +171,7 @@ We can then look at each of the simulations: *TestData* indicates if the tree wa
 
 ```{r Compare_results} 
 VBS_test <- CompareSim(Param = Param ,
-                       priors = priors, D2fill = D2fill, DAsso = DAsso,
+                       priors = priors, D2fill = Data2fill, DAsso = DAsso,
                        pc2fill = 10, pcFamilyDet = 25, pcGenusDet = 25, 
                        NbSim = 10, Results_Simulations = TRUE)
 ResL <- VBS_test@results[[1]] # here we get all the simulation of scenario 1
