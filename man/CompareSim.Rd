@@ -4,42 +4,55 @@
 \alias{CompareSim}
 \title{Perform simulation and compare them to original species}
 \usage{
-CompareSim(Param = NULL, priors = NULL, D2fill, DAsso = NULL)
+CompareSim(
+  Param = NULL,
+  priors = NULL,
+  D2fill,
+  DAsso = NULL,
+  pc2fill = NULL,
+  pcFamilyDet = NULL,
+  pcGenusDet = NULL,
+  NbSim = 1,
+  Results_Simulations = FALSE
+)
 }
 \arguments{
 \item{Param}{a datatable with the parameters for each scenario :
 \itemize{
 \item priors : a vector with the rank of the priors to use in the priors list
-\item dataFill : a vector with the rank of the data to gapfill to use
-in the D2fill list list
 \item dataAsso : a vector with the rank of the observation data to use in
 the DAsso list (if Dasso is not provided, put 1)
 \item weights : a vector with the weights of the priors
-\item NbSim : a vector with the number of simulations for each scenario
-\item pc2fill : a vector with the percentage of data (dataFill) to fill
-\item pcFamilyDet : a vector with the percentage of data determined
-at the family level (from the subset of dataFill to fill).
-We recommend using a percentage equivalent than in the data to gapfill.
-\item pcGenusDet : a vector with the percentage of data determined at
-the genus level (from the subset of dataFill to fill, the rest isn't
-determined at all).
-We recommend using a percentage equivalent than in the data to gapfill.
 \item eps : a vector with the epsilon value for each scenario
 \item Determ : a vector with the value of Determ (boolean)
-\item Results_Simulations : a vector with a boolean specifying if the
-user wants to keep the results of the simulations
 }}
 
 \item{priors}{a list of datasets containing the priors for each scenario.
 These datasets must have been prepared using the function PrepPrior.
 (Default is NULL: no prior information is used).}
 
-\item{D2fill}{a list of datasets to fill for each scenario, these datasets
-must have been prepared using the function PrepData}
+\item{D2fill}{a dataset to fill, this dataset must
+have been prepared using the function PrepData.}
 
-\item{DAsso}{a list of datasets of observation used for each scenario, these
-datasets must have been prepared using the function PrepData (Default is
-NULL: the dataset Data2fill is used to built the association matrix)}
+\item{DAsso}{a list of datasets of observation used for each scenario, these datasets must have been
+prepared using the function PrepData (Default is NULL: the dataset Data2fill is used
+to built the association matrix).}
+
+\item{pc2fill}{the percentage of data (dataFill) to fill.}
+
+\item{pcFamilyDet}{the percentage of data determined
+at the family level (from the subset of dataFill to fill).
+We recommend using a percentage equivalent than in the data to gapfill.}
+
+\item{pcGenusDet}{the percentage of data determined at
+the genus level (from the subset of dataFill to fill, the rest isn't determined at all).
+We recommend using a percentage equivalent than in the data to gapfill.}
+
+\item{NbSim}{the number of simulations.}
+
+\item{Results_Simulations}{a boolean specifying if the
+user wants to keep the results of the simulations}
+
 }
 \value{
 This function returns an object of the class VernaBotaSims.
@@ -54,11 +67,8 @@ species.
 This function performs the following steps for each scenario:
 \itemize{
 \item Get the data,
-\item Split between train and test set according to the parameter pc2fill of the
-scenario (keep only fully identified trees in the test set),
-\item Remove taxonomic information from the test set (at the species, genus, or
-family level according to the parameters pcFamilyDet and pcGenusDet of the
-scenario),
+\item Split between train and test set according to the parameter pc2fill (keep only fully identified trees in the test set),
+\item Remove taxonomic information from the test set (at the species, genus, or family level according to the parameters pcFamilyDet and pcGenusDet),
 \item Perform simulations (see \emph{SimFullCom} function),
 \item Compare simulations with original taxonomic information, with the function
 \emph{CompareTaxo},

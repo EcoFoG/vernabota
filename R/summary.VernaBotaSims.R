@@ -11,11 +11,10 @@ summary.VernaBotaSims <- function(object, ...)
   for (s in 1:object@NScenar)
   {
     cat("scenario", letters[s], "\n")
-    cat(object@ParamScenar$NbSim[s], " repetition(s) with priors nb", object@ParamScenar$priors[s],
-        ", Data2Fill nb", object@ParamScenar$dataFill[s],
+    cat(object@NbSim, " repetition(s) with priors nb", object@ParamScenar$priors[s],
         ", dataAsso nb", object@ParamScenar$dataAsso[s],
-        ", weights nb", object@ParamScenar$weights[s],
-        ", pc2fill", object@ParamScenar$pc2fill[s],
+        ", weights ", object@ParamScenar$weights[s],
+        ", pc2fill", object@pc2fill, "%",
         ", and eps", object@ParamScenar$eps[s], "\n")
     res <- unlist(object@pc_results[[s]])
     print(quantile(res))

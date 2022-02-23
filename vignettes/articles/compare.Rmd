@@ -70,10 +70,9 @@ For real tests, a higher number of simulations should be performed.
 
 ## Comparing different settings
 
-We first create lists for the data to gapfill, the priors and the observation data that we want to test:
+We first create lists for the priors and the observation data that we want to test:
 
 ```{r listCompare}
-D2fill <- list(Data2fill)                   # data to gapfill
 priors <- list(PriorAllFG, PriorParacouNew) # priors
 DAsso <- list(NULL, DataAsso)               # observation data
 ```
@@ -82,17 +81,11 @@ Then we create the *Param* dataframe to explicit the different scenarios to test
 
 ```{r ParamCompare}
 Param <- data.frame(priors = c(1,1,2,1,1),  # here, we used the first prior 
-                    # of the list for scenario 1, 2, 4 and 5 and the seccond for scenario 3
-                    dataFill = c(1,1,1,1,1),
+                    # of the list for scenario 1, 2, 4 and 5 and the second for scenario 3
                     dataAsso = c(2,1,2,2,2), # for the second scenario dataAsso is NULL (the data to gapfill are used)
                     weights = c(0.5,0.5,0.5,0.2,0.8),
-                    NbSim = c(10,10,10,10,10),
-                    pc2fill = c(10,10,10,10,10),
-                    pcFamilyDet = c(25,25,25,25,25),
-                    pcGenusDet = c(25,25,25,25,25),
                     eps = c(0.01,0.01,0.01,0.01,0.01),
-                    Determ = c(FALSE,FALSE,FALSE,FALSE,FALSE),
-                    Results_Simulations = c(FALSE,FALSE,FALSE,FALSE,FALSE))
+                    Determ = c(FALSE,FALSE,FALSE,FALSE,FALSE))
 Param
 ```
 
@@ -100,7 +93,9 @@ We can then run *CompareSim*, visualise the scenarios and their results using *s
 
 ```{r Compare, out.width = "80%"} 
 VBS_test <- CompareSim(Param = Param ,
-                       priors = priors, D2fill = D2fill, DAsso = DAsso)
+                       priors = priors, D2fill = Data2fill, DAsso = DAsso,
+                       pc2fill = 10, pcFamilyDet = 25, pcGenusDet = 25, 
+                       NbSim = 10, Results_Simulations = FALSE)
 summary(VBS_test)
 autoplot(VBS_test)
 ```
@@ -109,16 +104,10 @@ autoplot(VBS_test)
 
 ```{r ParamComparedeter}
 Param <- data.frame(priors = c(1,1,2,1,1),  
-                    dataFill = c(1,1,1,1,1),
                     dataAsso = c(2,1,2,2,2), 
                     weights = c(0.5,0.5,0.5,0.2,0.8),
-                    NbSim = c(10,10,10,10,10),
-                    pc2fill = c(10,10,10,10,10),
-                    pcFamilyDet = c(25,25,25,25,25),
-                    pcGenusDet = c(25,25,25,25,25),
                     eps = c(0.01,0.01,0.01,0.01,0.01),
-                    Determ = c(TRUE,TRUE,TRUE,TRUE,TRUE),
-                    Results_Simulations = c(FALSE,FALSE,FALSE,FALSE,FALSE))
+                    Determ = c(TRUE,TRUE,TRUE,TRUE,TRUE))
 Param
 ```
 
@@ -127,7 +116,9 @@ This also explain the variability of the accuracy plotted.
 
 ```{r Comparedeter, out.width = "80%", warning=FALSE} 
 VBS_test <- CompareSim(Param = Param ,
-                       priors = priors, D2fill = D2fill, DAsso = DAsso)
+                       priors = priors, D2fill = Data2fill, DAsso = DAsso,
+                       pc2fill = 10, pcFamilyDet = 25, pcGenusDet = 25, 
+                       NbSim = 10, Results_Simulations = FALSE)
 summary(VBS_test)
 autoplot(VBS_test)
 ```
@@ -136,25 +127,25 @@ autoplot(VBS_test)
 ## Checking stability of association accuracy
 
 ```{r ParamCompares_stab}
-Param <- data.frame(priors = c(2,2,2),  
-                    dataFill = c(1,1,1),
+Param <- data.frame(priors = c(2,2,2),
                     dataAsso = c(2,2,2),
                     weights = c(0.5,0.5,0.5),
-                    NbSim = c(10,10,10),
-                    pc2fill = c(10,10,10),
-                    pcFamilyDet = c(25,25,25),
-                    pcGenusDet = c(25,25,25),
                     eps = c(0.01,0.01,0.01),
-                    Determ = c(FALSE,FALSE,FALSE),
-                    Results_Simulations = c(FALSE,FALSE,FALSE))
+                    Determ = c(FALSE,FALSE,FALSE))
 Param
 ```
 
 ```{r Compare_stab, out.width = "80%"} 
 VBS_test <- CompareSim(Param = Param ,
-                       priors = priors, D2fill = D2fill, DAsso = DAsso)
+                       priors = priors, D2fill = Data2fill, DAsso = DAsso,
+                       pc2fill = 10, pcFamilyDet = 25, pcGenusDet = 25, 
+                       NbSim = 10, Results_Simulations = TRUE)
 summary(VBS_test)
 autoplot(VBS_test)
+
+stabletest(VBS_test,1)
+stabletest(VBS_test,2)
+stabletest(VBS_test,3)
 ```
 
 Here we see that we could increase the number of simulations.
@@ -164,16 +155,10 @@ Here we see that we could increase the number of simulations.
 
 ```{r ParamCompares_results}
 Param <- data.frame(priors = c(2), 
-                    dataFill = c(1),
                     dataAsso = c(2), 
                     weights = c(0.5),
-                    NbSim = c(10),
-                    pc2fill = c(10),
-                    pcFamilyDet = c(25),
-                    pcGenusDet = c(25),
                     eps = c(0.01),
-                    Determ = c(FALSE),
-                    Results_Simulations = c(TRUE))
+                    Determ = c(FALSE))
 Param
 ```
 
@@ -186,7 +171,9 @@ We can then look at each of the simulations: *TestData* indicates if the tree wa
 
 ```{r Compare_results} 
 VBS_test <- CompareSim(Param = Param ,
-                       priors = priors, D2fill = D2fill, DAsso = DAsso)
+                       priors = priors, D2fill = D2fill, DAsso = DAsso,
+                       pc2fill = 10, pcFamilyDet = 25, pcGenusDet = 25, 
+                       NbSim = 10, Results_Simulations = TRUE)
 ResL <- VBS_test@results[[1]] # here we get all the simulation of scenario 1
 str(ResL[[1]]) # first simulation
 ```
