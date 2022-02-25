@@ -96,6 +96,7 @@ VBS_test <- CompareSim(Param = Param ,
                        priors = priors, D2fill = Data2fill, DAsso = DAsso,
                        pc2fill = 10, pcFamilyDet = 25, pcGenusDet = 25, 
                        NbSim = 10, Results_Simulations = FALSE)
+
 summary(VBS_test)
 autoplot(VBS_test)
 ```
@@ -188,5 +189,22 @@ PropGood <- Res[TestData==TRUE & ValidAsso==TRUE,
                 list(propOK=.N/length(ResL)), 
                 by=idTree]
 head(PropGood)
+```
+
+## Comparing different sampled datasets
+
+```{r Compare_samples} 
+
+VBS_test2 <- CompareSample(NbSamples = 3,Param = Param ,
+                       priors = priors, D2fill = Data2fill, DAsso = DAsso,
+                       pc2fill = 10, pcFamilyDet = 25, pcGenusDet = 25, 
+                       NbSim = 10, Results_Simulations = FALSE)
+# results with the first dataset
+autoplot(VBS_test2[[1]][[1]])
+# results with the second dataset are a bit different
+autoplot(VBS_test2[[1]][[2]])
+
+# all results together
+ggplot(aes(y = accuracy, x = scenario, fill = sample), data = VBS_test2[[2]]) + geom_boxplot()
 ```
 
