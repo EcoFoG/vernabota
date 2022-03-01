@@ -35,8 +35,7 @@
 #'
 #' @details This function performs the following steps for each scenario:
 #'  - Get the data,
-#'  - Split between train and test set according to the parameter pc2fill (keep only fully identified trees in the test set),
-#'  - Remove taxonomic information from the test set (at the species, genus, or family level according to the parameters pcFamilyDet and pcGenusDet),
+#'  - Split between train and test set and remove taxonomic information from the test set (see *SampleTestDataset* function),
 #'  - Perform simulations (see *SimFullCom* function),
 #'  - Compare simulations with original taxonomic information, with the function
 #'  *CompareTaxo*,
@@ -61,50 +60,19 @@ CompareSim <- function(Param = NULL,
   # Get data and remove duplicated lines corresponding to a single tree
   dat <- D2fill
   dat <- dat[!duplicated(dat$idTree),]
-  Ndat <- nrow(dat)
 
-  ## Split data between training and test
-
-  # tested trees must have complete taxonomic identification (to have something to compare the attributed species with)
-  identified_trees <- dat$idTree[which(dat$BotaCertainty %in% c(3,4))]
-  if (length(identified_trees) < round(Ndat * pc2fill/100))
-    stop("You must provide a dataset with enough trees identified to species, or you must decrease the parameter pc2fill")
-
-  # sample data
-  identified_trees <- identified_trees[sample(1:length(identified_trees))]
-  # test dataset
-  test_id <- identified_trees[1:round(Ndat * pc2fill/100)]
-  test <- dat[dat$idTree%in%test_id,]
-  # train dataset
-  train <- dat[!dat$idTree%in%test_id,]
-
-  # keep taxonomic info to test the attributed species
-  test_taxo <- test[,c('idTree','Family','Genus','Species')]
-
-  # remove taxonomic info from test:
-
-  # keep only family for pcFamilyDet % of the test dataset:
-  test[1:round(nrow(test) * pcFamilyDet/100),c('Genus','Species')] <- "Indet."
-  # keep family and genus for pcGenusDet % of the test dataset:
-  test[(round(nrow(test) * pcFamilyDet/100) + 1):
-         (round(nrow(test) * pcFamilyDet/100) + round(nrow(test) * pcGenusDet/100)),
-       'Species'] <- "Indet."
-  # remove all taxonomic info for the rest of the dataset:
-  test[(round(nrow(test) * pcFamilyDet/100) + round(nrow(test) * pcGenusDet/100) + 1):
-         nrow(test),
-       c('Family','Genus','Species')] <- "Indet."
-
-  # rewrite GenSp column:
-  test$GenSp <- paste(test$Genus, test$Species, sep="-")
-
-  tot <- rbind(test,train)
+  # creation of the dataset
+  tot_test <- SampleTestDataset(dat, pc2fill, pcGenusDet, pcFamilyDet)
+  tot <- tot_test[[1]]
+  test_taxo <- tot_test[[2]]
+  idTest <- tot_test[[3]]
 
   # loop for each scenario (can be parallelized)
   for (s in 1:NScenar){
 
     # Get DataAsso and remove test trees info from DataAsso (if present in the dataset)
     datAsso <- DAsso[[Param$dataAsso[s]]]
-    datAsso <- datAsso[which(!datAsso$idTree%in%test$idTree),]
+    datAsso <- datAsso[which(!datAsso$idTree%in%idTest),]
 
     # run the function SimFullCom with parameters from the scenario s
     Results_Sim <- SimFullCom(Data2fill = tot,

@@ -78,6 +78,12 @@ DAsso <- list(NULL, DataAsso)               # observation data
 ```
 
 Then we create the *Param* dataframe to explicit the different scenarios to test:
+* priors : a vector with the rank of the priors to use in the priors list
+* dataAsso : a vector with the rank of the observation data to use in
+* the DAsso list (if Dasso is not provided, put 1)
+* weights : a vector with the weights of the priors
+* eps : a vector with the epsilon value for each scenario
+* Determ : a vector with the value of Determ (boolean)
 
 ```{r ParamCompare}
 Param <- data.frame(priors = c(1,1,2,1,1),  # here, we used the first prior 
@@ -89,13 +95,14 @@ Param <- data.frame(priors = c(1,1,2,1,1),  # here, we used the first prior
 Param
 ```
 
-We can then run *CompareSim*, visualise the scenarios and their results using *summary* and plot their accuracy using *plot*.
+We can then run *CompareSim*, visualise the scenarios and their results using *summary* and plot their accuracy using *plot* or *autoplot*.
 
 ```{r Compare, out.width = "80%"} 
 VBS_test <- CompareSim(Param = Param ,
                        priors = priors, D2fill = Data2fill, DAsso = DAsso,
                        pc2fill = 10, pcFamilyDet = 25, pcGenusDet = 25, 
                        NbSim = 10, Results_Simulations = FALSE)
+
 summary(VBS_test)
 autoplot(VBS_test)
 ```
@@ -126,12 +133,14 @@ autoplot(VBS_test)
 
 ## Checking stability of association accuracy
 
+We can plot the variability of the accuracy with increasing number of simulations used: 1, ..., NbSim, with the function *stabletest*.
+
 ```{r ParamCompares_stab}
-Param <- data.frame(priors = c(2,2,2),
-                    dataAsso = c(2,2,2),
-                    weights = c(0.5,0.5,0.5),
-                    eps = c(0.01,0.01,0.01),
-                    Determ = c(FALSE,FALSE,FALSE))
+Param <- data.frame(priors = c(2),
+                    dataAsso = c(2),
+                    weights = c(0.5),
+                    eps = c(0.01),
+                    Determ = c(FALSE))
 Param
 ```
 
@@ -140,16 +149,41 @@ VBS_test <- CompareSim(Param = Param ,
                        priors = priors, D2fill = Data2fill, DAsso = DAsso,
                        pc2fill = 10, pcFamilyDet = 25, pcGenusDet = 25, 
                        NbSim = 10, Results_Simulations = TRUE)
-summary(VBS_test)
-autoplot(VBS_test)
 
 stabletest(VBS_test,1)
-stabletest(VBS_test,2)
-stabletest(VBS_test,3)
 ```
 
-Here we see that we could increase the number of simulations.
 
+Here we see that we could increase the number of simulations, but it seems to be stabilized after 6 simulations.
+
+
+## Comparing different sampled datasets
+
+As CompareSim uses only one test dataset, we want to check the potential variability resulting from the sampling of the test dataset. This can be done with the *CompareSample* function. This function samples *NbSamples* test datasets and performs a comparison between scenarios for each test dataset.
+
+```{r Compare_samples} 
+
+Param <- data.frame(priors = c(1,1,2),  
+                    dataAsso = c(2,1,2), 
+                    weights = c(0.5,0.5,0.5),
+                    eps = c(0.01,0.01,0.01),
+                    Determ = c(FALSE,FALSE,FALSE))
+
+VBS_test2 <- CompareSample(NbSamples = 3,Param = Param ,
+                       priors = priors, D2fill = Data2fill, DAsso = DAsso,
+                       pc2fill = 10, pcFamilyDet = 25, pcGenusDet = 25, 
+                       NbSim = 10, Results_Simulations = FALSE)
+# results with the first dataset
+autoplot(VBS_test2[[1]][[1]])
+# results with the second dataset are a bit different
+autoplot(VBS_test2[[1]][[2]])
+
+# all results together
+library(ggplot2)
+ggplot(aes(y = accuracy, x = scenario, fill = sample), data = VBS_test2[[2]]) + geom_boxplot()
+```
+
+Here, the ranking is preserved between different test datasets, confirming that the variability between scenarios is higher than the one between samplings. We can then choose a scenario according to this ranking. 
 
 ## Examining results associations
 
@@ -185,8 +219,10 @@ library(data.table)
 Res <- rbindlist(ResL) # combine them in a single data.table
 # calculate the percentage of good association for each tested tree
 PropGood <- Res[TestData==TRUE & ValidAsso==TRUE,
-                list(propOK=.N/length(ResL)), 
+                list(propOK=.N/length(ResL)), # number of correct association divided by number of association (NbSim)
                 by=idTree]
 head(PropGood)
 ```
+
+
 

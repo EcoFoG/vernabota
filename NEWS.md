@@ -4,6 +4,7 @@
 
 * Changes in function *CompareSim*
 * New function *stabletest*
+* New function *CompareSample*
 
 
 # vernabota 0.2.2
