@@ -13,6 +13,9 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+```
+
+```{r, include = TRUE}
 set.seed(56)
 ```
 
@@ -163,8 +166,8 @@ As CompareSim uses only one test dataset, we want to check the potential variabi
 
 ```{r Compare_samples} 
 
-Param <- data.frame(priors = c(1,1,2),  
-                    dataAsso = c(2,1,2), 
+Param <- data.frame(priors = c(2,1,2),  
+                    dataAsso = c(1,1,2), 
                     weights = c(0.5,0.5,0.5),
                     eps = c(0.01,0.01,0.01),
                     Determ = c(FALSE,FALSE,FALSE))
@@ -183,7 +186,7 @@ library(ggplot2)
 ggplot(aes(y = accuracy, x = scenario, fill = sample), data = VBS_test2[[2]]) + geom_boxplot()
 ```
 
-Here, the ranking is preserved between different test datasets, confirming that the variability between scenarios is higher than the one between samplings. We can then choose a scenario according to this ranking. 
+Here, the ranking is preserved between different test datasets: scenario c gives better results. This confirms that the variability between scenarios is higher than the one between samplings. We can then choose a scenario according to this ranking. 
 
 ## Examining results associations
 
