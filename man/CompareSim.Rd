@@ -52,7 +52,6 @@ We recommend using a percentage equivalent than in the data to gapfill.}
 
 \item{Results_Simulations}{a boolean specifying if the
 user wants to keep the results of the simulations}
-
 }
 \value{
 This function returns an object of the class VernaBotaSims.

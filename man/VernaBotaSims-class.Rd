@@ -19,16 +19,13 @@ the results of each scenario, together with its parameters.
 \describe{
 \item{\code{NScenar}}{numeric: number of scenarios simulated}
 
-\item{\code{ParamScenar}}{data.frame: a datatable with the parameters for each
-scenario (input of CompareSim)}
+\item{\code{ParamScenar}}{data.frame: a datatable with the parameters for each scenario (input of CompareSim)}
 
 \item{\code{D2fill}}{dataset to fill (input of CompareSim)}
 
-\item{\code{DAsso}}{list of datasets of observation used for each scenario (input of
-CompareSim)}
+\item{\code{DAsso}}{list of datasets of observation used for each scenario (input of CompareSim)}
 
-\item{\code{priors}}{list of datasets containing the priors for each scenario (input
-of CompareSim)}
+\item{\code{priors}}{list of datasets containing the priors for each scenario (input of CompareSim)}
 
 \item{\code{pc2fill}}{percentage of data to fill (input of CompareSim)}
 

@@ -17,7 +17,7 @@ botanical and vernacular names, obtained with the fonction CreateAlpha}
 \item{eps}{epsilon: background noise for species not associated with a given
 vernacular name}
 
-\item{Determ}{boolean: if TRUE the more likely botanical names are return
+\item{Determ}{boolean: if TRUE the more likely botanical names are returned
 when a association vernacular-botanical is performed. If FALSE, the
 botanical names are drawn using a categorical-Dirichlet association Scheme.}
 }

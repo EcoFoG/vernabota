@@ -84,7 +84,7 @@ This function simulates Nsim fully determined communities by
 attributing a full botanical names to all trees with a vernacular name that
 were not fully determined or for which the BotaSource=Vern, using a
 categorical-Dirichlet association Scheme. The reason for replacing trees
-with BotaSource=Vern is because is these cases, the botanical name has been
+with BotaSource=Vern is because in these cases, the botanical name has been
 obtained from the vernacular name using the more likely association in the
 Guyafor database. As our objective is to assign a botanical name to trees
 with only a vernacular name using a probability of association, we don't

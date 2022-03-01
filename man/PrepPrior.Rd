@@ -12,8 +12,8 @@ PrepPrior(prior, RemoveIndetSp = TRUE, RemoveNotGuyafor = TRUE)
 \item{RemoveIndetSp}{Should the botanical names with non-determined species
 be removed from the prior? (Default is TRUE) (logical)}
 
-\item{RemoveNotGuyafor}{Should the botanical names with non-determined
-species be removed from the prior? (Default is TRUE) (logical)}
+\item{RemoveNotGuyafor}{Should the botanical names that has never been
+observed in Guyafor be removed from the prior? (Default is TRUE) (logical)}
 }
 \value{
 This function returns a data.frame (formatted as a data.table)

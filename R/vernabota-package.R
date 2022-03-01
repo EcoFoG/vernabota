@@ -13,4 +13,5 @@ utils::globalVariables(c("Forest", "Plot","PlotArea","SubPlot","idTree","Xfield"
                          "CircCorr" , "CorrCode",
                          "GenSp", "alphaV", "GenSpCor", "BotaCorCode", "GensSpCor", "scenario",
                          "accuracy",
-                         "PresentInGuyaFor"))
+                         "PresentInGuyaFor",
+                         "VBS_test"))
