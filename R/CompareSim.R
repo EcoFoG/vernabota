@@ -35,8 +35,7 @@
 #'
 #' @details This function performs the following steps for each scenario:
 #'  - Get the data,
-#'  - Split between train and test set according to the parameter pc2fill (keep only fully identified trees in the test set),
-#'  - Remove taxonomic information from the test set (at the species, genus, or family level according to the parameters pcFamilyDet and pcGenusDet),
+#'  - Split between train and test set and remove taxonomic information from the test set (see *SampleTestDataset* function),
 #'  - Perform simulations (see *SimFullCom* function),
 #'  - Compare simulations with original taxonomic information, with the function
 #'  *CompareTaxo*,
@@ -61,10 +60,9 @@ CompareSim <- function(Param = NULL,
   # Get data and remove duplicated lines corresponding to a single tree
   dat <- D2fill
   dat <- dat[!duplicated(dat$idTree),]
-  Ndat <- nrow(dat)
 
   # creation of the dataset
-  tot_test <- SampleTestDataset(dat, Ndat, pc2fill, pcGenusDet, pcFamilyDet)
+  tot_test <- SampleTestDataset(dat, pc2fill, pcGenusDet, pcFamilyDet)
   tot <- tot_test[[1]]
   test_taxo <- tot_test[[2]]
   idTest <- tot_test[[3]]

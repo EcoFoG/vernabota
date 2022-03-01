@@ -11,7 +11,7 @@
 stabletest <- function(object, s, ...)
 {
 
-  if (length(VBS_test@results) == 0)
+  if (length(object@results) == 0)
     stop("You must save the results of the simulations to use the function stabletest. Use Results_Simulations = TRUE.")
 
   if (s>object@NScenar)
@@ -27,7 +27,7 @@ stabletest <- function(object, s, ...)
 
   d <- data.frame(accuracy = pc_valid_tot,
                     nbSim = rep(1:object@NbSim ,times = 1:object@NbSim))
-  boxplot(accuracy~nbSim, data=d)
+  boxplot(accuracy~nbSim, data=d, xlab = "Cumulated number of simulations")
 }
 #' @export
 graphics::boxplot

@@ -1,3 +1,10 @@
+# vernabota 0.2.4
+
+## New features
+
+* New function `CompareSample`
+
+
 # vernabota 0.2.2
 
 ## New features

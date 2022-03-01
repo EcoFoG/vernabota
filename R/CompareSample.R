@@ -3,7 +3,7 @@
 #' @description This function performs several simulations like CompareSim, but with different samples of the dataset used as test.
 #'
 #'
-#' @param NbSamples an integer: the number of test dataset sampling to compare. All other parameters are parameters of the function CompareSim.
+#' @param NbSamples an integer: the number of test dataset sampling to compare. All other parameters are the same parameters as for the function CompareSim.
 #' @param Param a datatable with the parameters for each scenario :
 #'  - priors : a vector with the rank of the priors to use in the priors list
 #'  - dataAsso : a vector with the rank of the observation data to use in
@@ -30,9 +30,15 @@
 #' @param Results_Simulations a boolean specifying if the
 #'  user wants to keep the results of the simulations
 #'
-#' @return This function returns a list of objects of the class VernaBotaSims.
+#' @return This function returns a list of 2 objects:
+#' - a list of objects of the class VernaBotaSims, resulting from the simulations
+#' - a datasets with one line per simulation : accuracy, scenario, and sampled test dataset
 #'
-#' @details This function calls the function CompareSim with different test datasets (NbSamples times)
+#' @details This function performs the following steps *NbSamples* times:
+#'  - Get the data,
+#'  - Split between train and test set and remove taxonomic information from the test set (see *SampleTestDataset* function),
+#'  - for each scenario: perform simulations (see *SimFullCom* function), compare simulations with original taxonomic information, with the function
+#'  *CompareTaxo*, create an object of the class VernaBotaSims
 #'
 #' @export
 CompareSample <- function(NbSamples = 3,Param = NULL,
@@ -43,15 +49,16 @@ CompareSample <- function(NbSamples = 3,Param = NULL,
 {
   VBS_tot <- list()
   accuracy <- scenario <- sample <- c()
+  NScenar <- dim(Param)[1]
+  pc_ok_results <- tot_results <- list()
 
   for (sa in 1:NbSamples)
   {
     # creation of the dataset
     dat <- D2fill
     dat <- dat[!duplicated(dat$idTree),]
-    Ndat <- nrow(dat)
 
-    tot_test <- SampleTestDataset(dat, Ndat, pc2fill, pcGenusDet, pcFamilyDet)
+    tot_test <- SampleTestDataset(dat, pc2fill, pcGenusDet, pcFamilyDet)
     tot <- tot_test[[1]]
     test_taxo <- tot_test[[2]]
     idTest <- tot_test[[3]]
