@@ -1,9 +1,7 @@
 Package: vernabota
 Type: Package
 Title: Association between vernacular and botanical names for Guyafor data
-
 Version: 0.3.0
-
 Authors@R: 
     c(
     person("Geraldine", "Derroire",
@@ -45,4 +43,3 @@ Suggests:
     rmarkdown,
     knitr
 VignetteBuilder: knitr
-
