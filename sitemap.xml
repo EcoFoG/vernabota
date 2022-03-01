@@ -25,6 +25,9 @@
     <loc>https://EcoFoG.github.io/vernabota/news/index.html</loc>
   </url>
   <url>
+    <loc>https://EcoFoG.github.io/vernabota/reference/CompareSample.html</loc>
+  </url>
+  <url>
     <loc>https://EcoFoG.github.io/vernabota/reference/CompareSim.html</loc>
   </url>
   <url>
@@ -62,6 +65,9 @@
   </url>
   <url>
     <loc>https://EcoFoG.github.io/vernabota/reference/PriorParacouOld_20220126.html</loc>
+  </url>
+  <url>
+    <loc>https://EcoFoG.github.io/vernabota/reference/SampleTestDataset.html</loc>
   </url>
   <url>
     <loc>https://EcoFoG.github.io/vernabota/reference/SimFullCom.html</loc>

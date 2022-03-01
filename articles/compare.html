@@ -83,6 +83,8 @@
 
     
     
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">56</span><span class="op">)</span></code></pre></div>
 <p>The choice of the settings used for the gap filling is important for the quality of the estimation. It is specific to the study and the dataset of the user, so it is interesting to compare different settings and to choose the one that performs the best:</p>
 <ul>
 <li>choice of observation data (<em>DataAsso</em>): Using the same dataset (or a dataset to limited in its size or spatial extent) can lead to underestimating diversity as it underestimate the dispersal of species from outside. Using a too wide data set could lead to associating species that are not present in the area.</li>
@@ -100,7 +102,7 @@
 <ul>
 <li>The data we want to gapfill:</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EcoFoG/vernabota" class="external-link">vernabota</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Paracou6_2016</span><span class="op">)</span>
 <span class="va">Data2fill</span> <span class="op">&lt;-</span> <span class="va">Paracou6_2016</span><span class="op">[</span><span class="va">Paracou6_2016</span><span class="op">$</span><span class="va">SubPlot</span><span class="op">==</span><span class="fl">1</span>,<span class="op">]</span>
@@ -108,7 +110,7 @@
 <ul>
 <li>The priors:</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">PriorAllFG_20220126</span><span class="op">)</span>
 <span class="va">PriorAllFG</span> <span class="op">&lt;-</span> <span class="va">PriorAllFG_20220126</span>
 <span class="va">PriorAllFG</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PrepPrior.html">PrepPrior</a></span><span class="op">(</span><span class="va">PriorAllFG</span><span class="op">)</span>
@@ -119,7 +121,7 @@
 <ul>
 <li>And the observed data to update the prior:</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DataAsso</span> <span class="op">&lt;-</span> <span class="va">Paracou6_2016</span>
 <span class="va">DataAsso</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PrepData.html">PrepData</a></span><span class="op">(</span><span class="va">DataAsso</span><span class="op">)</span></code></pre></div>
 </div>
@@ -131,11 +133,11 @@
 <h3 id="comparing-different-settings">Comparing different settings<a class="anchor" aria-label="anchor" href="#comparing-different-settings"></a>
 </h3>
 <p>We first create lists for the priors and the observation data that we want to test:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">priors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">PriorAllFG</span>, <span class="va">PriorParacouNew</span><span class="op">)</span> <span class="co"># priors</span>
 <span class="va">DAsso</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="va">DataAsso</span><span class="op">)</span>               <span class="co"># observation data</span></code></pre></div>
-<p>Then we create the <em>Param</em> dataframe to explicit the different scenarios to test:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p>Then we create the <em>Param</em> dataframe to explicit the different scenarios to test: * priors : a vector with the rank of the priors to use in the priors list * dataAsso : a vector with the rank of the observation data to use in * the DAsso list (if Dasso is not provided, put 1) * weights : a vector with the weights of the priors * eps : a vector with the epsilon value for each scenario * Determ : a vector with the value of Determ (boolean)</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Param</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>priors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>,  <span class="co"># here, we used the first prior </span>
                     <span class="co"># of the list for scenario 1, 2, 4 and 5 and the second for scenario 3</span>
                     dataAsso <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, <span class="co"># for the second scenario dataAsso is NULL (the data to gapfill are used)</span>
@@ -149,12 +151,13 @@
 <span class="co">#&gt; 3      2        2     0.5 0.01  FALSE</span>
 <span class="co">#&gt; 4      1        2     0.2 0.01  FALSE</span>
 <span class="co">#&gt; 5      1        2     0.8 0.01  FALSE</span></code></pre></div>
-<p>We can then run <em>CompareSim</em>, visualise the scenarios and their results using <em>summary</em> and plot their accuracy using <em>plot</em>.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<p>We can then run <em>CompareSim</em>, visualise the scenarios and their results using <em>summary</em> and plot their accuracy using <em>plot</em> or <em>autoplot</em>.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">VBS_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CompareSim.html">CompareSim</a></span><span class="op">(</span>Param <span class="op">=</span> <span class="va">Param</span> ,
                        priors <span class="op">=</span> <span class="va">priors</span>, D2fill <span class="op">=</span> <span class="va">Data2fill</span>, DAsso <span class="op">=</span> <span class="va">DAsso</span>,
                        pc2fill <span class="op">=</span> <span class="fl">10</span>, pcFamilyDet <span class="op">=</span> <span class="fl">25</span>, pcGenusDet <span class="op">=</span> <span class="fl">25</span>, 
                        NbSim <span class="op">=</span> <span class="fl">10</span>, Results_Simulations <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">VBS_test</span><span class="op">)</span>
 <span class="co">#&gt; scenario a </span>
 <span class="co">#&gt; 10  repetition(s) with priors nb 1 , dataAsso nb 2 , weights  0.5 , pc2fill 10 % , and eps 0.01 </span>
@@ -182,7 +185,7 @@
 <div class="section level3">
 <h3 id="testing-deterministic-associations">Testing deterministic associations<a class="anchor" aria-label="anchor" href="#testing-deterministic-associations"></a>
 </h3>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Param</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>priors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>,  
                     dataAsso <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, 
                     weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.2</span>,<span class="fl">0.8</span><span class="op">)</span>,
@@ -196,7 +199,7 @@
 <span class="co">#&gt; 4      1        2     0.2 0.01   TRUE</span>
 <span class="co">#&gt; 5      1        2     0.8 0.01   TRUE</span></code></pre></div>
 <p>Here there will be lots of warning messages (not displayed here) in cases when two associations are equality likely. This also explain the variability of the accuracy plotted.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">VBS_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CompareSim.html">CompareSim</a></span><span class="op">(</span>Param <span class="op">=</span> <span class="va">Param</span> ,
                        priors <span class="op">=</span> <span class="va">priors</span>, D2fill <span class="op">=</span> <span class="va">Data2fill</span>, DAsso <span class="op">=</span> <span class="va">DAsso</span>,
                        pc2fill <span class="op">=</span> <span class="fl">10</span>, pcFamilyDet <span class="op">=</span> <span class="fl">25</span>, pcGenusDet <span class="op">=</span> <span class="fl">25</span>, 
@@ -228,53 +231,61 @@
 <div class="section level3">
 <h3 id="checking-stability-of-association-accuracy">Checking stability of association accuracy<a class="anchor" aria-label="anchor" href="#checking-stability-of-association-accuracy"></a>
 </h3>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">Param</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>priors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>,
-                    dataAsso <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>,
-                    weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span><span class="op">)</span>,
-                    eps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>,<span class="fl">0.01</span>,<span class="fl">0.01</span><span class="op">)</span>,
-                    Determ <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">FALSE</span>,<span class="cn">FALSE</span>,<span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
+<p>We can plot the variability of the accuracy with increasing number of simulations used: 1, …, NbSim, with the function <em>stabletest</em>.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Param</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>priors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>,
+                    dataAsso <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>,
+                    weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span><span class="op">)</span>,
+                    eps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span><span class="op">)</span>,
+                    Determ <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
 <span class="va">Param</span>
 <span class="co">#&gt;   priors dataAsso weights  eps Determ</span>
-<span class="co">#&gt; 1      2        2     0.5 0.01  FALSE</span>
-<span class="co">#&gt; 2      2        2     0.5 0.01  FALSE</span>
-<span class="co">#&gt; 3      2        2     0.5 0.01  FALSE</span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<span class="co">#&gt; 1      2        2     0.5 0.01  FALSE</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">VBS_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CompareSim.html">CompareSim</a></span><span class="op">(</span>Param <span class="op">=</span> <span class="va">Param</span> ,
                        priors <span class="op">=</span> <span class="va">priors</span>, D2fill <span class="op">=</span> <span class="va">Data2fill</span>, DAsso <span class="op">=</span> <span class="va">DAsso</span>,
                        pc2fill <span class="op">=</span> <span class="fl">10</span>, pcFamilyDet <span class="op">=</span> <span class="fl">25</span>, pcGenusDet <span class="op">=</span> <span class="fl">25</span>, 
                        NbSim <span class="op">=</span> <span class="fl">10</span>, Results_Simulations <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">VBS_test</span><span class="op">)</span>
-<span class="co">#&gt; scenario a </span>
-<span class="co">#&gt; 10  repetition(s) with priors nb 2 , dataAsso nb 2 , weights  0.5 , pc2fill 10 % , and eps 0.01 </span>
-<span class="co">#&gt;        0%       25%       50%       75%      100% </span>
-<span class="co">#&gt; 0.4387755 0.4821429 0.5102041 0.5204082 0.5816327 </span>
-<span class="co">#&gt; scenario b </span>
-<span class="co">#&gt; 10  repetition(s) with priors nb 2 , dataAsso nb 2 , weights  0.5 , pc2fill 10 % , and eps 0.01 </span>
-<span class="co">#&gt;        0%       25%       50%       75%      100% </span>
-<span class="co">#&gt; 0.4591837 0.4923469 0.5051020 0.5178571 0.5408163 </span>
-<span class="co">#&gt; scenario c </span>
-<span class="co">#&gt; 10  repetition(s) with priors nb 2 , dataAsso nb 2 , weights  0.5 , pc2fill 10 % , and eps 0.01 </span>
-<span class="co">#&gt;        0%       25%       50%       75%      100% </span>
-<span class="co">#&gt; 0.4897959 0.5000000 0.5204082 0.5306122 0.5510204</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">VBS_test</span><span class="op">)</span></code></pre></div>
-<p><img src="compare_files/figure-html/Compare_stab-1.png" width="80%"></p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
+
 <span class="fu"><a href="../reference/stabletest.html">stabletest</a></span><span class="op">(</span><span class="va">VBS_test</span>,<span class="fl">1</span><span class="op">)</span></code></pre></div>
-<p><img src="compare_files/figure-html/Compare_stab-2.png" width="80%"></p>
+<p><img src="compare_files/figure-html/Compare_stab-1.png" width="80%"></p>
+<p>Here we see that we could increase the number of simulations, but it seems to be stabilized after 6 simulations.</p>
+</div>
+<div class="section level3">
+<h3 id="comparing-different-sampled-datasets">Comparing different sampled datasets<a class="anchor" aria-label="anchor" href="#comparing-different-sampled-datasets"></a>
+</h3>
+<p>As CompareSim uses only one test dataset, we want to check the potential variability resulting from the sampling of the test dataset. This can be done with the <em>CompareSample</em> function. This function samples <em>NbSamples</em> test datasets and performs a comparison between scenarios for each test dataset.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/stabletest.html">stabletest</a></span><span class="op">(</span><span class="va">VBS_test</span>,<span class="fl">2</span><span class="op">)</span></code></pre></div>
-<p><img src="compare_files/figure-html/Compare_stab-3.png" width="80%"></p>
+<code class="sourceCode R">
+<span class="va">Param</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>priors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>,  
+                    dataAsso <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, 
+                    weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span><span class="op">)</span>,
+                    eps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>,<span class="fl">0.01</span>,<span class="fl">0.01</span><span class="op">)</span>,
+                    Determ <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">FALSE</span>,<span class="cn">FALSE</span>,<span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">VBS_test2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CompareSample.html">CompareSample</a></span><span class="op">(</span>NbSamples <span class="op">=</span> <span class="fl">3</span>,Param <span class="op">=</span> <span class="va">Param</span> ,
+                       priors <span class="op">=</span> <span class="va">priors</span>, D2fill <span class="op">=</span> <span class="va">Data2fill</span>, DAsso <span class="op">=</span> <span class="va">DAsso</span>,
+                       pc2fill <span class="op">=</span> <span class="fl">10</span>, pcFamilyDet <span class="op">=</span> <span class="fl">25</span>, pcGenusDet <span class="op">=</span> <span class="fl">25</span>, 
+                       NbSim <span class="op">=</span> <span class="fl">10</span>, Results_Simulations <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="co"># results with the first dataset</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">VBS_test2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<p><img src="compare_files/figure-html/Compare_samples-1.png" width="700"></p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/stabletest.html">stabletest</a></span><span class="op">(</span><span class="va">VBS_test</span>,<span class="fl">3</span><span class="op">)</span></code></pre></div>
-<p><img src="compare_files/figure-html/Compare_stab-4.png" width="80%"></p>
-<p>Here we see that we could increase the number of simulations.</p>
+<code class="sourceCode R"><span class="co"># results with the second dataset are a bit different</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">VBS_test2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<p><img src="compare_files/figure-html/Compare_samples-2.png" width="700"></p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="co"># all results together</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">accuracy</span>, x <span class="op">=</span> <span class="va">scenario</span>, fill <span class="op">=</span> <span class="va">sample</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">VBS_test2</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="compare_files/figure-html/Compare_samples-3.png" width="700"></p>
+<p>Here, the ranking is preserved between different test datasets: scenario c gives better results. This confirms that the variability between scenarios is higher than the one between samplings. We can then choose a scenario according to this ranking.</p>
 </div>
 <div class="section level3">
 <h3 id="examining-results-associations">Examining results associations<a class="anchor" aria-label="anchor" href="#examining-results-associations"></a>
 </h3>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Param</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>priors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, 
                     dataAsso <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, 
                     weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span><span class="op">)</span>,
@@ -286,7 +297,7 @@
 <p>We now want to examine the association tree by tree. The simulations of each scenario (here just one) can be retrieved as a list of data.table.</p>
 <p>In cases where the original data contained several censuses of a same plots (<em>i.e.</em> several lines per individual trees), the output contained in <em>results</em> keeps only one line per individual, and only a subset of colums from the original dataset (the ones that don’t change between censuses).</p>
 <p>We can then look at each of the simulations: <em>TestData</em> indicates if the tree was used for test subset, and <em>ValidAsso</em> if the botanical association was correct.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">VBS_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CompareSim.html">CompareSim</a></span><span class="op">(</span>Param <span class="op">=</span> <span class="va">Param</span> ,
                        priors <span class="op">=</span> <span class="va">priors</span>, D2fill <span class="op">=</span> <span class="va">Data2fill</span>, DAsso <span class="op">=</span> <span class="va">DAsso</span>,
                        pc2fill <span class="op">=</span> <span class="fl">10</span>, pcFamilyDet <span class="op">=</span> <span class="fl">25</span>, pcGenusDet <span class="op">=</span> <span class="fl">25</span>, 
@@ -296,34 +307,34 @@
 <span class="co">#&gt; Classes 'data.table' and 'data.frame':   976 obs. of  12 variables:</span>
 <span class="co">#&gt;  $ idTree       : Factor w/ 976 levels "100621","100622",..: 1 2 3 4 5 6 7 8 9 10 ...</span>
 <span class="co">#&gt;  $ Family       : chr  "Euphorbiaceae" "Arecaceae" "Sapotaceae" "Humiriaceae" ...</span>
-<span class="co">#&gt;  $ Genus        : chr  "Sandwithia" "Indet." "Micropholis" "Sacoglottis" ...</span>
-<span class="co">#&gt;  $ Species      : chr  "guyanensis" "Indet." "guyanensis" "guianensis" ...</span>
+<span class="co">#&gt;  $ Genus        : chr  "Sandwithia" "Oenocarpus" "Micropholis" "Sacoglottis" ...</span>
+<span class="co">#&gt;  $ Species      : chr  "guyanensis" "bataua" "guyanensis" "guianensis" ...</span>
 <span class="co">#&gt;  $ BotaSource   : chr  "Bota" "Bota" "Bota" "Bota" ...</span>
 <span class="co">#&gt;  $ BotaCertainty: Factor w/ 6 levels "-1","0","1","2",..: 6 6 6 6 6 6 6 5 6 6 ...</span>
 <span class="co">#&gt;  $ VernName     : Factor w/ 110 levels "-","acacia franc",..: 102 79 14 91 18 97 14 86 75 70 ...</span>
-<span class="co">#&gt;  $ GenSp        : Factor w/ 203 levels "Indet.-Indet.",..: 163 1 122 162 184 1 143 90 132 103 ...</span>
-<span class="co">#&gt;  $ GensSpCor    : Factor w/ 228 levels "Indet.-Indet.",..: 163 131 122 162 184 201 143 90 132 103 ...</span>
-<span class="co">#&gt;  $ BotaCorCode  : Factor w/ 7 levels "fullyDet","NoCor",..: 1 3 1 1 1 3 1 1 1 1 ...</span>
-<span class="co">#&gt;  $ ValidAsso    : logi  FALSE TRUE FALSE FALSE FALSE TRUE ...</span>
-<span class="co">#&gt;  $ TestData     : logi  FALSE TRUE FALSE FALSE FALSE TRUE ...</span>
+<span class="co">#&gt;  $ GenSp        : Factor w/ 205 levels "Indet.-Indet.",..: 165 133 124 164 186 203 1 92 134 105 ...</span>
+<span class="co">#&gt;  $ GensSpCor    : Factor w/ 231 levels "Indet.-Indet.",..: 165 133 124 164 186 203 206 92 134 105 ...</span>
+<span class="co">#&gt;  $ BotaCorCode  : Factor w/ 7 levels "fullyDet","NoCor",..: 1 1 1 1 1 1 3 1 1 1 ...</span>
+<span class="co">#&gt;  $ ValidAsso    : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...</span>
+<span class="co">#&gt;  $ TestData     : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...</span>
 <span class="co">#&gt;  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
 <span class="co">#&gt;  - attr(*, "sorted")= chr "idTree"</span></code></pre></div>
 <p>We can also calculate the percentage of good association for each tested tree, for this scenario:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span>
 <span class="va">Res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html" class="external-link">rbindlist</a></span><span class="op">(</span><span class="va">ResL</span><span class="op">)</span> <span class="co"># combine them in a single data.table</span>
 <span class="co"># calculate the percentage of good association for each tested tree</span>
 <span class="va">PropGood</span> <span class="op">&lt;-</span> <span class="va">Res</span><span class="op">[</span><span class="va">TestData</span><span class="op">==</span><span class="cn">TRUE</span> <span class="op">&amp;</span> <span class="va">ValidAsso</span><span class="op">==</span><span class="cn">TRUE</span>,
-                <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>propOK<span class="op">=</span><span class="va">.N</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">ResL</span><span class="op">)</span><span class="op">)</span>, 
+                <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>propOK<span class="op">=</span><span class="va">.N</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">ResL</span><span class="op">)</span><span class="op">)</span>, <span class="co"># number of correct association divided by number of association (NbSim)</span>
                 by<span class="op">=</span><span class="va">idTree</span><span class="op">]</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">PropGood</span><span class="op">)</span>
 <span class="co">#&gt;    idTree propOK</span>
-<span class="co">#&gt; 1: 100622    1.0</span>
-<span class="co">#&gt; 2: 100628    1.0</span>
-<span class="co">#&gt; 3: 100659    0.7</span>
-<span class="co">#&gt; 4: 100670    1.0</span>
-<span class="co">#&gt; 5: 100684    1.0</span>
-<span class="co">#&gt; 6: 100703    0.8</span></code></pre></div>
+<span class="co">#&gt; 1: 100657    1.0</span>
+<span class="co">#&gt; 2: 100660    0.6</span>
+<span class="co">#&gt; 3: 100667    1.0</span>
+<span class="co">#&gt; 4: 100671    1.0</span>
+<span class="co">#&gt; 5: 100689    1.0</span>
+<span class="co">#&gt; 6: 100690    0.2</span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
