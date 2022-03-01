@@ -3,6 +3,7 @@
 S3method(autoplot,VernaBotaSims)
 S3method(plot,VernaBotaSims)
 S3method(summary,VernaBotaSims)
+export(CompareSample)
 export(CompareSim)
 export(CompareTaxo)
 export(CreateAlpha)
