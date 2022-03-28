@@ -44,7 +44,7 @@ DirichCat <- function(alphaV, Names, Vern) {
                                 ". The draw has been redone untill there was no more NA"))}
 
   # drawn in categorical  (using the function rmultinom because available in stats::)
-  Draw <- rmultinom(1,1,Vdir) # gives one named vectors (names being the bota names) of only 0 except for one bota name
+  Draw <- stats::rmultinom(1,1,Vdir) # gives one named vectors (names being the bota names) of only 0 except for one bota name
   resDraw <- rownames(Draw)[which(Draw>0)] # gives GensSpCor
   return(resDraw)
 }

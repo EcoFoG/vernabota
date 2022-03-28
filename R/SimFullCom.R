@@ -78,7 +78,7 @@
 SimFullCom <- function(Data2fill, DataAsso=NULL, prior=NULL, wp=0.5, NSim, eps=0.01, Determ=NULL) {
 
   # check that the input data are correct
-  if (is.data.table(Data2fill)==FALSE) {
+  if (data.table::is.data.table(Data2fill)==FALSE) {
     stop("Data2fill must be formated as a data.table.
          Data must have been prepared using the function PrepData.")
   }
@@ -92,7 +92,7 @@ SimFullCom <- function(Data2fill, DataAsso=NULL, prior=NULL, wp=0.5, NSim, eps=0
   }
 
   if (!is.null(DataAsso)) {
-    if (is.data.table(DataAsso)==FALSE) {
+    if (data.table::is.data.table(DataAsso)==FALSE) {
       stop("DataAsso must be formated as a data.table.
          Data must have been prepared using the function PrepData.")
     }
