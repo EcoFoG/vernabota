@@ -81,11 +81,17 @@ DAsso <- list(NULL, DataAsso)               # observation data
 ```
 
 Then we create the *Param* dataframe to explicit the different scenarios to test:
+
 * priors : a vector with the rank of the priors to use in the priors list
+
 * dataAsso : a vector with the rank of the observation data to use in
+
 * the DAsso list (if Dasso is not provided, put 1)
+
 * weights : a vector with the weights of the priors
+
 * eps : a vector with the epsilon value for each scenario
+
 * Determ : a vector with the value of Determ (boolean)
 
 ```{r ParamCompare}
@@ -183,7 +189,7 @@ autoplot(VBS_test2[[1]][[2]])
 
 # all results together
 library(ggplot2)
-ggplot(aes(y = accuracy, x = scenario, fill = sample), data = VBS_test2[[2]]) + geom_boxplot()
+ggplot(aes(y = accuracy, x = sample, fill = scenario), data = VBS_test2[[2]]) + geom_boxplot()
 ```
 
 Here, the ranking is preserved between different test datasets: scenario c gives better results. This confirms that the variability between scenarios is higher than the one between samplings. We can then choose a scenario according to this ranking. 
