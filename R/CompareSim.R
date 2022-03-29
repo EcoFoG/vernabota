@@ -28,7 +28,9 @@
 #'  We recommend using a percentage equivalent than in the data to gapfill.
 #' @param NbSim the number of simulations.
 #' @param Results_Simulations a boolean specifying if the
-#'  user wants to keep the results of the simulations
+#'  user wants to keep the results of the simulations.
+#' @param parallel a boolean specifying if the
+#'  user wants to speed up the loop by using parallelization.
 #'
 #' @return This function returns an object of the class VernaBotaSims.
 #' The functions summary and plot can be used on this object.
@@ -44,12 +46,14 @@
 #' @export
 #'
 #' @importFrom methods new
+#' @importFrom parallel detectCores makeCluster stopCluster
+#' @importFrom doParallel registerDoParallel dopar
 #'
 #'
 CompareSim <- function(Param = NULL,
                        priors = NULL, D2fill, DAsso = NULL,
                        pc2fill = NULL, pcFamilyDet = NULL, pcGenusDet = NULL,
-                       NbSim = 1, Results_Simulations = FALSE)
+                       NbSim = 1, Results_Simulations = FALSE, parallel = FALSE)
 
 {
   NScenar <- dim(Param)[1]
@@ -67,38 +71,82 @@ CompareSim <- function(Param = NULL,
   test_taxo <- tot_test[[2]]
   idTest <- tot_test[[3]]
 
-  # loop for each scenario (can be parallelized)
-  for (s in 1:NScenar){
+  if (!parallel)
+  {
+    # loop for each scenario (not parallelized)
+    for (s in 1:NScenar){
 
-    # Get DataAsso and remove test trees info from DataAsso (if present in the dataset)
-    datAsso <- DAsso[[Param$dataAsso[s]]]
-    datAsso <- datAsso[which(!datAsso$idTree%in%idTest),]
+      # Get DataAsso and remove test trees info from DataAsso (if present in the dataset)
+      datAsso <- DAsso[[Param$dataAsso[s]]]
+      datAsso <- datAsso[which(!datAsso$idTree%in%idTest),]
 
-    # run the function SimFullCom with parameters from the scenario s
-    Results_Sim <- SimFullCom(Data2fill = tot,
-                              DataAsso = datAsso,
-                              prior = priors[[Param$priors[s]]],
-                              wp = Param$weights[s],
-                              NSim = NbSim,
-                              eps = Param$eps[s],
-                              Determ = Param$Determ[s])
+      # run the function SimFullCom with parameters from the scenario s
+      Results_Sim <- SimFullCom(Data2fill = tot,
+                                DataAsso = datAsso,
+                                prior = priors[[Param$priors[s]]],
+                                wp = Param$weights[s],
+                                NSim = NbSim,
+                                eps = Param$eps[s],
+                                Determ = Param$Determ[s])
 
-    # compare results with data
-    pc_ok_results[[s]] <- lapply(Results_Sim, CompareTaxo, test_taxo)
+      # compare results with data
+      pc_ok_results[[s]] <- lapply(Results_Sim, CompareTaxo, test_taxo)
 
-    if (Results_Simulations)
-    {
-      tot_results[[s]] <- lapply(Results_Sim, ValidTaxo, test_taxo)
-      for (i in 1:NbSim) {
-        tot_results[[s]][[i]] <- tot_results[[s]][[i]][, c("idTree",
-                                                           "Family", "Genus", "Species",
-                                                           "BotaSource", "BotaCertainty",
-                                                           "VernName", "GenSp",
-                                                           "GensSpCor", "BotaCorCode",
-                                                           "ValidAsso", "TestData")]
+      if (Results_Simulations)
+      {
+        tot_results[[s]] <- lapply(Results_Sim, ValidTaxo, test_taxo)
+        for (i in 1:NbSim) {
+          tot_results[[s]][[i]] <- tot_results[[s]][[i]][, c("idTree",
+                                                             "Family", "Genus", "Species",
+                                                             "BotaSource", "BotaCertainty",
+                                                             "VernName", "GenSp",
+                                                             "GensSpCor", "BotaCorCode",
+                                                             "ValidAsso", "TestData")]
+        }
       }
     }
   }
+
+  if(parallel)
+  {
+    # loop for each scenario (parallelized)
+
+    numCores  <- parallel::detectCores()
+    cl <- parallel::makeCluster(numCores-1)
+    doParallel::registerDoParallel(cl)
+
+    pc_ok_results <- foreach (s = 1:NScenar) %dopar% {
+
+      # Get DataAsso and remove test trees info from DataAsso (if present in the dataset)
+      datAsso <- DAsso[[Param$dataAsso[s]]]
+      datAsso <- datAsso[which(!datAsso$idTree%in%idTest),]
+
+      # run the function SimFullCom with parameters from the scenario s
+      Results_Sim <- vernabota::SimFullCom(Data2fill = tot,
+                                           DataAsso = datAsso,
+                                           prior = priors[[Param$priors[s]]],
+                                           wp = Param$weights[s],
+                                           NSim = NbSim,
+                                           eps = Param$eps[s],
+                                           Determ = Param$Determ[s])
+      if (Results_Simulations)
+      {
+        tot_results[[s]] <- lapply(Results_Sim, ValidTaxo, test_taxo)
+        for (i in 1:NbSim) {
+          tot_results[[s]][[i]] <- tot_results[[s]][[i]][, c("idTree",
+                                                             "Family", "Genus", "Species",
+                                                             "BotaSource", "BotaCertainty",
+                                                             "VernName", "GenSp",
+                                                             "GensSpCor", "BotaCorCode",
+                                                             "ValidAsso", "TestData")]
+        }
+      }
+
+      # compare results with data
+      lapply(Results_Sim, vernabota::CompareTaxo, test_taxo)}
+    parallel::stopCluster(cl)
+  }
+
 
   # creation of the VernaBotaSims object
   VBS <- new(Class = "VernaBotaSims", NScenar = NScenar, ParamScenar = Param,

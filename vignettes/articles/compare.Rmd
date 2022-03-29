@@ -28,7 +28,7 @@ Using a too wide data set could lead to associating species that are not present
 * the relative weights given to the prior and the observation depends on the quantity and quality of information brought by the prior and the observation.
 * the effect of the value of $\epsilon$ can also be tested.
 * the overall percentage of trees used for testing (*pc2fill*) can also be tested.
-* the percentage of trees that we consider determined to the family (*pcFamilyDet*) or to the genus (*pcGenusDet*) should logically be chosen to be similar to these in the data set we want to gapfill (but this can also be changed).
+* the percentage of trees from the test dataset (*pc2fill* percent of the total) that we consider determined to the family (*pcFamilyDet*) or to the genus (*pcGenusDet*) should logically be chosen to be similar to these in the data set we want to gapfill (but this can also be changed). The rest (100 - *pcFamilyDet* - *pcGenusDet*) is considered not determined at all.
 
 For this, we use the function *CompareSim*.
 This function "masks" the identification of the trees fully identified and test if it can be successfully retrieved with the setting chosen.
@@ -104,13 +104,23 @@ Param <- data.frame(priors = c(1,1,2,1,1),  # here, we used the first prior
 Param
 ```
 
-We can then run *CompareSim*, visualise the scenarios and their results using *summary* and plot their accuracy using *plot* or *autoplot*.
+We can then run *CompareSim*, visualise the scenarios and their results using *summary* and plot their accuracy using *plot* or *autoplot*. You can use the parameter *parallel* of the *CompareSim* function to speed up the loop, in this case, you have to first load the *doParallel* library.
 
 ```{r Compare, out.width = "80%"} 
-VBS_test <- CompareSim(Param = Param ,
+system.time(VBS_test <- CompareSim(Param = Param ,
                        priors = priors, D2fill = Data2fill, DAsso = DAsso,
                        pc2fill = 10, pcFamilyDet = 25, pcGenusDet = 25, 
-                       NbSim = 10, Results_Simulations = FALSE)
+                       NbSim = 10, Results_Simulations = FALSE, parallel = FALSE))
+# utilisateur     système      écoulé 
+#       19.55        0.20       19.86 
+
+# library(doParallel)
+# system.time(VBS_test <- CompareSim(Param = Param ,
+#                        priors = priors, D2fill = Data2fill, DAsso = DAsso,
+#                        pc2fill = 10, pcFamilyDet = 25, pcGenusDet = 25, 
+#                        NbSim = 10, Results_Simulations = FALSE, parallel = TRUE))
+# utilisateur     système      écoulé 
+#        0.19        0.56        8.96 
 
 summary(VBS_test)
 autoplot(VBS_test)
@@ -169,6 +179,7 @@ Here we see that we could increase the number of simulations, but it seems to be
 ## Comparing different sampled datasets
 
 As CompareSim uses only one test dataset, we want to check the potential variability resulting from the sampling of the test dataset. This can be done with the *CompareSample* function. This function samples *NbSamples* test datasets and performs a comparison between scenarios for each test dataset.
+As for the function *CompareSim*, the option *parallel* can be set to *TRUE* to speed up the loop.
 
 ```{r Compare_samples} 
 
@@ -178,10 +189,21 @@ Param <- data.frame(priors = c(2,1,2),
                     eps = c(0.01,0.01,0.01),
                     Determ = c(FALSE,FALSE,FALSE))
 
-VBS_test2 <- CompareSample(NbSamples = 3,Param = Param ,
+system.time(VBS_test2 <- CompareSample(NbSamples = 3,Param = Param ,
                        priors = priors, D2fill = Data2fill, DAsso = DAsso,
                        pc2fill = 10, pcFamilyDet = 25, pcGenusDet = 25, 
-                       NbSim = 10, Results_Simulations = FALSE)
+                       NbSim = 10, Results_Simulations = FALSE, parallel = FALSE))
+# utilisateur     système      écoulé 
+#      35.08        0.42       36.48 
+
+# library(doParallel)
+# system.time(VBS_test2 <- CompareSample(NbSamples = 3,Param = Param ,
+#                        priors = priors, D2fill = Data2fill, DAsso = DAsso,
+#                        pc2fill = 10, pcFamilyDet = 25, pcGenusDet = 25, 
+#                        NbSim = 10, Results_Simulations = FALSE, parallel = TRUE))
+# utilisateur     système      écoulé 
+#       0.48        0.61       21.78 
+
 # results with the first dataset
 autoplot(VBS_test2[[1]][[1]])
 # results with the second dataset are a bit different

@@ -46,7 +46,7 @@ DrawBota <- function(Alpha, VernName2Sim, Family2Sim, Genus2Sim, eps=0.01, Deter
 
   # get AlphaV, a data.frame with the bota info (4 1er colums) and one colum for the
   # vernacular name we are interested in
-  AlphaV <- data.table(Alpha[, 1:4, with=FALSE], Alpha[,VernName2Sim, with=FALSE])
+  AlphaV <- data.table::data.table(Alpha[, 1:4, with=FALSE], Alpha[,VernName2Sim, with=FALSE])
   colnames(AlphaV)[length(colnames(AlphaV))] <- "alphaV"
 
   # create an empty vector to store the result

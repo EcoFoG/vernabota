@@ -41,7 +41,7 @@ CreateAlpha <- function(DataAsso, prior, wp) {
   # create matrix of lambda
   if (!(is.null(prior))) {
     # create a frequency matrix
-    lambda <- data.table(prior[,list(Family, Genus, Species, GenSp)],
+    lambda <- data.table::data.table(prior[,list(Family, Genus, Species, GenSp)],
                          prior[, lapply(.SD, function(v){v/sum(v)}),
                                .SDcols = colnames(prior)[
                                  which(!(colnames(prior) %in% c("Family", "Genus","Species", "GenSp")))]])
@@ -63,11 +63,11 @@ CreateAlpha <- function(DataAsso, prior, wp) {
   # get a contingency table
   ContMatL <- Data4asso[,.N, by=list(GenSp, Family, Genus, Species, VernName)] # long data
   # make it a wide table
-  ContMat <- dcast(ContMatL, GenSp + Family + Genus + Species~VernName, value.var="N")
+  ContMat <- data.table::dcast(ContMatL, GenSp + Family + Genus + Species~VernName, value.var="N")
   # replace NA per 0
   ContMat[is.na(ContMat)] <- 0
   # transform into frequency
-  f <- data.table(ContMat[, list(Family, Genus, Species, GenSp)],
+  f <- data.table::data.table(ContMat[, list(Family, Genus, Species, GenSp)],
                   ContMat[, lapply(.SD, function(v){v/sum(v)}),
                           .SDcols = colnames(ContMat)[
                             which(!(colnames(ContMat) %in% c("Family", "Genus","Species", "GenSp")))]])
@@ -79,21 +79,21 @@ CreateAlpha <- function(DataAsso, prior, wp) {
     # create an empty Alpha with only the 4 first columns and all the bota names
     Alpha <- unique(rbind(lambda[ ,list(Family, Genus, Species, GenSp)],
                           f[ ,list(Family, Genus, Species, GenSp)]))# all the bota sp
-    setorder(Alpha, Family, Genus,Species, GenSp)
+    data.table::setorder(Alpha, Family, Genus,Species, GenSp)
     # extend lamda to the dimension of Alpha, filling with NA
     lambdaAll <- merge(Alpha, lambda, by=c("Family", "Genus","Species", "GenSp"), all.x = TRUE)
     col2add <- colnames(f)[!colnames(f) %in% colnames(lambda)]
-    data2add <- as.data.table(matrix(data=NA, nrow= dim(Alpha)[1], ncol= length(col2add)))
+    data2add <- data.table::as.data.table(matrix(data=NA, nrow= dim(Alpha)[1], ncol= length(col2add)))
     colnames(data2add) <- col2add
     lambdaAll <- cbind(lambdaAll, data2add)
     lambdaAll[is.na(lambdaAll)] <- 0 # replace na by 0
     # extend lf to the dimension of Alpha, filling with NA
     fAll <- merge(Alpha, f, by=c("Family", "Genus","Species", "GenSp"), all.x = TRUE)
     col2add <- colnames(lambda)[!colnames(lambda) %in% colnames(f)]
-    data2add <- as.data.table(matrix(data=NA, nrow= dim(Alpha)[1], ncol= length(col2add)))
+    data2add <- data.table::as.data.table(matrix(data=NA, nrow= dim(Alpha)[1], ncol= length(col2add)))
     colnames(data2add) <- col2add
     fAll <- cbind(fAll, data2add)
-    setcolorder(fAll, colnames(lambdaAll))
+    data.table::setcolorder(fAll, colnames(lambdaAll))
     fAll[is.na(fAll)] <- 0 # replace na by 0
     # do some checking of the ordering (all the row and all the columns in the same order)
     if (!(all(c(unique(lambdaAll[,list(Family, Genus, Species, GenSp)] == Alpha),
@@ -108,7 +108,7 @@ CreateAlpha <- function(DataAsso, prior, wp) {
     Sumfl <- wp * as.matrix(lambdaAll[, which(!(colnames(lambdaAll) %in% c("Family", "Genus","Species", "GenSp"))), with=FALSE]) +
       (1-wp) * as.matrix(fAll[, which(!(colnames(fAll) %in% c("Family", "Genus","Species", "GenSp"))), with=FALSE])
     # put this in Alpha
-    Alpha <- cbind(Alpha, as.data.table(Sumfl))
+    Alpha <- cbind(Alpha, data.table::as.data.table(Sumfl))
   } else {
     Alpha <- f
   }
