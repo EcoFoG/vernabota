@@ -14,7 +14,8 @@ CompareSample(
   pcFamilyDet = NULL,
   pcGenusDet = NULL,
   NbSim = 1,
-  Results_Simulations = FALSE
+  Results_Simulations = FALSE,
+  parallel = FALSE
 )
 }
 \arguments{
@@ -55,6 +56,9 @@ We recommend using a percentage equivalent than in the data to gapfill.}
 
 \item{Results_Simulations}{a boolean specifying if the
 user wants to keep the results of the simulations}
+
+\item{parallel}{a boolean specifying if the
+user wants to speed up the loop by using parallelization.}
 }
 \value{
 This function returns a list of 2 objects:

@@ -47,7 +47,6 @@
 #'
 #' @importFrom methods new
 #' @importFrom parallel detectCores makeCluster stopCluster
-#' @importFrom doParallel registerDoParallel dopar
 #'
 #'
 CompareSim <- function(Param = NULL,
@@ -113,7 +112,7 @@ CompareSim <- function(Param = NULL,
 
     numCores  <- parallel::detectCores()
     cl <- parallel::makeCluster(numCores-1)
-    doParallel::registerDoParallel(cl)
+    registerDoParallel(cl)
 
     pc_ok_results <- foreach (s = 1:NScenar) %dopar% {
 

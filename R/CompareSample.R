@@ -46,7 +46,6 @@
 #'
 #' @importFrom methods new
 #' @importFrom parallel detectCores makeCluster stopCluster
-#' @importFrom doParallel registerDoParallel dopar
 #'
 #'
 CompareSample <- function(NbSamples = 3,Param = NULL,
@@ -112,7 +111,7 @@ CompareSample <- function(NbSamples = 3,Param = NULL,
       # loop for each scenario (parallelized)
       numCores  <- parallel::detectCores()
       cl <- parallel::makeCluster(numCores-1)
-      doParallel::registerDoParallel(cl)
+      registerDoParallel(cl)
 
       pc_ok_results <- foreach (s = 1:NScenar) %dopar% {
 
