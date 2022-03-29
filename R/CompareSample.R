@@ -29,6 +29,8 @@
 #' @param NbSim the number of simulations.
 #' @param Results_Simulations a boolean specifying if the
 #'  user wants to keep the results of the simulations
+#' @param parallel a boolean specifying if the
+#'  user wants to speed up the loop by using parallelization.
 #'
 #' @return This function returns a list of 2 objects:
 #' - a list of objects of the class VernaBotaSims, resulting from the simulations
@@ -50,7 +52,7 @@
 CompareSample <- function(NbSamples = 3,Param = NULL,
                        priors = NULL, D2fill, DAsso = NULL,
                        pc2fill = NULL, pcFamilyDet = NULL, pcGenusDet = NULL,
-                       NbSim = 1, Results_Simulations = FALSE)
+                       NbSim = 1, Results_Simulations = FALSE, parallel = FALSE)
 
 {
   VBS_tot <- list()
@@ -69,73 +71,79 @@ CompareSample <- function(NbSamples = 3,Param = NULL,
     test_taxo <- tot_test[[2]]
     idTest <- tot_test[[3]]
 
-    # # loop for each scenario (can be parallelized)
-    # for (s in 1:NScenar){
-    #
-    #   # Get DataAsso and remove test trees info from DataAsso (if present in the dataset)
-    #   datAsso <- DAsso[[Param$dataAsso[s]]]
-    #   datAsso <- datAsso[which(!datAsso$idTree%in%idTest),]
-    #
-    #   # run the function SimFullCom with parameters from the scenario s
-    #   Results_Sim <- SimFullCom(Data2fill = tot,
-    #                             DataAsso = datAsso,
-    #                             prior = priors[[Param$priors[s]]],
-    #                             wp = Param$weights[s],
-    #                             NSim = NbSim,
-    #                             eps = Param$eps[s],
-    #                             Determ = Param$Determ[s])
-    #
-    #   # compare results with data
-    #   pc_ok_results[[s]] <- lapply(Results_Sim, CompareTaxo, test_taxo)
-    #
-    #   if (Results_Simulations)
-    #   {
-    #     tot_results[[s]] <- lapply(Results_Sim, ValidTaxo, test_taxo)
-    #     for (i in 1:NbSim) {
-    #       tot_results[[s]][[i]] <- tot_results[[s]][[i]][, c("idTree",
-    #                                                          "Family", "Genus", "Species",
-    #                                                          "BotaSource", "BotaCertainty",
-    #                                                          "VernName", "GenSp",
-    #                                                          "GensSpCor", "BotaCorCode",
-    #                                                          "ValidAsso", "TestData")]
-    #     }
-    #   }
-    # }
+    if (!parallel)
+    {
+      # loop for each scenario (not parallelized)
+      for (s in 1:NScenar){
 
-    # loop for each scenario (parallelized)
-    numCores  <- parallel::detectCores()
-    cl <- parallel::makeCluster(numCores-1)
-    doParallel::registerDoParallel(cl)
+        # Get DataAsso and remove test trees info from DataAsso (if present in the dataset)
+        datAsso <- DAsso[[Param$dataAsso[s]]]
+        datAsso <- datAsso[which(!datAsso$idTree%in%idTest),]
 
-    pc_ok_results <- foreach (s = 1:NScenar) %dopar% {
+        # run the function SimFullCom with parameters from the scenario s
+        Results_Sim <- SimFullCom(Data2fill = tot,
+                                  DataAsso = datAsso,
+                                  prior = priors[[Param$priors[s]]],
+                                  wp = Param$weights[s],
+                                  NSim = NbSim,
+                                  eps = Param$eps[s],
+                                  Determ = Param$Determ[s])
 
-      # Get DataAsso and remove test trees info from DataAsso (if present in the dataset)
-      datAsso <- DAsso[[Param$dataAsso[s]]]
-      datAsso <- datAsso[which(!datAsso$idTree%in%idTest),]
+        # compare results with data
+        pc_ok_results[[s]] <- lapply(Results_Sim, CompareTaxo, test_taxo)
 
-      # run the function SimFullCom with parameters from the scenario s
-      Results_Sim <- SimFullCom(Data2fill = tot,
-                                DataAsso = datAsso,
-                                prior = priors[[Param$priors[s]]],
-                                wp = Param$weights[s],
-                                NSim = NbSim,
-                                eps = Param$eps[s],
-                                Determ = Param$Determ[s])
-
-      if (Results_Simulations)
-      {
-        tot_results[[s]] <- lapply(Results_Sim, ValidTaxo, test_taxo)
-        for (i in 1:NbSim) {
-          tot_results[[s]][[i]] <- tot_results[[s]][[i]][, c("idTree",
-                                                             "Family", "Genus", "Species",
-                                                             "BotaSource", "BotaCertainty",
-                                                             "VernName", "GenSp",
-                                                             "GensSpCor", "BotaCorCode",
-                                                             "ValidAsso", "TestData")]
+        if (Results_Simulations)
+        {
+          tot_results[[s]] <- lapply(Results_Sim, ValidTaxo, test_taxo)
+          for (i in 1:NbSim) {
+            tot_results[[s]][[i]] <- tot_results[[s]][[i]][, c("idTree",
+                                                               "Family", "Genus", "Species",
+                                                               "BotaSource", "BotaCertainty",
+                                                               "VernName", "GenSp",
+                                                               "GensSpCor", "BotaCorCode",
+                                                               "ValidAsso", "TestData")]
+          }
         }
       }
-      lapply(Results_Sim, CompareTaxo, test_taxo)}
-    parallel::stopCluster(cl)
+    }
+
+    if (parallel)
+    {
+      # loop for each scenario (parallelized)
+      numCores  <- parallel::detectCores()
+      cl <- parallel::makeCluster(numCores-1)
+      doParallel::registerDoParallel(cl)
+
+      pc_ok_results <- foreach (s = 1:NScenar) %dopar% {
+
+        # Get DataAsso and remove test trees info from DataAsso (if present in the dataset)
+        datAsso <- DAsso[[Param$dataAsso[s]]]
+        datAsso <- datAsso[which(!datAsso$idTree%in%idTest),]
+
+        # run the function SimFullCom with parameters from the scenario s
+        Results_Sim <- SimFullCom(Data2fill = tot,
+                                  DataAsso = datAsso,
+                                  prior = priors[[Param$priors[s]]],
+                                  wp = Param$weights[s],
+                                  NSim = NbSim,
+                                  eps = Param$eps[s],
+                                  Determ = Param$Determ[s])
+
+        if (Results_Simulations)
+        {
+          tot_results[[s]] <- lapply(Results_Sim, ValidTaxo, test_taxo)
+          for (i in 1:NbSim) {
+            tot_results[[s]][[i]] <- tot_results[[s]][[i]][, c("idTree",
+                                                               "Family", "Genus", "Species",
+                                                               "BotaSource", "BotaCertainty",
+                                                               "VernName", "GenSp",
+                                                               "GensSpCor", "BotaCorCode",
+                                                               "ValidAsso", "TestData")]
+          }
+        }
+        lapply(Results_Sim, CompareTaxo, test_taxo)}
+      parallel::stopCluster(cl)
+    }
 
     # creation of the VernaBotaSims object
     VBS <- new(Class = "VernaBotaSims", NScenar = NScenar, ParamScenar = Param,
