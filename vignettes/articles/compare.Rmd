@@ -107,10 +107,13 @@ Param
 We can then run *CompareSim*, visualise the scenarios and their results using *summary* and plot their accuracy using *plot* or *autoplot*.
 
 ```{r Compare, out.width = "80%"} 
-VBS_test <- CompareSim(Param = Param ,
+library(doParallel)
+system.time(VBS_test <- CompareSim(Param = Param ,
                        priors = priors, D2fill = Data2fill, DAsso = DAsso,
                        pc2fill = 10, pcFamilyDet = 25, pcGenusDet = 25, 
-                       NbSim = 10, Results_Simulations = FALSE)
+                       NbSim = 10, Results_Simulations = FALSE))
+# utilisateur     système      écoulé 
+#        0.10        0.25        8.25 
 
 summary(VBS_test)
 autoplot(VBS_test)
@@ -178,10 +181,13 @@ Param <- data.frame(priors = c(2,1,2),
                     eps = c(0.01,0.01,0.01),
                     Determ = c(FALSE,FALSE,FALSE))
 
-VBS_test2 <- CompareSample(NbSamples = 3,Param = Param ,
+system.time(VBS_test2 <- CompareSample(NbSamples = 3,Param = Param ,
                        priors = priors, D2fill = Data2fill, DAsso = DAsso,
                        pc2fill = 10, pcFamilyDet = 25, pcGenusDet = 25, 
-                       NbSim = 10, Results_Simulations = FALSE)
+                       NbSim = 10, Results_Simulations = FALSE))
+# utilisateur     système      écoulé 
+#        0.58        0.39       22.84 
+
 # results with the first dataset
 autoplot(VBS_test2[[1]][[1]])
 # results with the second dataset are a bit different
