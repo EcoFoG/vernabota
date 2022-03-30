@@ -1,3 +1,10 @@
+# vernabota 0.4.0
+
+## New features
+
+* Prallel option for *CompareSim* and *CompareSample*
+
+
 # vernabota 0.3.0
 
 ## New features
