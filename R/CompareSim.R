@@ -47,6 +47,8 @@
 #'
 #' @importFrom methods new
 #' @importFrom parallel detectCores makeCluster stopCluster
+#' @importFrom foreach %dopar% foreach
+#' @importFrom doParallel registerDoParallel
 #'
 #'
 CompareSim <- function(Param = NULL,
@@ -55,6 +57,7 @@ CompareSim <- function(Param = NULL,
                        NbSim = 1, Results_Simulations = FALSE, parallel = FALSE)
 
 {
+  `%dopar%` <- foreach::`%dopar%`
   NScenar <- dim(Param)[1]
 
   pc_ok_results <- tot_results <- list()
@@ -112,9 +115,9 @@ CompareSim <- function(Param = NULL,
 
     numCores  <- parallel::detectCores()
     cl <- parallel::makeCluster(numCores-1)
-    registerDoParallel(cl)
+    doParallel::registerDoParallel(cl)
 
-    pc_ok_results <- foreach (s = 1:NScenar) %dopar% {
+    pc_ok_results <- foreach::foreach (s = 1:NScenar) %dopar% {
 
       # Get DataAsso and remove test trees info from DataAsso (if present in the dataset)
       datAsso <- DAsso[[Param$dataAsso[s]]]

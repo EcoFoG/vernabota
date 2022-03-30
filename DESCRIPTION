@@ -38,7 +38,10 @@ Imports:
     graphics,
     gtools,
     methods,
-    stats
+    stats,
+    parallel,
+    foreach,
+    doParallel
 Suggests: 
     rmarkdown,
     knitr

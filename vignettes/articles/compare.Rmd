@@ -114,10 +114,9 @@ system.time(VBS_test <- CompareSim(Param = Param ,
 # utilisateur     système      écoulé 
 #       19.55        0.20       19.86 
 
-# library(doParallel)
 # system.time(VBS_test <- CompareSim(Param = Param ,
 #                        priors = priors, D2fill = Data2fill, DAsso = DAsso,
-#                        pc2fill = 10, pcFamilyDet = 25, pcGenusDet = 25, 
+#                        pc2fill = 10, pcFamilyDet = 25, pcGenusDet = 25,
 #                        NbSim = 10, Results_Simulations = FALSE, parallel = TRUE))
 # utilisateur     système      écoulé 
 #        0.19        0.56        8.96 
@@ -196,7 +195,6 @@ system.time(VBS_test2 <- CompareSample(NbSamples = 3,Param = Param ,
 # utilisateur     système      écoulé 
 #      35.08        0.42       36.48 
 
-# library(doParallel)
 # system.time(VBS_test2 <- CompareSample(NbSamples = 3,Param = Param ,
 #                        priors = priors, D2fill = Data2fill, DAsso = DAsso,
 #                        pc2fill = 10, pcFamilyDet = 25, pcGenusDet = 25, 
