@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">vernabota</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.4.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -166,14 +166,13 @@
                        pc2fill <span class="op">=</span> <span class="fl">10</span>, pcFamilyDet <span class="op">=</span> <span class="fl">25</span>, pcGenusDet <span class="op">=</span> <span class="fl">25</span>, 
                        NbSim <span class="op">=</span> <span class="fl">10</span>, Results_Simulations <span class="op">=</span> <span class="cn">FALSE</span>, parallel <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;  27.471   0.399  29.720</span>
+<span class="co">#&gt;  29.022   0.498  33.174</span>
 <span class="co"># utilisateur     système      écoulé </span>
 <span class="co">#       19.55        0.20       19.86 </span>
 
-<span class="co"># library(doParallel)</span>
 <span class="co"># system.time(VBS_test &lt;- CompareSim(Param = Param ,</span>
 <span class="co">#                        priors = priors, D2fill = Data2fill, DAsso = DAsso,</span>
-<span class="co">#                        pc2fill = 10, pcFamilyDet = 25, pcGenusDet = 25, </span>
+<span class="co">#                        pc2fill = 10, pcFamilyDet = 25, pcGenusDet = 25,</span>
 <span class="co">#                        NbSim = 10, Results_Simulations = FALSE, parallel = TRUE))</span>
 <span class="co"># utilisateur     système      écoulé </span>
 <span class="co">#        0.19        0.56        8.96 </span>
@@ -288,11 +287,10 @@
                        pc2fill <span class="op">=</span> <span class="fl">10</span>, pcFamilyDet <span class="op">=</span> <span class="fl">25</span>, pcGenusDet <span class="op">=</span> <span class="fl">25</span>, 
                        NbSim <span class="op">=</span> <span class="fl">10</span>, Results_Simulations <span class="op">=</span> <span class="cn">FALSE</span>, parallel <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;  50.792   0.670  56.508</span>
+<span class="co">#&gt;  60.234   0.765  66.749</span>
 <span class="co"># utilisateur     système      écoulé </span>
 <span class="co">#      35.08        0.42       36.48 </span>
 
-<span class="co"># library(doParallel)</span>
 <span class="co"># system.time(VBS_test2 &lt;- CompareSample(NbSamples = 3,Param = Param ,</span>
 <span class="co">#                        priors = priors, D2fill = Data2fill, DAsso = DAsso,</span>
 <span class="co">#                        pc2fill = 10, pcFamilyDet = 25, pcGenusDet = 25, </span>
