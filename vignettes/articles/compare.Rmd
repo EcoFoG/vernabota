@@ -20,7 +20,7 @@ set.seed(56)
 ```
 
 The choice of the settings used for the gap filling is important for the quality of the estimation. 
-It is specific to the study and the dataset of the user, so it is interesting to compare different settings and to choose the one that performs the best:
+It is specific to the study and the dataset of the user, so it is interesting to compare different settings and to choose the one that performs the best: 
 
 * choice of observation data (*DataAsso*): Using the same dataset (or a dataset to limited in its size or spatial extent) can lead to underestimating diversity as it underestimate the dispersal of species from outside.
 Using a too wide data set could lead to associating species that are not present in the area.
