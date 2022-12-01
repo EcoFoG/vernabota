@@ -157,7 +157,13 @@ CompareSample <- function(NbSamples = 3,Param = NULL,
 
     VBS_tot[[sa]] <- VBS
     accuracy <- c(accuracy, unlist(pc_ok_results))
-    scenario <- c(scenario, rep(letters[1:length(pc_ok_results)],times = sapply(pc_ok_results,length)))
+    if (length(pc_ok_results)<=26){
+      scenario <- c(scenario, rep(letters[1:length(pc_ok_results)],
+                                  times = sapply(pc_ok_results, length)))
+    } else {
+      scenario <- c(scenario, rep(c(1:length(pc_ok_results)),
+                                  times = sapply(pc_ok_results, length)))
+    }
     sample <- c(sample, rep(sa, NbSim*NScenar))
   }
 
