@@ -1,11 +1,11 @@
 pandoc: 2.7.3
-pkgdown: 2.0.2
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   compare: compare.html
   model: model.html
   vernabota: vernabota.html
-last_built: 2022-04-01T12:05Z
+last_built: 2023-02-09T18:38Z
 urls:
   reference: https://EcoFoG.github.io/vernabota/reference
   article: https://EcoFoG.github.io/vernabota/articles
