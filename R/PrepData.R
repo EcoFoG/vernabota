@@ -65,11 +65,11 @@ PrepData <- function(Data) {
 
   # remove the subspecies
   Data[grepl("subsp.", Species, fixed = TRUE), # all trees with a subspecies
-       Species := unlist(strsplit(as.character(Species), " subsp. ", fixed = TRUE))[1], # keep only the species name
+       Species := unlist(strsplit(as.character(Species), "_subsp.", fixed = TRUE))[1], # keep only the species name
        by="Species"]
   # remove the variety
   Data[grepl("var.", Species, fixed = TRUE), # all trees with a var.
-       Species := unlist(strsplit(as.character(Species), " var. ", fixed = TRUE))[1], # keep only the species name
+       Species := unlist(strsplit(as.character(Species), "_var.", fixed = TRUE))[1], # keep only the species name
        by="Species"]
 
   # add a column for the full botanical name

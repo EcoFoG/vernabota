@@ -1,8 +1,15 @@
+# vernabota 0.4.1
+
+## New features
+
+* Correction of *PrepData*
+
+
 # vernabota 0.4.0
 
 ## New features
 
-* Prallel option for *CompareSim* and *CompareSample*
+* Parallel option for *CompareSim* and *CompareSample*
 
 
 # vernabota 0.3.0
